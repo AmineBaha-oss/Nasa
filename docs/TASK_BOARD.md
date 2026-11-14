@@ -1,5 +1,17 @@
 # Task board — prioritize by dependency
 
+## Owners
+
+| Person | Workstream | Branch |
+|---|---|---|
+| Amine | Science; team lead, integration and merges | `amine/science` |
+| Tamim | Science | `tamim/science` |
+| Mir | Power (solar and battery) | `mir/power` |
+| Francisco | Comms, then Terrain | `francisco/comms`, then `francisco/terrain` |
+| Emmanuel | Frontend (dashboard) | `emmanuel/frontend` |
+
+Amine reviews and merges into `main`. QA/submission has no separate owner yet.
+
 ## Gate 0 (Saturday 9:00–10:30)
 
 Open inputs: `docs/INPUT_REQUESTS.md`. Data setup: `docs/DATA_DELIVERY_INSTRUCTIONS.md`.
@@ -10,7 +22,7 @@ Open inputs: `docs/INPUT_REQUESTS.md`. Data setup: `docs/DATA_DELIVERY_INSTRUCTI
 
 - [x] Check time against America/Toronto (past 09:00), verify Resources listing, select planned Horizons input. Event registration/location remains human confirmation.
 - [x] Initialize existing empty repository on local setup branch, minimal Vite/TS app and Python science environment.
-- [ ] Lead freezes `docs/INTERFACES.md` v1, assigns ownership/branches, creates truthful synthetic fixtures.
+- [ ] Lead freezes `docs/INTERFACES.md` v1 and creates truthful synthetic fixtures. Ownership and branches assigned (see Owners).
 - [x] Audit two priority upstream repos, license/NOTICE and integration cost; no code copied (docs/SOURCES_AND_LICENSES.md).
 - [x] App boots and test runner works (4 web tests, 15 Python integrity tests, TypeScript/Vite build).
 
