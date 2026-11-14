@@ -2,7 +2,7 @@
 
 | Item | Needed | Owner | Until available |
 |---|---|---|---|
-| SCIENCE-001: ephemeris | Choose sites, UTC dates and lunar frame; obtain and independently compare Horizons/SPICE geometry. | Science | Date-specific geometry remains unknown |
+| SCIENCE-001: ephemeris | Choose sites, UTC dates and lunar frame; obtain and independently compare Horizons/SPICE geometry. | Science | Partial: 2 A305 sites × 2 Oct-2027 windows fetched from Horizons into `data/processed/` (`jpl-verified`). SPICE independent cross-check still open. |
 | DATA-004: distant terrain | Select and validate far-field LOLA coverage. | Science | Label analysis local-only |
 | HARDWARE-001–003: lander | Agree on PV area/normals/tracking, loads, battery/reserve, efficiencies, antenna geometry, heights and yaw control. | Team lead / Power / Comms | No approved hardware results |
 | ACCESS-001: deployment | Owners assigned in `docs/TASK_BOARD.md` (Amine reviews and merges). Choose deployment account when needed. | Team lead | Work locally |
