@@ -1,0 +1,24 @@
+{
+  "checkedUtc": "2026-11-14T14:45:06.825576+00:00",
+  "page": "https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/?tab=resources",
+  "httpStatus": 200,
+  "responseSha256": "9f699f0cbfdaa178ed52f928aba8a3175ea27e900c53eb2eba8e0323cd154782",
+  "method": "Direct HTTPS fetch; decoded Next.js resourcesTabContent reference $19 in response.",
+  "listedNasaResources": [
+    {
+      "name": "Quickmap",
+      "url": "https://quickmap.lroc.asu.edu/"
+    },
+    {
+      "name": "Moon Trek",
+      "url": "https://trek.nasa.gov/moon/"
+    },
+    {
+      "name": "Horizons System",
+      "url": "https://ssd.jpl.nasa.gov/horizons/"
+    }
+  ],
+  "selectedInput": "Horizons System",
+  "use": "Planned independent Sun/Earth ephemeris validation; acquisition not yet performed.",
+  "eligibility": "Resource listing verified; actual use, citation and remaining eligibility requirements pending."
+}

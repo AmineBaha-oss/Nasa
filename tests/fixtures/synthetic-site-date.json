@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "purpose": "synthetic-test",
+  "provenance": [
+    {
+      "id": "synthetic",
+      "filename": "synthetic-site-date.json",
+      "url": "urn:landerprint:synthetic-test",
+      "sourceVersion": "1",
+      "sha256": null,
+      "generatedUtc": "2026-11-14T14:45:00Z"
+    }
+  ],
+  "site": {
+    "id": "synthetic-origin",
+    "name": "SYNTHETIC UNIT TEST ONLY",
+    "latitudeDeg": 0,
+    "longitudeEastDeg": 0,
+    "terrainSource": "synthetic",
+    "terrainCoverageKm": 1,
+    "label": "Invented unit-test geometry, not a lunar candidate"
+  },
+  "samples": [
+    {
+      "utc": "2027-10-01T00:00:00Z",
+      "sun": {
+        "azDeg": 90,
+        "elDeg": 10
+      },
+      "earth": {
+        "azDeg": 0,
+        "elDeg": 5
+      },
+      "ephemerisQuality": "approximate",
+      "sourceId": "synthetic"
+    }
+  ],
+  "sunHorizon": {
+    "observerHeightM": 2,
+    "azimuthStepDeg": 90,
+    "anglesDeg": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "extentKm": 1,
+    "horizonCoverage": "local-only",
+    "sourceId": "synthetic"
+  },
+  "earthHorizon": {
+    "observerHeightM": 3,
+    "azimuthStepDeg": 90,
+    "anglesDeg": [
+      0,
+      null,
+      0,
+      0
+    ],
+    "extentKm": 1,
+    "horizonCoverage": "local-only",
+    "sourceId": "synthetic"
+  }
+}

@@ -1,0 +1,491 @@
+{
+  "project": "LANDERPRINT",
+  "prepared_utc": "2026-11-14",
+  "status": "pre-event research artifact inventory; NOT a flight-grade dataset",
+  "origin": "user-provided NASA raster files and locally corrected derivative rasters",
+  "origin_urls": [
+    "https://pgda.gsfc.nasa.gov/products/104",
+    "https://zenodo.org/records/17954508"
+  ],
+  "projection_notice": "Use Moon polar stereographic with lunar sphere radius 1737400 m; never EPSG:4326, Earth radius or array-index alignment.",
+  "science_quality": "Local DEM only; verified JPL Horizons / full far-field lunar terrain NOT currently supplied.",
+  "resources_tab": "NOT independently verified; challenge Resources source must be verified by a teammate at event start.",
+  "files": [
+    {
+      "name": "A305_GLDELEV_005.tif",
+      "tier": "core",
+      "owner": "science",
+      "meaning": "2026 enhanced SDEM elevation; primary lunar terrain",
+      "bytes": 35148852,
+      "sha256": "b40378d7e11c6998b77ac4840f16623b092b30531e59555a8b117c05742c7c63",
+      "width": 4000,
+      "height": 4000,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38700.0,
+        -16100.0,
+        -18700.0,
+        3900.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38700.0,
+        0.0,
+        -5.0,
+        3900.0
+      ],
+      "nodata": "-3.4028234663852886e+38",
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDTSLP_005_005_lunar_crs.tif",
+      "tier": "core",
+      "owner": "terrain",
+      "meaning": "Corrected 5 m-baseline slope; embedded lunar CRS",
+      "bytes": 47924677,
+      "sha256": "23527e213a62946e6c619f986c15ec28abae5623d768d5f45c00144297ba435b",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": true
+    },
+    {
+      "name": "A305_GLDMASK_005.tif",
+      "tier": "core",
+      "owner": "science",
+      "meaning": "Contributing illuminated image pixel count; 15 m grid",
+      "bytes": 429004,
+      "sha256": "9f3a450095513c09df8995447214aec536c861ba7c50e53112b725d55c831aec",
+      "width": 1333,
+      "height": 1333,
+      "resolution_m": [
+        15.0,
+        15.0
+      ],
+      "bounds": [
+        -38700.0,
+        -16095.0,
+        -18705.0,
+        3900.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        15.0,
+        0.0,
+        -38700.0,
+        0.0,
+        -15.0,
+        3900.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDBRES_005.tif",
+      "tier": "core",
+      "owner": "science",
+      "meaning": "Best input image pixel resolution; 15 m grid",
+      "bytes": 222649,
+      "sha256": "fcd4d097e607190d4fc2d0ae25be44ec5616cbaba802ad604940d5a84eb10643",
+      "width": 1333,
+      "height": 1333,
+      "resolution_m": [
+        15.0,
+        15.0
+      ],
+      "bounds": [
+        -38700.0,
+        -16095.0,
+        -18705.0,
+        3900.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        15.0,
+        0.0,
+        -38700.0,
+        0.0,
+        -15.0,
+        3900.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDSIGM_005.tif",
+      "tier": "core",
+      "owner": "science",
+      "meaning": "SfS perturbation-derived uncertainty; actual filename differs from source README",
+      "bytes": 43457482,
+      "sha256": "12a8272b50d72527f624d43ea23329ff5b137fac3855fecea599cc3f5df5c9e5",
+      "width": 4000,
+      "height": 4000,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38700.0,
+        -16100.0,
+        -18700.0,
+        3900.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38700.0,
+        0.0,
+        -5.0,
+        3900.0
+      ],
+      "nodata": "-1.0",
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDTSLP_005_100_lunar_crs.tif",
+      "tier": "full-slopes",
+      "owner": "terrain",
+      "meaning": "Corrected 100 m-baseline slope",
+      "bytes": 39003759,
+      "sha256": "be011d5285e05dc1cedd688eb09e6380149c042e3c6fb2f2138e2f80c83de678",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": true
+    },
+    {
+      "name": "A305_GLDTSLP_005_200_lunar_crs.tif",
+      "tier": "full-slopes",
+      "owner": "terrain",
+      "meaning": "Corrected 200 m-baseline slope",
+      "bytes": 36780395,
+      "sha256": "be65d73aa94ef0e5edaec7d89a9a5c81a430d3ade4048257d6b93ea8a6fa7ebc",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": true
+    },
+    {
+      "name": "A305_GLDTSLP_005_400_lunar_crs.tif",
+      "tier": "full-slopes",
+      "owner": "terrain",
+      "meaning": "Corrected 400 m-baseline slope",
+      "bytes": 34796543,
+      "sha256": "6b8f376ab8f5bdc7a0a756616338ac982838bfce5181cfb092b56db874dad3ef",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": true
+    },
+    {
+      "name": "SL3_final_adj_5mpp_surf.tif",
+      "tier": "optional-reference",
+      "owner": "science",
+      "meaning": "Older LOLA reference terrain; NOT operating terrain by default",
+      "bytes": 64025611,
+      "sha256": "a18c153dab5c9e7e0b4d8a5f1547bd7ef5e31fba7dd1c3252d84060aebf0283b",
+      "width": 4000,
+      "height": 4000,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38700.0,
+        -16100.0,
+        -18700.0,
+        3900.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"unknown\",GEOGCS[\"unknown\",DATUM[\"unknown\",SPHEROID[\"unknown\",1737400,0]],PRIMEM[\"Reference meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+      "crs_wkt": "PROJCS[\"unknown\",GEOGCS[\"unknown\",DATUM[\"unknown\",SPHEROID[\"unknown\",1737400,0]],PRIMEM[\"Reference meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38700.0,
+        0.0,
+        -5.0,
+        3900.0
+      ],
+      "nodata": "nan",
+      "source": "LOLA reference",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDDIFF_005.tif",
+      "tier": "optional-reference",
+      "owner": "science",
+      "meaning": "NASA difference to its reference LOLA; do not assume exact equality with the separately supplied SL3 file",
+      "bytes": 48101262,
+      "sha256": "0675f468b64e8b351fa109d86884741250a7636889e677d3f787ea987e72901c",
+      "width": 4000,
+      "height": 4000,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38700.0,
+        -16100.0,
+        -18700.0,
+        3900.0
+      ],
+      "crs_present": true,
+      "crs_description": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "crs_wkt": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0,AUTHORITY[\"IAU\",\"30100\"]],AUTHORITY[\"IAU\",\"30100\"]],PRIMEM[\"Reference Meridian\",0,AUTHORITY[\"IAU\",\"30100\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"IAU\",\"30100\"]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH],AUTHORITY[\"IAU\",\"30135\"]]",
+      "transform": [
+        5.0,
+        0.0,
+        -38700.0,
+        0.0,
+        -5.0,
+        3900.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDTSLP_005_005.tif",
+      "tier": "original-optional",
+      "owner": "terrain",
+      "meaning": "Original NASA slope 5m: missing CRS, do not load as corrected",
+      "bytes": 63728994,
+      "sha256": "3d5d18000ff9a09d6992ce675f488d31a94551e8bac6b0d235afb9f9328f87bd",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": false,
+      "crs_description": "None",
+      "crs_wkt": null,
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDTSLP_005_100.tif",
+      "tier": "original-optional",
+      "owner": "terrain",
+      "meaning": "Original NASA slope 100m: missing CRS",
+      "bytes": 63728994,
+      "sha256": "a92f87c0f13ff2c7b069fdfe2943f1e6d50619a1443d209f9327bc084f5c5811",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": false,
+      "crs_description": "None",
+      "crs_wkt": null,
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDTSLP_005_200.tif",
+      "tier": "original-optional",
+      "owner": "terrain",
+      "meaning": "Original NASA slope 200m: missing CRS",
+      "bytes": 63728994,
+      "sha256": "69e15c0b4af54e05d18260aa0f1d9474b3ad423e0f42e55b2649954045e52771",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": false,
+      "crs_description": "None",
+      "crs_wkt": null,
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    },
+    {
+      "name": "A305_GLDTSLP_005_400.tif",
+      "tier": "original-optional",
+      "owner": "terrain",
+      "meaning": "Original NASA slope 400m: missing CRS",
+      "bytes": 63728994,
+      "sha256": "ce9452120af607f4c9bf244b4bbc98ee64ad23a9dacecff52bfe19bf354b85d8",
+      "width": 3990,
+      "height": 3990,
+      "resolution_m": [
+        5.0,
+        5.0
+      ],
+      "bounds": [
+        -38675.0,
+        -16075.0,
+        -18725.0,
+        3875.0
+      ],
+      "crs_present": false,
+      "crs_description": "None",
+      "crs_wkt": null,
+      "transform": [
+        5.0,
+        0.0,
+        -38675.0,
+        0.0,
+        -5.0,
+        3875.0
+      ],
+      "nodata": null,
+      "source": "NASA A305 south polar SfS 2026 release",
+      "derived": false
+    }
+  ]
+}

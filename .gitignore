@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+.pytest_cache/
+.local/
+.worktrees/
+.env
+.env.*
+!.env.example
+*.tif
+*.tiff
+data/raw/
+LANDERPRINT_Agent_Handoff_v3/
+.DS_Store
+
+
+# Empty placeholders are not project artifacts.
+.gitkeep
+
+# Historical handoff artifacts remain outside the source repository.
+research_zips/
+*.zip

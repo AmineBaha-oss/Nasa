@@ -1,0 +1,3 @@
+# Claude Code project instructions addendum
+
+Use `AGENTS.md`, `docs/INTERFACES.md`, `docs/MASTER_PLAN.md`, `docs/SKILLS_AND_MCPS.md`, and the assigned `prompts/*.md`. For relevant tasks invoke the corresponding project `SKILL.md` rather than repeating generic reasoning; see `skills_templates/` in the planning package. If enabled, use Context7 for current library APIs, Playwright for browser QA, and the GitHub MCP for reviewed source references. Use `pytest`/`vitest` and direct JPL/NAIF/NASA references to establish science; MCP presence is never a science validation. Keep separate branch/worktree ownership. Do not run builds, modify application files or install tools before the official event opens.
