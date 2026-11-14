@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { HardwareConfig, HeadingEvaluation, SiteDateData } from '../contracts';
 import { hasFullCoverageEvidence } from '../integration/quality';
 import { ComparisonTable } from '../components/ComparisonTable';
@@ -28,8 +28,9 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   const [yawDeg, setYawDeg] = useState(initialYawDeg);
   // Only discrete step buttons animate the turn; drag, slider and keyboard input apply instantly.
   const [animateTurn, setAnimateTurn] = useState(false);
-  const turn = (deg: number, animate: boolean) => { setAnimateTurn(animate); setYawDeg(deg); };
-  const turnInstantly = (deg: number) => turn(deg, false);
+  const turn = useCallback((deg: number, animate: boolean) => { setAnimateTurn(animate); setYawDeg(deg); }, []);
+  const turnInstantly = useCallback((deg: number) => turn(deg, false), [turn]);
+  const changeDataset = useCallback((i: number) => { if (i >= 0) { setDatasetIndex(i); setSampleIndex(0); } }, []);
 
   const hardware = hardwarePresets[hardwareIndex] ?? null;
   const alternatives = useMemo(() => datasets.map(data => ({
@@ -47,7 +48,6 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   const data = current.data;
   const sample = data.samples[Math.min(sampleIndex, data.samples.length - 1)] ?? null;
   const ev = current.evaluation;
-  const changeDataset = (i: number) => { if (i >= 0) { setDatasetIndex(i); setSampleIndex(0); } };
 
   return (
     <main className="lp-page">

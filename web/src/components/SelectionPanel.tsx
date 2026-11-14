@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { memo, useId } from 'react';
 import type { HardwareConfig, SiteDateData } from '../contracts';
 import { formatUtc } from './geometry';
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 /** Site, UTC period, sample time and hardware preset selectors. */
-export function SelectionPanel(p: Props) {
+export const SelectionPanel = memo(function SelectionPanel(p: Props) {
   const id = useId();
   const current = p.datasets[p.datasetIndex];
   const siteIds = [...new Set(p.datasets.map(d => d.site.id))];
@@ -47,4 +47,4 @@ export function SelectionPanel(p: Props) {
       </> : <p className="lp-hint"><strong>Hardware preset:</strong> no team-approved hardware preset yet. Request one from the lead in docs/INPUT_REQUESTS.md; the app will not guess your spacecraft.</p>}
     </fieldset>
   );
-}
+});

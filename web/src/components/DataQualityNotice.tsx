@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { HardwareConfig, SiteDateData } from '../contracts';
 import { qualityDisclosures } from './disclosures';
 
@@ -6,7 +7,7 @@ interface Props { data: SiteDateData; hardware: HardwareConfig | null; }
 const glyph = { critical: '■', caution: '▲', info: '●' } as const;
 
 /** Limits that apply to everything on screen, most severe first. Always visible, never collapsed. */
-export function DataQualityNotice({ data, hardware }: Props) {
+export const DataQualityNotice = memo(function DataQualityNotice({ data, hardware }: Props) {
   return (
     <section className="lp-notice" aria-labelledby="lp-notice-h">
       <h2 id="lp-notice-h">What this view can't tell you</h2>
@@ -19,4 +20,4 @@ export function DataQualityNotice({ data, hardware }: Props) {
       </ul>
     </section>
   );
-}
+});
