@@ -26,6 +26,10 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   const [sampleIndex, setSampleIndex] = useState(0);
   const [hardwareIndex, setHardwareIndex] = useState(0);
   const [yawDeg, setYawDeg] = useState(initialYawDeg);
+  // Only discrete step buttons animate the turn; drag, slider and keyboard input apply instantly.
+  const [animateTurn, setAnimateTurn] = useState(false);
+  const turn = (deg: number, animate: boolean) => { setAnimateTurn(animate); setYawDeg(deg); };
+  const turnInstantly = (deg: number) => turn(deg, false);
 
   const hardware = hardwarePresets[hardwareIndex] ?? null;
   const alternatives = useMemo(() => datasets.map(data => ({
@@ -35,8 +39,9 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   })), [datasets, evaluate, hardware, yawDeg]);
 
   if (datasets.length === 0) {
-    return <main className="lp-page"><h1>Lunar Landing Site Navigator</h1>
-      <p role="status">No processed science data loaded. Results stay unknown until the science module delivers versioned JSON.</p></main>;
+    return <main className="lp-page"><header className="lp-top"><p className="lp-wordmark">Landerprint</p>
+      <h1>Which way should the lander face?</h1>
+      <p className="lp-lede" role="status">No processed science data loaded. Results stay unknown until the science module delivers versioned JSON.</p></header></main>;
   }
   const current = alternatives[datasetIndex];
   const data = current.data;
@@ -47,21 +52,27 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   return (
     <main className="lp-page">
       <header className="lp-top">
-        <p className="eyebrow">LANDERPRINT · RESEARCH PROTOTYPE</p>
-        <h1>Lunar Landing Site Navigator</h1>
+        <p className="lp-wordmark">Landerprint</p>
+        <h1>Which way should the lander face?</h1>
+        <p className="lp-lede">Pick a site, a UTC period and a heading. The dial shows where the Sun and Earth sit above the local terrain; the checks below report what the engines found.</p>
+        <p className="lp-site">
+          <strong>{data.site.name}</strong>
+          <span>{data.site.latitudeDeg.toFixed(6)}° lat, {data.site.longitudeEastDeg.toFixed(6)}° lon east</span>
+          <span>{data.site.label}</span>
+        </p>
       </header>
       <DataQualityNotice data={data} hardware={hardware} />
       <div className="lp-grid">
-        <div className="lp-controls">
+        <HorizonWheel sunHorizon={data.sunHorizon} earthHorizon={data.earthHorizon} sample={sample} yawDeg={yawDeg} onYawChange={turnInstantly} animateTurn={animateTurn} />
+        <div className="lp-side">
           <SelectionPanel datasets={datasets} datasetIndex={datasetIndex} onDataset={changeDataset}
             sampleIndex={sampleIndex} onSample={setSampleIndex}
             hardwarePresets={hardwarePresets} hardwareIndex={hardwareIndex} onHardware={setHardwareIndex} />
-          <YawControl valueDeg={yawDeg} onChange={setYawDeg} />
+          <YawControl valueDeg={yawDeg} onChange={turn} />
+          <LanderTopDown hardware={hardware} yawDeg={yawDeg} animateTurn={animateTurn} />
         </div>
-        <HorizonWheel sunHorizon={data.sunHorizon} earthHorizon={data.earthHorizon} sample={sample} yawDeg={yawDeg} />
-        <LanderTopDown hardware={hardware} yawDeg={yawDeg} />
       </div>
-      <section aria-labelledby="lp-checks-h">
+      <section className="lp-checks" aria-labelledby="lp-checks-h">
         <h2 id="lp-checks-h">Modeled checks at {yawDeg}°</h2>
         <div className="lp-cards">
           <ConstraintCard title="Solar power" result={ev?.solar ?? null} evidenceComplete={current.evidenceComplete} />

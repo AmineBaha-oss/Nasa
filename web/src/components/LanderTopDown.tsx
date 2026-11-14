@@ -1,10 +1,12 @@
 import type { HardwareConfig } from '../contracts';
 import { bodyVectorAzimuthDeg, bodyVectorElevationDeg, formatDeg } from './geometry';
+import { useUnwrappedAngle } from './useUnwrappedAngle';
 
-interface Props { hardware: HardwareConfig | null; yawDeg: number; }
+interface Props { hardware: HardwareConfig | null; yawDeg: number; animateTurn?: boolean; }
 
 /** Top-down lander body rotated by yaw. Drawing only: panel/antenna directions come from the preset. */
-export function LanderTopDown({ hardware, yawDeg }: Props) {
+export function LanderTopDown({ hardware, yawDeg, animateTurn = false }: Props) {
+  const turnDeg = useUnwrappedAngle(yawDeg);
   if (!hardware) {
     return <div className="lp-empty" role="status">No hardware preset loaded. The lead must approve a preset (see docs/INPUT_REQUESTS.md).</div>;
   }
@@ -12,9 +14,10 @@ export function LanderTopDown({ hardware, yawDeg }: Props) {
   return (
     <figure className="lp-lander">
       <svg viewBox="0 0 240 240" width={240} height={240} role="img" aria-label={`Lander ${hardware.name} rotated to ${yawDeg}° heading`}>
-        <text x={120} y={14} className="lp-compass">N</text>
-        <g transform={`rotate(${yawDeg} 120 120)`}>
-          <rect x={90} y={90} width={60} height={60} rx={6} className="lp-body" />
+        <circle cx={120} cy={120} r={104} className="lp-lander-ring" />
+        <text x={120} y={12} className="lp-cardinal">N</text>
+        <g className={animateTurn ? 'lp-lander-turn is-animated' : 'lp-lander-turn'} style={{ transform: `rotate(${turnDeg}deg)` }}>
+          <rect x={90} y={90} width={60} height={60} rx={4} className="lp-body" />
           <path d="M120 96 L128 110 L112 110 Z" className="lp-forward" />
           {hardware.panels.map(p => {
             const az = bodyVectorAzimuthDeg(p.normalBodyRFU);

@@ -54,6 +54,11 @@ describe('navigator page (synthetic unit tests only)', () => {
     const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);
     expect(html).toMatch(/<path d="M110 90 L130 90 L136 44 L104 44 Z" class="lp-ramp" data-ramp-body-deg="180" transform="rotate\(180 120 120\)"/);
   });
+  it('exposes the dial as a keyboard slider and does not animate the initial heading', () => {
+    const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} initialYawDeg={30} />);
+    expect(html).toContain('role="slider"'); expect(html).toContain('aria-valuenow="30"');
+    expect(html).toContain('tabindex="0"'); expect(html).not.toContain('is-animated');
+  });
   it('handles no data without crashing', () => {
     expect(renderToStaticMarkup(<NavigatorPage datasets={[]} hardwarePresets={[]} />)).toContain('No processed science data loaded');
   });

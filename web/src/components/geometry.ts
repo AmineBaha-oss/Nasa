@@ -37,7 +37,33 @@ export function chooseElevationScale(values: readonly (number | null | undefined
   return { minElDeg: Math.max(-90, lo), maxElDeg: Math.min(90, hi) };
 }
 
-export const formatDeg = (deg: number | null | undefined, digits = 1): string =>
+/** Heading under a pointer, from its offset to the dial centre in screen space (y down). */
+export function yawFromPointer(dx: number, dy: number): number | null {
+  if (Math.hypot(dx, dy) < 1e-9) return null;
+  return Math.round(normalizeDeg(Math.atan2(dx, -dy) * 180 / Math.PI));
+}
+
+/** Keyboard steps for the heading dial (WAI-ARIA slider pattern). Null = key not handled. */
+export function yawFromKey(key: string, currentDeg: number, large: boolean): number | null {
+  const step = large ? 10 : 1;
+  switch (key) {
+    case 'ArrowRight': case 'ArrowUp': return normalizeDeg(currentDeg + step);
+    case 'ArrowLeft': case 'ArrowDown': return normalizeDeg(currentDeg - step);
+    case 'PageUp': return normalizeDeg(currentDeg + 10);
+    case 'PageDown': return normalizeDeg(currentDeg - 10);
+    case 'Home': return 0;
+    case 'End': return 359;
+    default: return null;
+  }
+}
+
+/** Next unwrapped angle so a rotation animates the short way across 359° → 0°. */
+export function unwrapAngle(previousUnwrapped: number, nextDeg: number): number {
+  const delta = ((nextDeg - normalizeDeg(previousUnwrapped)) % 360 + 540) % 360 - 180;
+  return previousUnwrapped + delta;
+}
+
+export const formatDeg =(deg: number | null | undefined, digits = 1): string =>
   typeof deg === 'number' && Number.isFinite(deg) ? `${deg.toFixed(digits)}°` : 'unknown';
 
 /** Keeps the trailing Z so the UTC convention stays visible. */

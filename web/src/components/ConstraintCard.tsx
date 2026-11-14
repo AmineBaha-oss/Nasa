@@ -18,9 +18,11 @@ export function ConstraintCard({ title, result, evidenceComplete }: Props) {
   const { label, tone } = statusPresentation(result, evidenceComplete);
   return (
     <article className={`lp-card lp-tone-${tone}`} aria-label={`${title}: ${label}`}>
-      <header><h3>{title}</h3><span className="lp-status">{label}</span></header>
-      <p>{result?.reason || 'No engine result is connected for this check yet.'}</p>
-      {result && result.sourceIds.length > 0 && <p className="lp-hint">Sources: {result.sourceIds.join(', ')}</p>}
+      <span className="lp-lamp" aria-hidden="true" />
+      <h3>{title}</h3>
+      <span className="lp-status">{label}</span>
+      <p className="lp-reason">{result?.reason || 'No engine result is connected for this check yet.'}
+        {result && result.sourceIds.length > 0 && <span className="lp-sources"> Sources: {result.sourceIds.join(', ')}</span>}</p>
     </article>
   );
 }
