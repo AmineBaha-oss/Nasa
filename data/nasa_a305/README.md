@@ -7,6 +7,7 @@ Set `NASA_DATA_DIR` to `data/nasa_a305/A3CLR22_5_Connecting_Ridge_Extension`.
 ## Source and license
 
 - Bertone, S., McKenna, T. E., Barker, M. K., Mazarico, E., Beyer, R. A., Petro, N. (2026). *Archived Dataset for "Enhanced Topography Models for selected Lunar South Pole regions with Shape-from-Shading"*, version 1.0.0. Zenodo. https://doi.org/10.5281/zenodo.17954508
+- Paper: Bertone, S., McKenna, T. E., Barker, M. K., Mazarico, E., Beyer, R. A., Petro, N., *Enhanced Topography Models for selected Lunar South Pole regions with Shape-from-Shading*, The Planetary Science Journal, https://doi.org/10.3847/PSJ/ae5b70
 - NASA PGDA product 104: https://pgda.gsfc.nasa.gov/products/104
 - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Not endorsed by NASA or the authors.
 

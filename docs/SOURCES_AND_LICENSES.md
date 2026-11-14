@@ -18,6 +18,9 @@
 - Lunar imaging: https://quickmap.lroc.asu.edu/
 - NASA Moon Trek: https://trek.nasa.gov/moon/
 - LOLA older reference (optional): https://pgda.gsfc.nasa.gov/products/78
+- LOLA south-pole far-field DEMs (used, not redistributed; 80 m and 240 m files): https://pgda.gsfc.nasa.gov/products/90 ; cite Barker et al. (2023) doi:10.3847/PSJ/acf3e1
+
+Licenses, citations and usage terms for every Science input (Horizons fair-use policy, NAIF rules, kernel list, Python packages) are in `science/SOURCES.md`.
 
 ## NASA engineering evidence (not general flight rules)
 - VIPER **draft** landing/orientation requirements, PDF pages 6–7 (PDF zero-based page 6): https://assets.science.nasa.gov/content/dam/science/psd/lunar-science/documents/VIPER_Technical_Information_AFPP.pdf
@@ -35,7 +38,7 @@
 
 ## Resource verification (2026-11-14)
 
-The official challenge Resources response lists Quickmap, Moon Trek and Horizons System. Selected planned input: https://ssd.jpl.nasa.gov/horizons/. See docs/CHALLENGE_RESOURCES.json for fetch hash and method. Actual Horizons data use is pending; no eligibility claim yet.
+The official challenge Resources response lists Quickmap, Moon Trek and Horizons System. Selected planned input: https://ssd.jpl.nasa.gov/horizons/. See docs/CHALLENGE_RESOURCES.json for fetch hash and method. Horizons tables are now used as the reference for every Science ephemeris sample (`science/reference/horizons/`, cite as in `science/SOURCES.md`); eligibility still needs human confirmation.
 
 Development references: https://vite.dev/guide/, https://vitest.dev/guide/, https://docs.pytest.org/en/stable/getting-started.html.
 

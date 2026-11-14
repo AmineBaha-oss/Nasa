@@ -1,0 +1,642 @@
+{
+  "generatedUtc": "2026-11-14T21:21:35Z",
+  "toleranceDeg": 0.01,
+  "heightsAreHypothetical": true,
+  "panelHeightM": 2.0,
+  "antennaHeightM": 3.0,
+  "ephemerisLimit": "Horizons (DE441) and SPICE (DE440) are both JPL SSD products; agreement checks our frame, time and site handling, not the planetary ephemeris itself.",
+  "directionLimit": "Directions are to the centre of the Sun and Earth; no finite disc.",
+  "terrainLimit": "A 5 m grid cannot resolve small landing or ramp hazards; bins with any missing terrain are null.",
+  "frameCheck": {
+    "points": 1000,
+    "medianOffsetM": 0.02112129742705804,
+    "meanOffsetM": 0.014321931239767789,
+    "stdM": 1.121432016260899,
+    "bestShift": {
+      "dxM": 0.0,
+      "dyM": 0.0,
+      "n": 1000,
+      "medianM": 0.02112129742705804,
+      "stdM": 1.121432016260899
+    },
+    "passed": true
+  },
+  "sites": [
+    {
+      "id": "site-1",
+      "groundHeightM": 1111.14,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 6.1157,
+        "minDeg": -2.1648,
+        "maxLimitingRangeKm": 169.2,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 6.0948,
+        "minDeg": -2.8562,
+        "maxLimitingRangeKm": 174.4,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-1_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 2.0111189178368166e-08,
+              "meanAzSkyDeg": 6.03864698645965e-09,
+              "maxElDeg": 3.233551448822425e-08,
+              "meanElDeg": 4.9405885784619975e-09,
+              "referenceId": "horizons-site-1-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.3488711696309697e-07,
+              "meanAzSkyDeg": 2.6651143537208785e-07,
+              "maxElDeg": 3.153853356252512e-08,
+              "meanElDeg": 1.7245082091003694e-08,
+              "referenceId": "horizons-site-1-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-1_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.669289900886672e-09,
+              "meanAzSkyDeg": 4.7626953698506885e-09,
+              "maxElDeg": 5.663931545996093e-10,
+              "meanElDeg": 2.5974299430874313e-10,
+              "referenceId": "horizons-site-1-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.469722531649255e-07,
+              "meanAzSkyDeg": 3.064987373542369e-07,
+              "maxElDeg": 4.025781685790264e-08,
+              "meanElDeg": 1.9320607998394934e-08,
+              "referenceId": "horizons-site-1-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    },
+    {
+      "id": "site-2",
+      "groundHeightM": 509.71,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 12.2579,
+        "minDeg": -1.7778,
+        "maxLimitingRangeKm": 172.4,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 12.2443,
+        "minDeg": -1.7796,
+        "maxLimitingRangeKm": 172.4,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-2_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 1.9875623872813822e-08,
+              "meanAzSkyDeg": 6.058734056239278e-09,
+              "maxElDeg": 3.291491235124511e-08,
+              "meanElDeg": 4.94823790011428e-09,
+              "referenceId": "horizons-site-2-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.349656937268475e-07,
+              "meanAzSkyDeg": 2.665389091365345e-07,
+              "maxElDeg": 3.154719258047223e-08,
+              "meanElDeg": 1.731885324999344e-08,
+              "referenceId": "horizons-site-2-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-2_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.711565169061925e-09,
+              "meanAzSkyDeg": 4.787266539284545e-09,
+              "maxElDeg": 5.702998073786603e-10,
+              "meanElDeg": 2.5151382563949806e-10,
+              "referenceId": "horizons-site-2-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.4689244131588883e-07,
+              "meanAzSkyDeg": 3.065324486147154e-07,
+              "maxElDeg": 4.0054305205927676e-08,
+              "meanElDeg": 1.9239538735980688e-08,
+              "referenceId": "horizons-site-2-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    },
+    {
+      "id": "site-3",
+      "groundHeightM": 1452.8,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 8.5688,
+        "minDeg": -2.048,
+        "maxLimitingRangeKm": 137.6,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 8.5101,
+        "minDeg": -2.0485,
+        "maxLimitingRangeKm": 137.6,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-3_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 1.9680852384909217e-08,
+              "meanAzSkyDeg": 6.049100521654973e-09,
+              "maxElDeg": 3.2994913246042756e-08,
+              "meanElDeg": 4.907547593831152e-09,
+              "referenceId": "horizons-site-3-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.35317269437041e-07,
+              "meanAzSkyDeg": 2.665314310698367e-07,
+              "maxElDeg": 3.2087787694284886e-08,
+              "meanElDeg": 1.7641442628173816e-08,
+              "referenceId": "horizons-site-3-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-3_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.685951697006423e-09,
+              "meanAzSkyDeg": 4.784046312189711e-09,
+              "maxElDeg": 5.487796883585361e-10,
+              "meanElDeg": 2.557493132615023e-10,
+              "referenceId": "horizons-site-3-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.4571826516879694e-07,
+              "meanAzSkyDeg": 3.065095976167188e-07,
+              "maxElDeg": 3.979354223915266e-08,
+              "meanElDeg": 1.8848252227495383e-08,
+              "referenceId": "horizons-site-3-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    },
+    {
+      "id": "site-4",
+      "groundHeightM": 1029.94,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 7.0333,
+        "minDeg": -1.9658,
+        "maxLimitingRangeKm": 177.2,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 7.0173,
+        "minDeg": -2.0323,
+        "maxLimitingRangeKm": 177.2,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-4_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 2.005164974452831e-08,
+              "meanAzSkyDeg": 6.071741171491447e-09,
+              "maxElDeg": 3.2596610965995865e-08,
+              "meanElDeg": 4.947011320429898e-09,
+              "referenceId": "horizons-site-4-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.3534830400029427e-07,
+              "meanAzSkyDeg": 2.665297256181263e-07,
+              "maxElDeg": 3.1293489494155224e-08,
+              "meanElDeg": 1.7126486507583802e-08,
+              "referenceId": "horizons-site-4-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-4_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.959876824711877e-09,
+              "meanAzSkyDeg": 4.764388029791806e-09,
+              "maxElDeg": 5.65922864126378e-10,
+              "meanElDeg": 2.4510303046435905e-10,
+              "referenceId": "horizons-site-4-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.461245808883699e-07,
+              "meanAzSkyDeg": 3.0645024275727236e-07,
+              "maxElDeg": 4.054184010726658e-08,
+              "meanElDeg": 1.935577581150102e-08,
+              "referenceId": "horizons-site-4-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    },
+    {
+      "id": "site-5",
+      "groundHeightM": 399.1,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 9.9795,
+        "minDeg": -1.5808,
+        "maxLimitingRangeKm": 172.0,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 9.9711,
+        "minDeg": -1.5813,
+        "maxLimitingRangeKm": 172.0,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-5_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 2.0189995411566165e-08,
+              "meanAzSkyDeg": 6.092156699691293e-09,
+              "maxElDeg": 3.292981887170754e-08,
+              "meanElDeg": 4.938182452898655e-09,
+              "referenceId": "horizons-site-5-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.346756739475539e-07,
+              "meanAzSkyDeg": 2.6654962886895404e-07,
+              "maxElDeg": 3.181479202307713e-08,
+              "meanElDeg": 1.755945511051838e-08,
+              "referenceId": "horizons-site-5-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-5_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.806293873311697e-09,
+              "meanAzSkyDeg": 4.8047680026692295e-09,
+              "maxElDeg": 5.638138844688001e-10,
+              "meanElDeg": 2.4722041345287813e-10,
+              "referenceId": "horizons-site-5-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.4574332151278887e-07,
+              "meanAzSkyDeg": 3.065353060985214e-07,
+              "maxElDeg": 3.999909625740372e-08,
+              "meanElDeg": 1.8965440846092853e-08,
+              "referenceId": "horizons-site-5-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    },
+    {
+      "id": "site-6",
+      "groundHeightM": 300.25,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 9.7524,
+        "minDeg": -1.552,
+        "maxLimitingRangeKm": 71.56,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 9.7397,
+        "minDeg": -1.6202,
+        "maxLimitingRangeKm": 78.52,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-6_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 1.9869623265785936e-08,
+              "meanAzSkyDeg": 6.075622196625187e-09,
+              "maxElDeg": 3.2903971547426636e-08,
+              "meanElDeg": 4.966635974844644e-09,
+              "referenceId": "horizons-site-6-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.3523749276607744e-07,
+              "meanAzSkyDeg": 2.6659797110202085e-07,
+              "maxElDeg": 3.038130030191821e-08,
+              "meanElDeg": 1.6334994697613554e-08,
+              "referenceId": "horizons-site-6-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-6_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.907894714002379e-09,
+              "meanAzSkyDeg": 4.812585588150992e-09,
+              "maxElDeg": 5.534186442446298e-10,
+              "meanElDeg": 2.336184248697917e-10,
+              "referenceId": "horizons-site-6-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.460557920615191e-07,
+              "meanAzSkyDeg": 3.0638250747342134e-07,
+              "maxElDeg": 4.1661042171625695e-08,
+              "meanElDeg": 2.0355009754444284e-08,
+              "referenceId": "horizons-site-6-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    },
+    {
+      "id": "site-7",
+      "groundHeightM": 93.94,
+      "sunHorizon": {
+        "observerHeightM": 2.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 7.9481,
+        "minDeg": -1.0066,
+        "maxLimitingRangeKm": 76.48,
+        "complete": true
+      },
+      "earthHorizon": {
+        "observerHeightM": 3.0,
+        "completeBins": 360,
+        "bins": 360,
+        "maxDeg": 7.9411,
+        "minDeg": -1.0075,
+        "maxLimitingRangeKm": 76.48,
+        "complete": true
+      },
+      "windows": [
+        {
+          "id": "window-a",
+          "file": "data/processed/site-7_window-a.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 1.9895466634222692e-08,
+              "meanAzSkyDeg": 6.085837274570358e-09,
+              "maxElDeg": 3.299208239937457e-08,
+              "meanElDeg": 4.973797559001032e-09,
+              "referenceId": "horizons-site-7-window-a-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.351656781891452e-07,
+              "meanAzSkyDeg": 2.6660225175317696e-07,
+              "maxElDeg": 3.015953370377744e-08,
+              "meanElDeg": 1.6097902809104458e-08,
+              "referenceId": "horizons-site-7-window-a-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        },
+        {
+          "id": "window-b",
+          "file": "data/processed/site-7_window-b.json",
+          "samples": 168,
+          "jplVerifiedSamples": 168,
+          "ephemerisCheck": {
+            "sun": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 2.0,
+              "maxAzSkyDeg": 9.930575989573303e-09,
+              "meanAzSkyDeg": 4.806735581615291e-09,
+              "maxElDeg": 5.822697879409588e-10,
+              "meanElDeg": 2.436996345463645e-10,
+              "referenceId": "horizons-site-7-window-b-sun"
+            },
+            "earth": {
+              "samples": 168,
+              "matched": 168,
+              "withinTolerance": 168,
+              "observerHeightM": 3.0,
+              "maxAzSkyDeg": 4.46169002566463e-07,
+              "meanAzSkyDeg": 3.064145393866788e-07,
+              "maxElDeg": 4.280770893316799e-08,
+              "meanElDeg": 2.0710204497110227e-08,
+              "referenceId": "horizons-site-7-window-b-earth"
+            }
+          },
+          "sunHorizonCoverage": "far-field-validated",
+          "earthHorizonCoverage": "far-field-validated"
+        }
+      ]
+    }
+  ]
+}

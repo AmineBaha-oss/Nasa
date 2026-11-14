@@ -1,0 +1,3044 @@
+{
+ "schemaVersion": "1.0",
+ "purpose": "research",
+ "provenance": [
+  {
+   "id": "a305-elev",
+   "filename": "A305_GLDELEV_005.tif",
+   "url": "https://zenodo.org/records/17954508",
+   "sourceVersion": "Zenodo record 17954508 v1.0.0, CC BY 4.0",
+   "sha256": "b40378d7e11c6998b77ac4840f16623b092b30531e59555a8b117c05742c7c63",
+   "generatedUtc": "2026-11-14T15:52:29Z"
+  },
+  {
+   "id": "a305-slope-5m",
+   "filename": "A305_GLDTSLP_005_005_lunar_crs.tif",
+   "url": "https://zenodo.org/records/17954508",
+   "sourceVersion": "Zenodo record 17954508 v1.0.0; lunar CRS tag added, pixels unchanged",
+   "sha256": "4dcddc4b9e0cf9c59823d56d197a87e702fd37c91ff2549df3b654a2e4194723",
+   "generatedUtc": "2026-11-14T15:52:29Z"
+  },
+  {
+   "id": "naif-lsk",
+   "filename": "naif0012.tls",
+   "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+   "sourceVersion": "naif0012.tls",
+   "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+   "generatedUtc": "2026-11-14T16:31:50Z"
+  },
+  {
+   "id": "naif-pck",
+   "filename": "pck00011.tpc",
+   "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+   "sourceVersion": "pck00011.tpc",
+   "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+   "generatedUtc": "2026-11-14T16:31:50Z"
+  },
+  {
+   "id": "naif-moon-pa",
+   "filename": "moon_pa_de440_200625.bpc",
+   "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de440_200625.bpc",
+   "sourceVersion": "moon_pa_de440_200625.bpc",
+   "sha256": "60cd55aa401ea2ea97360636f567554bfe4e37bb829f901b4460a455dfaf783f",
+   "generatedUtc": "2026-11-14T16:31:56Z"
+  },
+  {
+   "id": "naif-moon-fk",
+   "filename": "moon_de440_250416.tf",
+   "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_de440_250416.tf",
+   "sourceVersion": "moon_de440_250416.tf",
+   "sha256": "a47c71e9c9f33796bdafb2c9d69a7ee447b6016ecad80f71cd6f3e479f9cf768",
+   "generatedUtc": "2026-11-14T16:31:57Z"
+  },
+  {
+   "id": "naif-de440s",
+   "filename": "de440s.bsp",
+   "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp",
+   "sourceVersion": "de440s.bsp",
+   "sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+   "generatedUtc": "2026-11-14T16:32:32Z"
+  },
+  {
+   "id": "lola-80m",
+   "filename": "LDEM_80S_80MPP_ADJ.TIF",
+   "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_80MPP_ADJ.TIF",
+   "sourceVersion": "LDEM_80S_80MPP_ADJ.TIF",
+   "sha256": "82030dcbdd7c4bb0c7d858e9b4b293b9f2cda5a543ba31ec0f42784bd6beee5a",
+   "generatedUtc": "2026-11-14T16:35:16Z"
+  },
+  {
+   "id": "lola-240m",
+   "filename": "LDEM_60S_240MPP_ADJ.TIF",
+   "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_60S_240MPP_ADJ.TIF",
+   "sourceVersion": "LDEM_60S_240MPP_ADJ.TIF",
+   "sha256": "3f9663257b63022f2b0d5a623482ff3cadddceb91594a4e4ca14a94d8cec8b34",
+   "generatedUtc": "2026-11-14T16:44:15Z"
+  },
+  {
+   "id": "spice-ephemeris",
+   "filename": "science/landerprint_science/ephemeris.py",
+   "url": "https://github.com/AmineBaha-oss/Nasa/blob/main/science/landerprint_science/ephemeris.py",
+   "sourceVersion": "SPICE azlcpo in MOON_ME with LT+S, body centre; kernels naif-lsk, naif-pck, naif-moon-pa, naif-moon-fk, naif-de440s",
+   "sha256": "ed75fce28ed05337c00f99a08ff1ee84242737f796b8471e190eafae2194296a",
+   "generatedUtc": "2026-11-14T21:21:35Z"
+  },
+  {
+   "id": "terrain-horizon",
+   "filename": "science/landerprint_science/horizon.py",
+   "url": "https://github.com/AmineBaha-oss/Nasa/blob/main/science/landerprint_science/horizon.py",
+   "sourceVersion": "Ray-cast skyline over a305-elev, lola-80m, lola-240m; 0.25 deg rays, 1 deg bins",
+   "sha256": "8e562b559c6f4ea2edd7c639305510c28990c49e8182f83ab8573b1b26ee1959",
+   "generatedUtc": "2026-11-14T21:21:35Z"
+  },
+  {
+   "id": "horizons-site-5-window-b-sun",
+   "filename": "science/reference/horizons/site-5_window-b_sun.txt",
+   "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+   "sourceVersion": "JPL Horizons API 1.2 (DE441), topocentric, airless",
+   "sha256": "420e66f3e9c864d31ff72cce9ec13cdf6b10fefbad9a15d36a5244eacf39fafe",
+   "generatedUtc": "2026-11-14T21:20:52Z"
+  },
+  {
+   "id": "horizons-site-5-window-b-earth",
+   "filename": "science/reference/horizons/site-5_window-b_earth.txt",
+   "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+   "sourceVersion": "JPL Horizons API 1.2 (DE441), topocentric, airless",
+   "sha256": "5252f3383bfa25fbd02e55eec7a3962b4739290f5a8a97a1a221c04418210570",
+   "generatedUtc": "2026-11-14T21:20:54Z"
+  }
+ ],
+ "site": {
+  "id": "site-5",
+  "name": "Connecting Ridge Extension site 5 (lower slope)",
+  "latitudeDeg": -89.24306,
+  "longitudeEastDeg": -94.954874,
+  "terrainSource": "NASA A305 SfS 5 m DEM, nested with LOLA 80 m and 240 m south polar DEMs",
+  "terrainCoverageKm": 300.0,
+  "label": "Exploratory point from a 5 m slope/coverage screen; not an approved or certified landing site"
+ },
+ "samples": [
+  {
+   "utc": "2027-10-24T00:00:00Z",
+   "sun": {
+    "azDeg": 347.87899,
+    "elDeg": 2.24531
+   },
+   "earth": {
+    "azDeg": 94.39369,
+    "elDeg": -1.39998
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T01:00:00Z",
+   "sun": {
+    "azDeg": 347.3709,
+    "elDeg": 2.24392
+   },
+   "earth": {
+    "azDeg": 94.43308,
+    "elDeg": -1.46763
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T02:00:00Z",
+   "sun": {
+    "azDeg": 346.86281,
+    "elDeg": 2.24247
+   },
+   "earth": {
+    "azDeg": 94.47263,
+    "elDeg": -1.53518
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T03:00:00Z",
+   "sun": {
+    "azDeg": 346.3547,
+    "elDeg": 2.24097
+   },
+   "earth": {
+    "azDeg": 94.51235,
+    "elDeg": -1.60261
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T04:00:00Z",
+   "sun": {
+    "azDeg": 345.84658,
+    "elDeg": 2.23941
+   },
+   "earth": {
+    "azDeg": 94.55222,
+    "elDeg": -1.66992
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T05:00:00Z",
+   "sun": {
+    "azDeg": 345.33845,
+    "elDeg": 2.23779
+   },
+   "earth": {
+    "azDeg": 94.59225,
+    "elDeg": -1.73709
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T06:00:00Z",
+   "sun": {
+    "azDeg": 344.8303,
+    "elDeg": 2.23612
+   },
+   "earth": {
+    "azDeg": 94.63244,
+    "elDeg": -1.80413
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T07:00:00Z",
+   "sun": {
+    "azDeg": 344.32215,
+    "elDeg": 2.2344
+   },
+   "earth": {
+    "azDeg": 94.67279,
+    "elDeg": -1.87102
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T08:00:00Z",
+   "sun": {
+    "azDeg": 343.81399,
+    "elDeg": 2.23262
+   },
+   "earth": {
+    "azDeg": 94.71329,
+    "elDeg": -1.93776
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T09:00:00Z",
+   "sun": {
+    "azDeg": 343.30582,
+    "elDeg": 2.23078
+   },
+   "earth": {
+    "azDeg": 94.75395,
+    "elDeg": -2.00434
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T10:00:00Z",
+   "sun": {
+    "azDeg": 342.79764,
+    "elDeg": 2.22889
+   },
+   "earth": {
+    "azDeg": 94.79476,
+    "elDeg": -2.07075
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T11:00:00Z",
+   "sun": {
+    "azDeg": 342.28945,
+    "elDeg": 2.22694
+   },
+   "earth": {
+    "azDeg": 94.83572,
+    "elDeg": -2.13699
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T12:00:00Z",
+   "sun": {
+    "azDeg": 341.78125,
+    "elDeg": 2.22494
+   },
+   "earth": {
+    "azDeg": 94.87683,
+    "elDeg": -2.20304
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T13:00:00Z",
+   "sun": {
+    "azDeg": 341.27304,
+    "elDeg": 2.22289
+   },
+   "earth": {
+    "azDeg": 94.9181,
+    "elDeg": -2.2689
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T14:00:00Z",
+   "sun": {
+    "azDeg": 340.76481,
+    "elDeg": 2.22078
+   },
+   "earth": {
+    "azDeg": 94.95951,
+    "elDeg": -2.33457
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T15:00:00Z",
+   "sun": {
+    "azDeg": 340.25658,
+    "elDeg": 2.21861
+   },
+   "earth": {
+    "azDeg": 95.00106,
+    "elDeg": -2.40003
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T16:00:00Z",
+   "sun": {
+    "azDeg": 339.74834,
+    "elDeg": 2.21639
+   },
+   "earth": {
+    "azDeg": 95.04276,
+    "elDeg": -2.46527
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T17:00:00Z",
+   "sun": {
+    "azDeg": 339.24009,
+    "elDeg": 2.21412
+   },
+   "earth": {
+    "azDeg": 95.0846,
+    "elDeg": -2.53029
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T18:00:00Z",
+   "sun": {
+    "azDeg": 338.73183,
+    "elDeg": 2.2118
+   },
+   "earth": {
+    "azDeg": 95.12658,
+    "elDeg": -2.59509
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T19:00:00Z",
+   "sun": {
+    "azDeg": 338.22357,
+    "elDeg": 2.20942
+   },
+   "earth": {
+    "azDeg": 95.1687,
+    "elDeg": -2.65965
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T20:00:00Z",
+   "sun": {
+    "azDeg": 337.71529,
+    "elDeg": 2.20698
+   },
+   "earth": {
+    "azDeg": 95.21096,
+    "elDeg": -2.72397
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T21:00:00Z",
+   "sun": {
+    "azDeg": 337.207,
+    "elDeg": 2.2045
+   },
+   "earth": {
+    "azDeg": 95.25335,
+    "elDeg": -2.78803
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T22:00:00Z",
+   "sun": {
+    "azDeg": 336.6987,
+    "elDeg": 2.20196
+   },
+   "earth": {
+    "azDeg": 95.29587,
+    "elDeg": -2.85184
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-24T23:00:00Z",
+   "sun": {
+    "azDeg": 336.1904,
+    "elDeg": 2.19937
+   },
+   "earth": {
+    "azDeg": 95.33852,
+    "elDeg": -2.91538
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T00:00:00Z",
+   "sun": {
+    "azDeg": 335.68208,
+    "elDeg": 2.19672
+   },
+   "earth": {
+    "azDeg": 95.38131,
+    "elDeg": -2.97865
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T01:00:00Z",
+   "sun": {
+    "azDeg": 335.17376,
+    "elDeg": 2.19402
+   },
+   "earth": {
+    "azDeg": 95.42421,
+    "elDeg": -3.04164
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T02:00:00Z",
+   "sun": {
+    "azDeg": 334.66543,
+    "elDeg": 2.19127
+   },
+   "earth": {
+    "azDeg": 95.46724,
+    "elDeg": -3.10435
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T03:00:00Z",
+   "sun": {
+    "azDeg": 334.15708,
+    "elDeg": 2.18847
+   },
+   "earth": {
+    "azDeg": 95.51039,
+    "elDeg": -3.16675
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T04:00:00Z",
+   "sun": {
+    "azDeg": 333.64873,
+    "elDeg": 2.18562
+   },
+   "earth": {
+    "azDeg": 95.55366,
+    "elDeg": -3.22886
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T05:00:00Z",
+   "sun": {
+    "azDeg": 333.14037,
+    "elDeg": 2.18272
+   },
+   "earth": {
+    "azDeg": 95.59704,
+    "elDeg": -3.29066
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T06:00:00Z",
+   "sun": {
+    "azDeg": 332.63201,
+    "elDeg": 2.17976
+   },
+   "earth": {
+    "azDeg": 95.64054,
+    "elDeg": -3.35214
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T07:00:00Z",
+   "sun": {
+    "azDeg": 332.12363,
+    "elDeg": 2.17675
+   },
+   "earth": {
+    "azDeg": 95.68415,
+    "elDeg": -3.4133
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T08:00:00Z",
+   "sun": {
+    "azDeg": 331.61525,
+    "elDeg": 2.17369
+   },
+   "earth": {
+    "azDeg": 95.72786,
+    "elDeg": -3.47413
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T09:00:00Z",
+   "sun": {
+    "azDeg": 331.10685,
+    "elDeg": 2.17059
+   },
+   "earth": {
+    "azDeg": 95.77167,
+    "elDeg": -3.53462
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T10:00:00Z",
+   "sun": {
+    "azDeg": 330.59845,
+    "elDeg": 2.16743
+   },
+   "earth": {
+    "azDeg": 95.81559,
+    "elDeg": -3.59476
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T11:00:00Z",
+   "sun": {
+    "azDeg": 330.09004,
+    "elDeg": 2.16422
+   },
+   "earth": {
+    "azDeg": 95.85961,
+    "elDeg": -3.65456
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T12:00:00Z",
+   "sun": {
+    "azDeg": 329.58162,
+    "elDeg": 2.16096
+   },
+   "earth": {
+    "azDeg": 95.90372,
+    "elDeg": -3.71399
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T13:00:00Z",
+   "sun": {
+    "azDeg": 329.0732,
+    "elDeg": 2.15765
+   },
+   "earth": {
+    "azDeg": 95.94792,
+    "elDeg": -3.77306
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T14:00:00Z",
+   "sun": {
+    "azDeg": 328.56477,
+    "elDeg": 2.15429
+   },
+   "earth": {
+    "azDeg": 95.99221,
+    "elDeg": -3.83176
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T15:00:00Z",
+   "sun": {
+    "azDeg": 328.05632,
+    "elDeg": 2.15088
+   },
+   "earth": {
+    "azDeg": 96.03658,
+    "elDeg": -3.89008
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T16:00:00Z",
+   "sun": {
+    "azDeg": 327.54788,
+    "elDeg": 2.14743
+   },
+   "earth": {
+    "azDeg": 96.08103,
+    "elDeg": -3.94801
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T17:00:00Z",
+   "sun": {
+    "azDeg": 327.03942,
+    "elDeg": 2.14392
+   },
+   "earth": {
+    "azDeg": 96.12556,
+    "elDeg": -4.00555
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T18:00:00Z",
+   "sun": {
+    "azDeg": 326.53095,
+    "elDeg": 2.14037
+   },
+   "earth": {
+    "azDeg": 96.17017,
+    "elDeg": -4.06269
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T19:00:00Z",
+   "sun": {
+    "azDeg": 326.02248,
+    "elDeg": 2.13677
+   },
+   "earth": {
+    "azDeg": 96.21484,
+    "elDeg": -4.11942
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T20:00:00Z",
+   "sun": {
+    "azDeg": 325.514,
+    "elDeg": 2.13312
+   },
+   "earth": {
+    "azDeg": 96.25958,
+    "elDeg": -4.17574
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T21:00:00Z",
+   "sun": {
+    "azDeg": 325.00552,
+    "elDeg": 2.12942
+   },
+   "earth": {
+    "azDeg": 96.30438,
+    "elDeg": -4.23165
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T22:00:00Z",
+   "sun": {
+    "azDeg": 324.49702,
+    "elDeg": 2.12568
+   },
+   "earth": {
+    "azDeg": 96.34924,
+    "elDeg": -4.28712
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-25T23:00:00Z",
+   "sun": {
+    "azDeg": 323.98852,
+    "elDeg": 2.12189
+   },
+   "earth": {
+    "azDeg": 96.39415,
+    "elDeg": -4.34217
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T00:00:00Z",
+   "sun": {
+    "azDeg": 323.48002,
+    "elDeg": 2.11805
+   },
+   "earth": {
+    "azDeg": 96.43911,
+    "elDeg": -4.39677
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T01:00:00Z",
+   "sun": {
+    "azDeg": 322.9715,
+    "elDeg": 2.11417
+   },
+   "earth": {
+    "azDeg": 96.48412,
+    "elDeg": -4.45093
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T02:00:00Z",
+   "sun": {
+    "azDeg": 322.46298,
+    "elDeg": 2.11024
+   },
+   "earth": {
+    "azDeg": 96.52916,
+    "elDeg": -4.50464
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T03:00:00Z",
+   "sun": {
+    "azDeg": 321.95445,
+    "elDeg": 2.10626
+   },
+   "earth": {
+    "azDeg": 96.57425,
+    "elDeg": -4.55789
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T04:00:00Z",
+   "sun": {
+    "azDeg": 321.44592,
+    "elDeg": 2.10224
+   },
+   "earth": {
+    "azDeg": 96.61936,
+    "elDeg": -4.61067
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T05:00:00Z",
+   "sun": {
+    "azDeg": 320.93738,
+    "elDeg": 2.09817
+   },
+   "earth": {
+    "azDeg": 96.6645,
+    "elDeg": -4.66299
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T06:00:00Z",
+   "sun": {
+    "azDeg": 320.42883,
+    "elDeg": 2.09406
+   },
+   "earth": {
+    "azDeg": 96.70967,
+    "elDeg": -4.71483
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T07:00:00Z",
+   "sun": {
+    "azDeg": 319.92028,
+    "elDeg": 2.08991
+   },
+   "earth": {
+    "azDeg": 96.75485,
+    "elDeg": -4.76619
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T08:00:00Z",
+   "sun": {
+    "azDeg": 319.41172,
+    "elDeg": 2.08571
+   },
+   "earth": {
+    "azDeg": 96.80005,
+    "elDeg": -4.81706
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T09:00:00Z",
+   "sun": {
+    "azDeg": 318.90315,
+    "elDeg": 2.08146
+   },
+   "earth": {
+    "azDeg": 96.84525,
+    "elDeg": -4.86744
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T10:00:00Z",
+   "sun": {
+    "azDeg": 318.39458,
+    "elDeg": 2.07718
+   },
+   "earth": {
+    "azDeg": 96.89046,
+    "elDeg": -4.91731
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T11:00:00Z",
+   "sun": {
+    "azDeg": 317.886,
+    "elDeg": 2.07285
+   },
+   "earth": {
+    "azDeg": 96.93566,
+    "elDeg": -4.96669
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T12:00:00Z",
+   "sun": {
+    "azDeg": 317.37742,
+    "elDeg": 2.06847
+   },
+   "earth": {
+    "azDeg": 96.98086,
+    "elDeg": -5.01555
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T13:00:00Z",
+   "sun": {
+    "azDeg": 316.86883,
+    "elDeg": 2.06406
+   },
+   "earth": {
+    "azDeg": 97.02604,
+    "elDeg": -5.06389
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T14:00:00Z",
+   "sun": {
+    "azDeg": 316.36023,
+    "elDeg": 2.0596
+   },
+   "earth": {
+    "azDeg": 97.07121,
+    "elDeg": -5.11172
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T15:00:00Z",
+   "sun": {
+    "azDeg": 315.85163,
+    "elDeg": 2.0551
+   },
+   "earth": {
+    "azDeg": 97.11636,
+    "elDeg": -5.15901
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T16:00:00Z",
+   "sun": {
+    "azDeg": 315.34303,
+    "elDeg": 2.05056
+   },
+   "earth": {
+    "azDeg": 97.16147,
+    "elDeg": -5.20577
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T17:00:00Z",
+   "sun": {
+    "azDeg": 314.83442,
+    "elDeg": 2.04597
+   },
+   "earth": {
+    "azDeg": 97.20656,
+    "elDeg": -5.252
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T18:00:00Z",
+   "sun": {
+    "azDeg": 314.3258,
+    "elDeg": 2.04135
+   },
+   "earth": {
+    "azDeg": 97.2516,
+    "elDeg": -5.29768
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T19:00:00Z",
+   "sun": {
+    "azDeg": 313.81718,
+    "elDeg": 2.03669
+   },
+   "earth": {
+    "azDeg": 97.2966,
+    "elDeg": -5.34281
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T20:00:00Z",
+   "sun": {
+    "azDeg": 313.30855,
+    "elDeg": 2.03198
+   },
+   "earth": {
+    "azDeg": 97.34154,
+    "elDeg": -5.38739
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T21:00:00Z",
+   "sun": {
+    "azDeg": 312.79992,
+    "elDeg": 2.02724
+   },
+   "earth": {
+    "azDeg": 97.38644,
+    "elDeg": -5.43141
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T22:00:00Z",
+   "sun": {
+    "azDeg": 312.29129,
+    "elDeg": 2.02245
+   },
+   "earth": {
+    "azDeg": 97.43126,
+    "elDeg": -5.47487
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-26T23:00:00Z",
+   "sun": {
+    "azDeg": 311.78265,
+    "elDeg": 2.01763
+   },
+   "earth": {
+    "azDeg": 97.47603,
+    "elDeg": -5.51776
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T00:00:00Z",
+   "sun": {
+    "azDeg": 311.274,
+    "elDeg": 2.01277
+   },
+   "earth": {
+    "azDeg": 97.52071,
+    "elDeg": -5.56007
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T01:00:00Z",
+   "sun": {
+    "azDeg": 310.76535,
+    "elDeg": 2.00787
+   },
+   "earth": {
+    "azDeg": 97.56532,
+    "elDeg": -5.60181
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T02:00:00Z",
+   "sun": {
+    "azDeg": 310.2567,
+    "elDeg": 2.00293
+   },
+   "earth": {
+    "azDeg": 97.60984,
+    "elDeg": -5.64297
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T03:00:00Z",
+   "sun": {
+    "azDeg": 309.74804,
+    "elDeg": 1.99796
+   },
+   "earth": {
+    "azDeg": 97.65427,
+    "elDeg": -5.68354
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T04:00:00Z",
+   "sun": {
+    "azDeg": 309.23938,
+    "elDeg": 1.99295
+   },
+   "earth": {
+    "azDeg": 97.6986,
+    "elDeg": -5.72352
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T05:00:00Z",
+   "sun": {
+    "azDeg": 308.73072,
+    "elDeg": 1.9879
+   },
+   "earth": {
+    "azDeg": 97.74283,
+    "elDeg": -5.76291
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T06:00:00Z",
+   "sun": {
+    "azDeg": 308.22205,
+    "elDeg": 1.98281
+   },
+   "earth": {
+    "azDeg": 97.78694,
+    "elDeg": -5.80169
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T07:00:00Z",
+   "sun": {
+    "azDeg": 307.71337,
+    "elDeg": 1.97769
+   },
+   "earth": {
+    "azDeg": 97.83094,
+    "elDeg": -5.83988
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T08:00:00Z",
+   "sun": {
+    "azDeg": 307.2047,
+    "elDeg": 1.97254
+   },
+   "earth": {
+    "azDeg": 97.87482,
+    "elDeg": -5.87745
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T09:00:00Z",
+   "sun": {
+    "azDeg": 306.69602,
+    "elDeg": 1.96735
+   },
+   "earth": {
+    "azDeg": 97.91857,
+    "elDeg": -5.91442
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T10:00:00Z",
+   "sun": {
+    "azDeg": 306.18733,
+    "elDeg": 1.96212
+   },
+   "earth": {
+    "azDeg": 97.96218,
+    "elDeg": -5.95077
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T11:00:00Z",
+   "sun": {
+    "azDeg": 305.67865,
+    "elDeg": 1.95686
+   },
+   "earth": {
+    "azDeg": 98.00564,
+    "elDeg": -5.9865
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T12:00:00Z",
+   "sun": {
+    "azDeg": 305.16996,
+    "elDeg": 1.95156
+   },
+   "earth": {
+    "azDeg": 98.04896,
+    "elDeg": -6.02161
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T13:00:00Z",
+   "sun": {
+    "azDeg": 304.66126,
+    "elDeg": 1.94623
+   },
+   "earth": {
+    "azDeg": 98.09213,
+    "elDeg": -6.05609
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T14:00:00Z",
+   "sun": {
+    "azDeg": 304.15257,
+    "elDeg": 1.94087
+   },
+   "earth": {
+    "azDeg": 98.13513,
+    "elDeg": -6.08994
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T15:00:00Z",
+   "sun": {
+    "azDeg": 303.64387,
+    "elDeg": 1.93548
+   },
+   "earth": {
+    "azDeg": 98.17796,
+    "elDeg": -6.12316
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T16:00:00Z",
+   "sun": {
+    "azDeg": 303.13517,
+    "elDeg": 1.93005
+   },
+   "earth": {
+    "azDeg": 98.22062,
+    "elDeg": -6.15575
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T17:00:00Z",
+   "sun": {
+    "azDeg": 302.62646,
+    "elDeg": 1.92459
+   },
+   "earth": {
+    "azDeg": 98.2631,
+    "elDeg": -6.18769
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T18:00:00Z",
+   "sun": {
+    "azDeg": 302.11775,
+    "elDeg": 1.9191
+   },
+   "earth": {
+    "azDeg": 98.30538,
+    "elDeg": -6.219
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T19:00:00Z",
+   "sun": {
+    "azDeg": 301.60905,
+    "elDeg": 1.91358
+   },
+   "earth": {
+    "azDeg": 98.34747,
+    "elDeg": -6.24966
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T20:00:00Z",
+   "sun": {
+    "azDeg": 301.10033,
+    "elDeg": 1.90803
+   },
+   "earth": {
+    "azDeg": 98.38936,
+    "elDeg": -6.27967
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T21:00:00Z",
+   "sun": {
+    "azDeg": 300.59162,
+    "elDeg": 1.90245
+   },
+   "earth": {
+    "azDeg": 98.43104,
+    "elDeg": -6.30903
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T22:00:00Z",
+   "sun": {
+    "azDeg": 300.08291,
+    "elDeg": 1.89684
+   },
+   "earth": {
+    "azDeg": 98.47251,
+    "elDeg": -6.33774
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-27T23:00:00Z",
+   "sun": {
+    "azDeg": 299.57419,
+    "elDeg": 1.8912
+   },
+   "earth": {
+    "azDeg": 98.51375,
+    "elDeg": -6.36579
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T00:00:00Z",
+   "sun": {
+    "azDeg": 299.06547,
+    "elDeg": 1.88553
+   },
+   "earth": {
+    "azDeg": 98.55477,
+    "elDeg": -6.39318
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T01:00:00Z",
+   "sun": {
+    "azDeg": 298.55675,
+    "elDeg": 1.87983
+   },
+   "earth": {
+    "azDeg": 98.59554,
+    "elDeg": -6.41992
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T02:00:00Z",
+   "sun": {
+    "azDeg": 298.04802,
+    "elDeg": 1.8741
+   },
+   "earth": {
+    "azDeg": 98.63608,
+    "elDeg": -6.44599
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T03:00:00Z",
+   "sun": {
+    "azDeg": 297.5393,
+    "elDeg": 1.86835
+   },
+   "earth": {
+    "azDeg": 98.67636,
+    "elDeg": -6.4714
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T04:00:00Z",
+   "sun": {
+    "azDeg": 297.03058,
+    "elDeg": 1.86257
+   },
+   "earth": {
+    "azDeg": 98.71639,
+    "elDeg": -6.49614
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T05:00:00Z",
+   "sun": {
+    "azDeg": 296.52185,
+    "elDeg": 1.85676
+   },
+   "earth": {
+    "azDeg": 98.75616,
+    "elDeg": -6.52021
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T06:00:00Z",
+   "sun": {
+    "azDeg": 296.01312,
+    "elDeg": 1.85093
+   },
+   "earth": {
+    "azDeg": 98.79565,
+    "elDeg": -6.54361
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T07:00:00Z",
+   "sun": {
+    "azDeg": 295.50439,
+    "elDeg": 1.84507
+   },
+   "earth": {
+    "azDeg": 98.83487,
+    "elDeg": -6.56634
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T08:00:00Z",
+   "sun": {
+    "azDeg": 294.99566,
+    "elDeg": 1.83919
+   },
+   "earth": {
+    "azDeg": 98.8738,
+    "elDeg": -6.58839
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T09:00:00Z",
+   "sun": {
+    "azDeg": 294.48693,
+    "elDeg": 1.83328
+   },
+   "earth": {
+    "azDeg": 98.91245,
+    "elDeg": -6.60977
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T10:00:00Z",
+   "sun": {
+    "azDeg": 293.9782,
+    "elDeg": 1.82734
+   },
+   "earth": {
+    "azDeg": 98.95079,
+    "elDeg": -6.63047
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T11:00:00Z",
+   "sun": {
+    "azDeg": 293.46947,
+    "elDeg": 1.82139
+   },
+   "earth": {
+    "azDeg": 98.98883,
+    "elDeg": -6.6505
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T12:00:00Z",
+   "sun": {
+    "azDeg": 292.96074,
+    "elDeg": 1.8154
+   },
+   "earth": {
+    "azDeg": 99.02656,
+    "elDeg": -6.66985
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T13:00:00Z",
+   "sun": {
+    "azDeg": 292.452,
+    "elDeg": 1.8094
+   },
+   "earth": {
+    "azDeg": 99.06398,
+    "elDeg": -6.68851
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T14:00:00Z",
+   "sun": {
+    "azDeg": 291.94327,
+    "elDeg": 1.80337
+   },
+   "earth": {
+    "azDeg": 99.10106,
+    "elDeg": -6.7065
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T15:00:00Z",
+   "sun": {
+    "azDeg": 291.43454,
+    "elDeg": 1.79733
+   },
+   "earth": {
+    "azDeg": 99.13782,
+    "elDeg": -6.7238
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T16:00:00Z",
+   "sun": {
+    "azDeg": 290.9258,
+    "elDeg": 1.79126
+   },
+   "earth": {
+    "azDeg": 99.17424,
+    "elDeg": -6.74042
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T17:00:00Z",
+   "sun": {
+    "azDeg": 290.41707,
+    "elDeg": 1.78517
+   },
+   "earth": {
+    "azDeg": 99.21031,
+    "elDeg": -6.75636
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T18:00:00Z",
+   "sun": {
+    "azDeg": 289.90834,
+    "elDeg": 1.77905
+   },
+   "earth": {
+    "azDeg": 99.24603,
+    "elDeg": -6.77161
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T19:00:00Z",
+   "sun": {
+    "azDeg": 289.39961,
+    "elDeg": 1.77292
+   },
+   "earth": {
+    "azDeg": 99.28139,
+    "elDeg": -6.78618
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T20:00:00Z",
+   "sun": {
+    "azDeg": 288.89087,
+    "elDeg": 1.76677
+   },
+   "earth": {
+    "azDeg": 99.31639,
+    "elDeg": -6.80006
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T21:00:00Z",
+   "sun": {
+    "azDeg": 288.38214,
+    "elDeg": 1.7606
+   },
+   "earth": {
+    "azDeg": 99.35102,
+    "elDeg": -6.81326
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T22:00:00Z",
+   "sun": {
+    "azDeg": 287.87341,
+    "elDeg": 1.75441
+   },
+   "earth": {
+    "azDeg": 99.38526,
+    "elDeg": -6.82577
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-28T23:00:00Z",
+   "sun": {
+    "azDeg": 287.36468,
+    "elDeg": 1.74821
+   },
+   "earth": {
+    "azDeg": 99.41913,
+    "elDeg": -6.8376
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T00:00:00Z",
+   "sun": {
+    "azDeg": 286.85595,
+    "elDeg": 1.74198
+   },
+   "earth": {
+    "azDeg": 99.4526,
+    "elDeg": -6.84875
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T01:00:00Z",
+   "sun": {
+    "azDeg": 286.34723,
+    "elDeg": 1.73574
+   },
+   "earth": {
+    "azDeg": 99.48567,
+    "elDeg": -6.8592
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T02:00:00Z",
+   "sun": {
+    "azDeg": 285.8385,
+    "elDeg": 1.72948
+   },
+   "earth": {
+    "azDeg": 99.51835,
+    "elDeg": -6.86898
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T03:00:00Z",
+   "sun": {
+    "azDeg": 285.32977,
+    "elDeg": 1.7232
+   },
+   "earth": {
+    "azDeg": 99.55061,
+    "elDeg": -6.87807
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T04:00:00Z",
+   "sun": {
+    "azDeg": 284.82105,
+    "elDeg": 1.71691
+   },
+   "earth": {
+    "azDeg": 99.58245,
+    "elDeg": -6.88647
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T05:00:00Z",
+   "sun": {
+    "azDeg": 284.31232,
+    "elDeg": 1.71061
+   },
+   "earth": {
+    "azDeg": 99.61387,
+    "elDeg": -6.89419
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T06:00:00Z",
+   "sun": {
+    "azDeg": 283.8036,
+    "elDeg": 1.70429
+   },
+   "earth": {
+    "azDeg": 99.64486,
+    "elDeg": -6.90123
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T07:00:00Z",
+   "sun": {
+    "azDeg": 283.29488,
+    "elDeg": 1.69795
+   },
+   "earth": {
+    "azDeg": 99.67542,
+    "elDeg": -6.90759
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T08:00:00Z",
+   "sun": {
+    "azDeg": 282.78617,
+    "elDeg": 1.69161
+   },
+   "earth": {
+    "azDeg": 99.70554,
+    "elDeg": -6.91326
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T09:00:00Z",
+   "sun": {
+    "azDeg": 282.27745,
+    "elDeg": 1.68524
+   },
+   "earth": {
+    "azDeg": 99.73521,
+    "elDeg": -6.91826
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T10:00:00Z",
+   "sun": {
+    "azDeg": 281.76873,
+    "elDeg": 1.67887
+   },
+   "earth": {
+    "azDeg": 99.76442,
+    "elDeg": -6.92257
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T11:00:00Z",
+   "sun": {
+    "azDeg": 281.26002,
+    "elDeg": 1.67248
+   },
+   "earth": {
+    "azDeg": 99.79318,
+    "elDeg": -6.92621
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T12:00:00Z",
+   "sun": {
+    "azDeg": 280.75131,
+    "elDeg": 1.66609
+   },
+   "earth": {
+    "azDeg": 99.82147,
+    "elDeg": -6.92917
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T13:00:00Z",
+   "sun": {
+    "azDeg": 280.2426,
+    "elDeg": 1.65968
+   },
+   "earth": {
+    "azDeg": 99.84929,
+    "elDeg": -6.93145
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T14:00:00Z",
+   "sun": {
+    "azDeg": 279.7339,
+    "elDeg": 1.65326
+   },
+   "earth": {
+    "azDeg": 99.87664,
+    "elDeg": -6.93306
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T15:00:00Z",
+   "sun": {
+    "azDeg": 279.22519,
+    "elDeg": 1.64683
+   },
+   "earth": {
+    "azDeg": 99.9035,
+    "elDeg": -6.934
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T16:00:00Z",
+   "sun": {
+    "azDeg": 278.71649,
+    "elDeg": 1.64039
+   },
+   "earth": {
+    "azDeg": 99.92988,
+    "elDeg": -6.93427
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T17:00:00Z",
+   "sun": {
+    "azDeg": 278.2078,
+    "elDeg": 1.63394
+   },
+   "earth": {
+    "azDeg": 99.95576,
+    "elDeg": -6.93386
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T18:00:00Z",
+   "sun": {
+    "azDeg": 277.6991,
+    "elDeg": 1.62748
+   },
+   "earth": {
+    "azDeg": 99.98114,
+    "elDeg": -6.93279
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T19:00:00Z",
+   "sun": {
+    "azDeg": 277.19041,
+    "elDeg": 1.62101
+   },
+   "earth": {
+    "azDeg": 100.00602,
+    "elDeg": -6.93105
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T20:00:00Z",
+   "sun": {
+    "azDeg": 276.68172,
+    "elDeg": 1.61454
+   },
+   "earth": {
+    "azDeg": 100.03039,
+    "elDeg": -6.92865
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T21:00:00Z",
+   "sun": {
+    "azDeg": 276.17303,
+    "elDeg": 1.60806
+   },
+   "earth": {
+    "azDeg": 100.05425,
+    "elDeg": -6.92559
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T22:00:00Z",
+   "sun": {
+    "azDeg": 275.66435,
+    "elDeg": 1.60157
+   },
+   "earth": {
+    "azDeg": 100.07759,
+    "elDeg": -6.92186
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-29T23:00:00Z",
+   "sun": {
+    "azDeg": 275.15567,
+    "elDeg": 1.59508
+   },
+   "earth": {
+    "azDeg": 100.1004,
+    "elDeg": -6.91748
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T00:00:00Z",
+   "sun": {
+    "azDeg": 274.64699,
+    "elDeg": 1.58858
+   },
+   "earth": {
+    "azDeg": 100.12269,
+    "elDeg": -6.91244
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T01:00:00Z",
+   "sun": {
+    "azDeg": 274.13832,
+    "elDeg": 1.58208
+   },
+   "earth": {
+    "azDeg": 100.14444,
+    "elDeg": -6.90675
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T02:00:00Z",
+   "sun": {
+    "azDeg": 273.62965,
+    "elDeg": 1.57557
+   },
+   "earth": {
+    "azDeg": 100.16565,
+    "elDeg": -6.90041
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T03:00:00Z",
+   "sun": {
+    "azDeg": 273.12098,
+    "elDeg": 1.56906
+   },
+   "earth": {
+    "azDeg": 100.18631,
+    "elDeg": -6.89342
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T04:00:00Z",
+   "sun": {
+    "azDeg": 272.61232,
+    "elDeg": 1.56254
+   },
+   "earth": {
+    "azDeg": 100.20643,
+    "elDeg": -6.88578
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T05:00:00Z",
+   "sun": {
+    "azDeg": 272.10366,
+    "elDeg": 1.55602
+   },
+   "earth": {
+    "azDeg": 100.226,
+    "elDeg": -6.8775
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T06:00:00Z",
+   "sun": {
+    "azDeg": 271.59501,
+    "elDeg": 1.5495
+   },
+   "earth": {
+    "azDeg": 100.24501,
+    "elDeg": -6.86858
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T07:00:00Z",
+   "sun": {
+    "azDeg": 271.08636,
+    "elDeg": 1.54298
+   },
+   "earth": {
+    "azDeg": 100.26346,
+    "elDeg": -6.85902
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T08:00:00Z",
+   "sun": {
+    "azDeg": 270.57771,
+    "elDeg": 1.53645
+   },
+   "earth": {
+    "azDeg": 100.28134,
+    "elDeg": -6.84883
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T09:00:00Z",
+   "sun": {
+    "azDeg": 270.06907,
+    "elDeg": 1.52993
+   },
+   "earth": {
+    "azDeg": 100.29866,
+    "elDeg": -6.83801
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T10:00:00Z",
+   "sun": {
+    "azDeg": 269.56043,
+    "elDeg": 1.5234
+   },
+   "earth": {
+    "azDeg": 100.3154,
+    "elDeg": -6.82655
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T11:00:00Z",
+   "sun": {
+    "azDeg": 269.0518,
+    "elDeg": 1.51688
+   },
+   "earth": {
+    "azDeg": 100.33156,
+    "elDeg": -6.81447
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T12:00:00Z",
+   "sun": {
+    "azDeg": 268.54317,
+    "elDeg": 1.51035
+   },
+   "earth": {
+    "azDeg": 100.34715,
+    "elDeg": -6.80176
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T13:00:00Z",
+   "sun": {
+    "azDeg": 268.03455,
+    "elDeg": 1.50383
+   },
+   "earth": {
+    "azDeg": 100.36214,
+    "elDeg": -6.78844
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T14:00:00Z",
+   "sun": {
+    "azDeg": 267.52593,
+    "elDeg": 1.49731
+   },
+   "earth": {
+    "azDeg": 100.37655,
+    "elDeg": -6.7745
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T15:00:00Z",
+   "sun": {
+    "azDeg": 267.01731,
+    "elDeg": 1.49079
+   },
+   "earth": {
+    "azDeg": 100.39037,
+    "elDeg": -6.75994
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T16:00:00Z",
+   "sun": {
+    "azDeg": 266.50871,
+    "elDeg": 1.48427
+   },
+   "earth": {
+    "azDeg": 100.40359,
+    "elDeg": -6.74478
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T17:00:00Z",
+   "sun": {
+    "azDeg": 266.0001,
+    "elDeg": 1.47776
+   },
+   "earth": {
+    "azDeg": 100.41621,
+    "elDeg": -6.72901
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T18:00:00Z",
+   "sun": {
+    "azDeg": 265.4915,
+    "elDeg": 1.47125
+   },
+   "earth": {
+    "azDeg": 100.42823,
+    "elDeg": -6.71263
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T19:00:00Z",
+   "sun": {
+    "azDeg": 264.98291,
+    "elDeg": 1.46474
+   },
+   "earth": {
+    "azDeg": 100.43965,
+    "elDeg": -6.69566
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T20:00:00Z",
+   "sun": {
+    "azDeg": 264.47432,
+    "elDeg": 1.45824
+   },
+   "earth": {
+    "azDeg": 100.45046,
+    "elDeg": -6.67809
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T21:00:00Z",
+   "sun": {
+    "azDeg": 263.96573,
+    "elDeg": 1.45174
+   },
+   "earth": {
+    "azDeg": 100.46066,
+    "elDeg": -6.65993
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T22:00:00Z",
+   "sun": {
+    "azDeg": 263.45715,
+    "elDeg": 1.44525
+   },
+   "earth": {
+    "azDeg": 100.47024,
+    "elDeg": -6.64118
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  },
+  {
+   "utc": "2027-10-30T23:00:00Z",
+   "sun": {
+    "azDeg": 262.94858,
+    "elDeg": 1.43877
+   },
+   "earth": {
+    "azDeg": 100.47921,
+    "elDeg": -6.62184
+   },
+   "ephemerisQuality": "jpl-verified",
+   "sourceId": "spice-ephemeris"
+  }
+ ],
+ "sunHorizon": {
+  "observerHeightM": 2.0,
+  "azimuthStepDeg": 1.0,
+  "anglesDeg": [
+   9.4382,
+   9.4012,
+   9.331,
+   9.2894,
+   9.2914,
+   9.2666,
+   9.2155,
+   9.1685,
+   9.1892,
+   9.2059,
+   9.242,
+   9.2584,
+   9.2499,
+   9.2264,
+   9.1562,
+   9.091,
+   9.0321,
+   8.9218,
+   8.7746,
+   8.6541,
+   8.5306,
+   8.3925,
+   8.2625,
+   8.0473,
+   7.8698,
+   7.647,
+   7.4505,
+   7.2108,
+   7.0144,
+   6.8258,
+   6.6582,
+   6.4559,
+   6.2904,
+   6.0831,
+   5.8833,
+   5.6881,
+   5.4866,
+   5.3636,
+   5.2714,
+   5.101,
+   4.9281,
+   4.7279,
+   4.5148,
+   4.2877,
+   4.0538,
+   3.8389,
+   3.6127,
+   3.3869,
+   3.1541,
+   2.9005,
+   2.6364,
+   2.7083,
+   3.025,
+   3.2114,
+   3.2986,
+   3.3454,
+   3.3256,
+   3.1847,
+   3.0073,
+   2.8162,
+   2.59,
+   2.4218,
+   2.2625,
+   2.0535,
+   1.8487,
+   1.6388,
+   1.4332,
+   1.2514,
+   1.1351,
+   0.9917,
+   0.8423,
+   0.6968,
+   0.5684,
+   0.4347,
+   0.3213,
+   0.1917,
+   0.0017,
+   -0.204,
+   -0.3985,
+   -0.5271,
+   -0.6545,
+   -0.7916,
+   -0.6223,
+   -0.4169,
+   -0.4131,
+   -0.4346,
+   -0.5225,
+   -0.5572,
+   -0.6203,
+   -0.6676,
+   -0.686,
+   -0.7367,
+   -0.8685,
+   -1.007,
+   -1.1145,
+   -1.0306,
+   -0.9548,
+   -0.8214,
+   -0.5441,
+   -0.3954,
+   -0.217,
+   -0.0418,
+   0.0067,
+   0.0156,
+   0.0156,
+   -0.0417,
+   -0.0121,
+   0.0705,
+   0.0705,
+   0.0636,
+   -0.0192,
+   -0.2545,
+   -0.5634,
+   -0.8748,
+   -1.1794,
+   -1.3779,
+   -1.4079,
+   -1.4754,
+   -1.5288,
+   -1.5808,
+   -1.4685,
+   -1.4311,
+   -1.358,
+   -1.2994,
+   -1.2616,
+   -1.211,
+   -1.1187,
+   -0.8607,
+   -0.6181,
+   -0.5301,
+   -0.463,
+   -0.3169,
+   -0.3122,
+   -0.2858,
+   -0.2872,
+   -0.3432,
+   -0.4647,
+   -0.3848,
+   -0.3336,
+   -0.3467,
+   -0.4079,
+   -0.6236,
+   -0.62,
+   -0.6181,
+   -0.6257,
+   -0.6915,
+   -0.8865,
+   -1.153,
+   -1.1636,
+   -1.0752,
+   -1.0357,
+   -1.0357,
+   -1.0815,
+   -1.152,
+   -1.2301,
+   -1.3766,
+   -1.495,
+   -1.5255,
+   -1.4147,
+   -1.3355,
+   -1.2606,
+   -1.1019,
+   -0.9252,
+   -0.7593,
+   -0.6079,
+   -0.4355,
+   -0.2842,
+   -0.0854,
+   0.1419,
+   0.4643,
+   0.8103,
+   1.1501,
+   1.421,
+   1.6149,
+   1.657,
+   1.657,
+   1.6941,
+   1.7208,
+   1.7963,
+   1.8731,
+   1.9905,
+   2.0896,
+   2.242,
+   2.3663,
+   2.4844,
+   2.5666,
+   2.6452,
+   2.7251,
+   2.816,
+   2.8791,
+   2.9443,
+   3.0417,
+   3.1229,
+   3.195,
+   3.2813,
+   3.3376,
+   3.3907,
+   3.3907,
+   3.3606,
+   3.3247,
+   3.2515,
+   3.2019,
+   3.1635,
+   3.2034,
+   3.2242,
+   3.2194,
+   3.1068,
+   3.1889,
+   3.3958,
+   3.6199,
+   3.8714,
+   4.1115,
+   4.3999,
+   4.7243,
+   4.9933,
+   5.3136,
+   5.6276,
+   5.9582,
+   6.2882,
+   6.5933,
+   6.8769,
+   7.1167,
+   7.2922,
+   7.5343,
+   7.7413,
+   7.9271,
+   7.9986,
+   8.0841,
+   8.2329,
+   8.3335,
+   8.4427,
+   8.5522,
+   8.6724,
+   8.8233,
+   8.9151,
+   9.0514,
+   9.2185,
+   9.3323,
+   9.4905,
+   9.6157,
+   9.717,
+   9.7911,
+   9.8533,
+   9.8925,
+   9.8732,
+   9.8647,
+   9.9046,
+   9.907,
+   9.8979,
+   9.8739,
+   9.8949,
+   9.9245,
+   9.9406,
+   9.9795,
+   9.9721,
+   9.954,
+   9.9193,
+   9.8354,
+   9.7738,
+   9.7619,
+   9.7185,
+   9.6868,
+   9.6714,
+   9.6684,
+   9.6534,
+   9.6515,
+   9.6333,
+   9.6198,
+   9.584,
+   9.6418,
+   9.6812,
+   9.6856,
+   9.683,
+   9.6759,
+   9.6024,
+   9.5209,
+   9.437,
+   9.3598,
+   9.2683,
+   9.1464,
+   9.0433,
+   8.9219,
+   8.7746,
+   8.6477,
+   8.5727,
+   8.6241,
+   8.6942,
+   8.7586,
+   8.8145,
+   8.8623,
+   8.889,
+   8.9581,
+   9.0208,
+   9.0723,
+   9.1345,
+   9.2004,
+   9.2597,
+   9.3232,
+   9.3525,
+   9.3662,
+   9.3947,
+   9.3988,
+   9.4174,
+   9.4599,
+   9.5033,
+   9.5252,
+   9.5252,
+   9.5025,
+   9.503,
+   9.5153,
+   9.5013,
+   9.4702,
+   9.4481,
+   9.4371,
+   9.3897,
+   9.3203,
+   9.2257,
+   9.1268,
+   9.0398,
+   8.9313,
+   8.8163,
+   8.6965,
+   8.574,
+   8.4507,
+   8.3219,
+   8.2011,
+   8.0659,
+   7.9521,
+   7.8805,
+   7.7472,
+   7.7049,
+   7.6474,
+   7.5886,
+   7.4945,
+   7.5717,
+   7.7161,
+   7.8619,
+   8.0324,
+   8.2078,
+   8.3587,
+   8.4852,
+   8.6172,
+   8.7143,
+   8.8338,
+   8.9283,
+   9.0292,
+   9.0923,
+   9.1721,
+   9.1868,
+   9.2009,
+   9.1963,
+   9.2203,
+   9.221,
+   9.2601,
+   9.2926,
+   9.3409,
+   9.3993,
+   9.4528,
+   9.4836,
+   9.4765
+  ],
+  "extentKm": 300.0,
+  "horizonCoverage": "far-field-validated",
+  "sourceId": "terrain-horizon"
+ },
+ "earthHorizon": {
+  "observerHeightM": 3.0,
+  "azimuthStepDeg": 1.0,
+  "anglesDeg": [
+   9.4294,
+   9.3927,
+   9.3224,
+   9.2803,
+   9.2821,
+   9.2573,
+   9.2062,
+   9.16,
+   9.1808,
+   9.1975,
+   9.2331,
+   9.2495,
+   9.2411,
+   9.2176,
+   9.1475,
+   9.082,
+   9.0233,
+   8.9131,
+   8.766,
+   8.6454,
+   8.5217,
+   8.3836,
+   8.2538,
+   8.0386,
+   7.861,
+   7.6384,
+   7.4418,
+   7.2021,
+   7.0057,
+   6.8172,
+   6.6497,
+   6.4474,
+   6.282,
+   6.0748,
+   5.875,
+   5.68,
+   5.4785,
+   5.3559,
+   5.2636,
+   5.0932,
+   4.9203,
+   4.7201,
+   4.5069,
+   4.2798,
+   4.0461,
+   3.831,
+   3.6048,
+   3.3791,
+   3.1463,
+   2.8926,
+   2.6284,
+   2.7058,
+   3.0225,
+   3.2089,
+   3.2958,
+   3.3427,
+   3.3229,
+   3.182,
+   3.0046,
+   2.8134,
+   2.5873,
+   2.4188,
+   2.2595,
+   2.0506,
+   1.8458,
+   1.6358,
+   1.4302,
+   1.2488,
+   1.1324,
+   0.9869,
+   0.8375,
+   0.692,
+   0.5635,
+   0.4298,
+   0.3164,
+   0.1868,
+   -0.0032,
+   -0.2089,
+   -0.4034,
+   -0.5381,
+   -0.6656,
+   -0.8027,
+   -0.6228,
+   -0.4175,
+   -0.4137,
+   -0.4352,
+   -0.5231,
+   -0.5579,
+   -0.621,
+   -0.6683,
+   -0.6867,
+   -0.7373,
+   -0.8691,
+   -1.0076,
+   -1.1149,
+   -1.031,
+   -0.9552,
+   -0.8219,
+   -0.5445,
+   -0.3958,
+   -0.2174,
+   -0.0422,
+   0.0062,
+   0.0151,
+   0.0151,
+   -0.0422,
+   -0.0126,
+   0.0701,
+   0.0701,
+   0.0631,
+   -0.0196,
+   -0.255,
+   -0.5639,
+   -0.8752,
+   -1.1799,
+   -1.3784,
+   -1.4084,
+   -1.4759,
+   -1.5293,
+   -1.5813,
+   -1.4688,
+   -1.4314,
+   -1.3583,
+   -1.2998,
+   -1.2619,
+   -1.2113,
+   -1.119,
+   -0.861,
+   -0.6185,
+   -0.5305,
+   -0.4633,
+   -0.3173,
+   -0.3125,
+   -0.2862,
+   -0.2876,
+   -0.3436,
+   -0.4651,
+   -0.3851,
+   -0.334,
+   -0.3471,
+   -0.4083,
+   -0.624,
+   -0.6204,
+   -0.6186,
+   -0.6261,
+   -0.6919,
+   -0.8869,
+   -1.1535,
+   -1.1641,
+   -1.0757,
+   -1.0362,
+   -1.0362,
+   -1.082,
+   -1.1525,
+   -1.2306,
+   -1.3771,
+   -1.4954,
+   -1.5274,
+   -1.4166,
+   -1.3374,
+   -1.2625,
+   -1.1038,
+   -0.9271,
+   -0.7612,
+   -0.6098,
+   -0.4374,
+   -0.2861,
+   -0.0873,
+   0.14,
+   0.4622,
+   0.8083,
+   1.1481,
+   1.419,
+   1.6128,
+   1.6549,
+   1.6549,
+   1.6918,
+   1.7185,
+   1.7938,
+   1.8706,
+   1.9879,
+   2.087,
+   2.2393,
+   2.3637,
+   2.4817,
+   2.5639,
+   2.6425,
+   2.7224,
+   2.8133,
+   2.8764,
+   2.9416,
+   3.039,
+   3.1202,
+   3.1922,
+   3.2785,
+   3.3348,
+   3.3879,
+   3.3879,
+   3.3579,
+   3.3219,
+   3.2488,
+   3.1992,
+   3.1607,
+   3.2006,
+   3.2216,
+   3.2167,
+   3.1041,
+   3.183,
+   3.3899,
+   3.6138,
+   3.8652,
+   4.1051,
+   4.3936,
+   4.7177,
+   4.9867,
+   5.3069,
+   5.6209,
+   5.9511,
+   6.2811,
+   6.5863,
+   6.8698,
+   7.1097,
+   7.2845,
+   7.5266,
+   7.7336,
+   7.9195,
+   7.9909,
+   8.0761,
+   8.225,
+   8.3255,
+   8.4347,
+   8.5442,
+   8.6644,
+   8.8152,
+   8.9069,
+   9.0431,
+   9.2105,
+   9.3242,
+   9.4825,
+   9.6078,
+   9.7091,
+   9.7832,
+   9.8453,
+   9.8845,
+   9.8653,
+   9.8568,
+   9.8965,
+   9.8989,
+   9.8898,
+   9.8657,
+   9.8867,
+   9.9162,
+   9.9323,
+   9.9711,
+   9.9638,
+   9.9455,
+   9.9108,
+   9.827,
+   9.7655,
+   9.7532,
+   9.7096,
+   9.6779,
+   9.6621,
+   9.6589,
+   9.6437,
+   9.6418,
+   9.6236,
+   9.6102,
+   9.5737,
+   9.6314,
+   9.6709,
+   9.6752,
+   9.6725,
+   9.6655,
+   9.592,
+   9.5103,
+   9.4264,
+   9.3496,
+   9.2582,
+   9.136,
+   9.0332,
+   8.9117,
+   8.7642,
+   8.6372,
+   8.5512,
+   8.598,
+   8.6682,
+   8.7324,
+   8.7885,
+   8.8359,
+   8.862,
+   8.9313,
+   8.9943,
+   9.045,
+   9.1078,
+   9.1746,
+   9.2353,
+   9.298,
+   9.3275,
+   9.3409,
+   9.3694,
+   9.3737,
+   9.3999,
+   9.4421,
+   9.4856,
+   9.5075,
+   9.5075,
+   9.4848,
+   9.483,
+   9.4951,
+   9.4812,
+   9.4504,
+   9.4279,
+   9.4169,
+   9.37,
+   9.3004,
+   9.2051,
+   9.107,
+   9.0193,
+   8.9113,
+   8.7957,
+   8.6759,
+   8.5542,
+   8.4309,
+   8.3021,
+   8.1809,
+   8.0457,
+   7.9141,
+   7.8428,
+   7.7066,
+   7.6535,
+   7.5958,
+   7.5372,
+   7.4434,
+   7.5618,
+   7.7066,
+   7.8522,
+   8.0228,
+   8.1984,
+   8.3494,
+   8.476,
+   8.6081,
+   8.7052,
+   8.8248,
+   8.9193,
+   9.0202,
+   9.0834,
+   9.1632,
+   9.1778,
+   9.1919,
+   9.1876,
+   9.2118,
+   9.2125,
+   9.2516,
+   9.284,
+   9.3319,
+   9.3906,
+   9.444,
+   9.4749,
+   9.4678
+  ],
+  "extentKm": 300.0,
+  "horizonCoverage": "far-field-validated",
+  "sourceId": "terrain-horizon"
+ },
+ "slopeSourceId": "a305-slope-5m"
+}

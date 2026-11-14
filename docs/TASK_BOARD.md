@@ -27,7 +27,7 @@ Open inputs: `docs/INPUT_REQUESTS.md`. Data setup: `docs/DATA_DELIVERY_INSTRUCTI
 - [x] App boots and test runner works (4 web tests, 15 Python integrity tests, TypeScript/Vite build).
 
 ## Gate 1 (Saturday 10:30–18:00)
-- [ ] SCIENCE: two points + two dates, verified Sun/Earth position, local horizons, provenance.
+- [x] SCIENCE: two points + two dates, verified Sun/Earth position, local horizons, provenance. Outputs: `data/processed/site-{1..7}_window-{a,b}.json` and `validation_report.json`; heights hypothetical pending HARDWARE-001.
 - [ ] POWER: yaw transform, fixed/tracking solar, battery reserve tests.
 - [ ] COMMS: antenna geometry tests independent of GUI.
 - [ ] TERRAIN: coordinate-aware slope and 'unknown' behavior tests.

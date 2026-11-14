@@ -1,0 +1,51 @@
+{
+  "naif-lsk": {
+    "filename": "naif0012.tls",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+    "bytes": 5257,
+    "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+    "retrievedUtc": "2026-11-14T16:31:50Z"
+  },
+  "naif-pck": {
+    "filename": "pck00011.tpc",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+    "bytes": 131226,
+    "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+    "retrievedUtc": "2026-11-14T16:31:50Z"
+  },
+  "naif-moon-pa": {
+    "filename": "moon_pa_de440_200625.bpc",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de440_200625.bpc",
+    "bytes": 12863488,
+    "sha256": "60cd55aa401ea2ea97360636f567554bfe4e37bb829f901b4460a455dfaf783f",
+    "retrievedUtc": "2026-11-14T16:31:56Z"
+  },
+  "naif-moon-fk": {
+    "filename": "moon_de440_250416.tf",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_de440_250416.tf",
+    "bytes": 19478,
+    "sha256": "a47c71e9c9f33796bdafb2c9d69a7ee447b6016ecad80f71cd6f3e479f9cf768",
+    "retrievedUtc": "2026-11-14T16:31:57Z"
+  },
+  "naif-de440s": {
+    "filename": "de440s.bsp",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp",
+    "bytes": 32726016,
+    "sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+    "retrievedUtc": "2026-11-14T16:32:32Z"
+  },
+  "lola-80m": {
+    "filename": "LDEM_80S_80MPP_ADJ.TIF",
+    "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_80MPP_ADJ.TIF",
+    "bytes": 189158392,
+    "sha256": "82030dcbdd7c4bb0c7d858e9b4b293b9f2cda5a543ba31ec0f42784bd6beee5a",
+    "retrievedUtc": "2026-11-14T16:35:16Z"
+  },
+  "lola-240m": {
+    "filename": "LDEM_60S_240MPP_ADJ.TIF",
+    "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_60S_240MPP_ADJ.TIF",
+    "bytes": 218961039,
+    "sha256": "3f9663257b63022f2b0d5a623482ff3cadddceb91594a4e4ca14a94d8cec8b34",
+    "retrievedUtc": "2026-11-14T16:44:15Z"
+  }
+}

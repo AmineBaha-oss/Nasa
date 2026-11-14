@@ -1,0 +1,292 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+
+
+*******************************************************************************
+Ephemeris / API_USER Sat Nov 14 13:20:35 2026 Pasadena, USA      / Horizons    
+*******************************************************************************
+Target body name: Earth (399)                     {source: DE441}
+Center body name: Moon (301)                      {source: DE441}
+Center-site name: (user defined site below)
+*******************************************************************************
+Start time      : A.D. 2027-Oct-24 00:00:00.0000 UT      
+Stop  time      : A.D. 2027-Oct-30 23:00:00.0000 UT      
+Step-size       : 60 minutes
+*******************************************************************************
+Target pole/equ : ITRF93 (high precision)         {East-longitude positive}
+Target radii    : 6378.137, 6378.137, 6356.752 km {Equator_a, b, pole_c}       
+Center geodetic : 248.621468, -89.226289, 1.4558  {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 248.621468, 23.48045, -1738.697 {E-lon(deg),Dxy(km),Dz(km)}
+Center pole/equ : MEAN_ME (high precision)        {East-longitude positive}
+Center radii    : 1737.4, 1737.4, 1737.4 km       {Equator_a, b, pole_c}       
+Target primary  : Sun
+Vis. interferer : EARTH (R_eq= 6378.137) km       {source: DE441}
+Rel. light bend : Sun, EARTH                      {source: DE441}
+Rel. lght bnd GM: 1.3271E+11, 3.9860E+05 km^3/s^2                              
+Atmos refraction: NO (AIRLESS)
+RA format       : DEG
+Time format     : CAL 
+Calendar mode   : Mixed Julian/Gregorian
+EOP file        : eop.261113.p270209                                           
+EOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-NOV-13. PREDICTS-> 2027-FEB-08
+Units conversion: 1 au= 149597870.700 km, c= 299792.458 km/s, 1 day= 86400.0 s 
+Table cut-offs 1: Elevation (-90.0deg=NO ),Airmass     n.a.    , Daylight (NO )
+Table cut-offs 2: Solar elongation (  0.0,180.0=NO ),Local Hour Angle( 0.0=NO )
+Table cut-offs 3: RA/DEC angular rate (     0.0=NO )                           
+Table format    : Comma Separated Values (spreadsheet)
+*******************************************************************************
+ Date__(UT)__HR:MN, , ,Azimuth_(a-app), Elevation_(a-app),
+**********************************************************
+$$SOE
+ 2027-Oct-24 00:00,*,i,  110.816583292,      -1.617092447,
+ 2027-Oct-24 01:00,*,i,  110.856014575,      -1.684721931,
+ 2027-Oct-24 02:00,*,i,  110.895607986,      -1.752243623,
+ 2027-Oct-24 03:00,*,i,  110.935362642,      -1.819649949,
+ 2027-Oct-24 04:00,*,i,  110.975277607,      -1.886933333,
+ 2027-Oct-24 05:00,*,i,  111.015351885,      -1.954086199,
+ 2027-Oct-24 06:00,*,i,  111.055584425,      -2.021100974,
+ 2027-Oct-24 07:00,*,i,  111.095974112,      -2.087970088,
+ 2027-Oct-24 08:00,*,i,  111.136519773,      -2.154685975,
+ 2027-Oct-24 09:00,*,i,  111.177220173,      -2.221241073,
+ 2027-Oct-24 10:00,*,i,  111.218074013,      -2.287627828,
+ 2027-Oct-24 11:00,*,i,  111.259079930,      -2.353838691,
+ 2027-Oct-24 12:00,*,i,  111.300236495,      -2.419866124,
+ 2027-Oct-24 13:00,*,i,  111.341542215,      -2.485702596,
+ 2027-Oct-24 14:00,*,i,  111.382995528,      -2.551340589,
+ 2027-Oct-24 15:00,*,i,  111.424594804,      -2.616772595,
+ 2027-Oct-24 16:00,*,i,  111.466338345,      -2.681991120,
+ 2027-Oct-24 17:00,*,i,  111.508224380,      -2.746988683,
+ 2027-Oct-24 18:00,*,i,  111.550251070,      -2.811757820,
+ 2027-Oct-24 19:00,*,i,  111.592416503,      -2.876291082,
+ 2027-Oct-24 20:00,*,i,  111.634718694,      -2.940581040,
+ 2027-Oct-24 21:00,*,i,  111.677155585,      -3.004620281,
+ 2027-Oct-24 22:00,*,i,  111.719725044,      -3.068401415,
+ 2027-Oct-24 23:00,*,i,  111.762424862,      -3.131917071,
+ 2027-Oct-25 00:00,*,i,  111.805252756,      -3.195159902,
+ 2027-Oct-25 01:00,*,i,  111.848206368,      -3.258122586,
+ 2027-Oct-25 02:00,*,i,  111.891283259,      -3.320797825,
+ 2027-Oct-25 03:00,*, ,  111.934480916,      -3.383178346,
+ 2027-Oct-25 04:00,*, ,  111.977796747,      -3.445256908,
+ 2027-Oct-25 05:00,*, ,  112.021228081,      -3.507026296,
+ 2027-Oct-25 06:00,*, ,  112.064772166,      -3.568479325,
+ 2027-Oct-25 07:00,*, ,  112.108426174,      -3.629608844,
+ 2027-Oct-25 08:00,*, ,  112.152187194,      -3.690407734,
+ 2027-Oct-25 09:00,*, ,  112.196052237,      -3.750868910,
+ 2027-Oct-25 10:00,*, ,  112.240018231,      -3.810985324,
+ 2027-Oct-25 11:00,*, ,  112.284082024,      -3.870749963,
+ 2027-Oct-25 12:00,*, ,  112.328240384,      -3.930155855,
+ 2027-Oct-25 13:00,*, ,  112.372489997,      -3.989196065,
+ 2027-Oct-25 14:00,*, ,  112.416827466,      -4.047863703,
+ 2027-Oct-25 15:00,*, ,  112.461249313,      -4.106151917,
+ 2027-Oct-25 16:00,*, ,  112.505751980,      -4.164053902,
+ 2027-Oct-25 17:00,*, ,  112.550331826,      -4.221562896,
+ 2027-Oct-25 18:00,*, ,  112.594985128,      -4.278672186,
+ 2027-Oct-25 19:00,*, ,  112.639708083,      -4.335375106,
+ 2027-Oct-25 20:00,*, ,  112.684496803,      -4.391665039,
+ 2027-Oct-25 21:00,*, ,  112.729347323,      -4.447535417,
+ 2027-Oct-25 22:00,*, ,  112.774255594,      -4.502979728,
+ 2027-Oct-25 23:00,*, ,  112.819217488,      -4.557991509,
+ 2027-Oct-26 00:00,*, ,  112.864228794,      -4.612564356,
+ 2027-Oct-26 01:00,*, ,  112.909285225,      -4.666691918,
+ 2027-Oct-26 02:00,*, ,  112.954382408,      -4.720367902,
+ 2027-Oct-26 03:00,*, ,  112.999515898,      -4.773586076,
+ 2027-Oct-26 04:00,*, ,  113.044681165,      -4.826340265,
+ 2027-Oct-26 05:00,*, ,  113.089873605,      -4.878624359,
+ 2027-Oct-26 06:00,*, ,  113.135088532,      -4.930432307,
+ 2027-Oct-26 07:00,*, ,  113.180321188,      -4.981758126,
+ 2027-Oct-26 08:00,*, ,  113.225566735,      -5.032595895,
+ 2027-Oct-26 09:00,*, ,  113.270820261,      -5.082939762,
+ 2027-Oct-26 10:00,*, ,  113.316076778,      -5.132783942,
+ 2027-Oct-26 11:00,*, ,  113.361331226,      -5.182122721,
+ 2027-Oct-26 12:00,*, ,  113.406578468,      -5.230950453,
+ 2027-Oct-26 13:00,*, ,  113.451813299,      -5.279261566,
+ 2027-Oct-26 14:00,*, ,  113.497030442,      -5.327050560,
+ 2027-Oct-26 15:00,*, ,  113.542224547,      -5.374312010,
+ 2027-Oct-26 16:00,*, ,  113.587390198,      -5.421040566,
+ 2027-Oct-26 17:00,*, ,  113.632521910,      -5.467230956,
+ 2027-Oct-26 18:00,*, ,  113.677614129,      -5.512877984,
+ 2027-Oct-26 19:00,*, ,  113.722661238,      -5.557976535,
+ 2027-Oct-26 20:00,*, ,  113.767657557,      -5.602521573,
+ 2027-Oct-26 21:00,*, ,  113.812597337,      -5.646508144,
+ 2027-Oct-26 22:00,*, ,  113.857474774,      -5.689931378,
+ 2027-Oct-26 23:00,*, ,  113.902283999,      -5.732786484,
+ 2027-Oct-27 00:00,*, ,  113.947019085,      -5.775068762,
+ 2027-Oct-27 01:00,*, ,  113.991674048,      -5.816773593,
+ 2027-Oct-27 02:00,*, ,  114.036242849,      -5.857896446,
+ 2027-Oct-27 03:00,*, ,  114.080719393,      -5.898432879,
+ 2027-Oct-27 04:00,*, ,  114.125097533,      -5.938378537,
+ 2027-Oct-27 05:00,*, ,  114.169371069,      -5.977729156,
+ 2027-Oct-27 06:00,*, ,  114.213533754,      -6.016480563,
+ 2027-Oct-27 07:00,*, ,  114.257579292,      -6.054628675,
+ 2027-Oct-27 08:00,*, ,  114.301501338,      -6.092169502,
+ 2027-Oct-27 09:00,*, ,  114.345293509,      -6.129099148,
+ 2027-Oct-27 10:00,*, ,  114.388949373,      -6.165413810,
+ 2027-Oct-27 11:00,*, ,  114.432462460,      -6.201109781,
+ 2027-Oct-27 12:00,*, ,  114.475826263,      -6.236183449,
+ 2027-Oct-27 13:00,*, ,  114.519034235,      -6.270631298,
+ 2027-Oct-27 14:00,*, ,  114.562079795,      -6.304449909,
+ 2027-Oct-27 15:00,*, ,  114.604956329,      -6.337635963,
+ 2027-Oct-27 16:00,*, ,  114.647657193,      -6.370186236,
+ 2027-Oct-27 17:00,*, ,  114.690175711,      -6.402097606,
+ 2027-Oct-27 18:00,*, ,  114.732505183,      -6.433367048,
+ 2027-Oct-27 19:00,*, ,  114.774638883,      -6.463991639,
+ 2027-Oct-27 20:00,*, ,  114.816570063,      -6.493968555,
+ 2027-Oct-27 21:00,*, ,  114.858291952,      -6.523295075,
+ 2027-Oct-27 22:00,*, ,  114.899797762,      -6.551968579,
+ 2027-Oct-27 23:00,*, ,  114.941080689,      -6.579986547,
+ 2027-Oct-28 00:00,*, ,  114.982133914,      -6.607346565,
+ 2027-Oct-28 01:00,*, ,  115.022950607,      -6.634046317,
+ 2027-Oct-28 02:00,*, ,  115.063523925,      -6.660083593,
+ 2027-Oct-28 03:00,*, ,  115.103847022,      -6.685456286,
+ 2027-Oct-28 04:00,*, ,  115.143913043,      -6.710162393,
+ 2027-Oct-28 05:00,*, ,  115.183715131,      -6.734200012,
+ 2027-Oct-28 06:00,*, ,  115.223246429,      -6.757567347,
+ 2027-Oct-28 07:00,*, ,  115.262500081,      -6.780262706,
+ 2027-Oct-28 08:00,*, ,  115.301469233,      -6.802284499,
+ 2027-Oct-28 09:00,*, ,  115.340147039,      -6.823631242,
+ 2027-Oct-28 10:00,*, ,  115.378526659,      -6.844301555,
+ 2027-Oct-28 11:00,*, ,  115.416601268,      -6.864294161,
+ 2027-Oct-28 12:00,*, ,  115.454364047,      -6.883607887,
+ 2027-Oct-28 13:00,*, ,  115.491808199,      -6.902241665,
+ 2027-Oct-28 14:00,*, ,  115.528926939,      -6.920194529,
+ 2027-Oct-28 15:00,*, ,  115.565713504,      -6.937465618,
+ 2027-Oct-28 16:00,*, ,  115.602161155,      -6.954054174,
+ 2027-Oct-28 17:00,*, ,  115.638263172,      -6.969959542,
+ 2027-Oct-28 18:00,*, ,  115.674012866,      -6.985181169,
+ 2027-Oct-28 19:00,*, ,  115.709403576,      -6.999718606,
+ 2027-Oct-28 20:00,*, ,  115.744428670,      -7.013571506,
+ 2027-Oct-28 21:00,*, ,  115.779081551,      -7.026739622,
+ 2027-Oct-28 22:00,*, ,  115.813355657,      -7.039222810,
+ 2027-Oct-28 23:00,*, ,  115.847244463,      -7.051021027,
+ 2027-Oct-29 00:00,*, ,  115.880741485,      -7.062134329,
+ 2027-Oct-29 01:00,*, ,  115.913840281,      -7.072562873,
+ 2027-Oct-29 02:00,*, ,  115.946534452,      -7.082306915,
+ 2027-Oct-29 03:00,*, ,  115.978817647,      -7.091366811,
+ 2027-Oct-29 04:00,*, ,  116.010683563,      -7.099743012,
+ 2027-Oct-29 05:00,*, ,  116.042125947,      -7.107436070,
+ 2027-Oct-29 06:00,*, ,  116.073138600,      -7.114446632,
+ 2027-Oct-29 07:00,*, ,  116.103715376,      -7.120775440,
+ 2027-Oct-29 08:00,*, ,  116.133850187,      -7.126423335,
+ 2027-Oct-29 09:00,*, ,  116.163537005,      -7.131391248,
+ 2027-Oct-29 10:00,*, ,  116.192769859,      -7.135680208,
+ 2027-Oct-29 11:00,*, ,  116.221542846,      -7.139291333,
+ 2027-Oct-29 12:00,*, ,  116.249850123,      -7.142225836,
+ 2027-Oct-29 13:00,*, ,  116.277685917,      -7.144485020,
+ 2027-Oct-29 14:00,*, ,  116.305044522,      -7.146070278,
+ 2027-Oct-29 15:00,*, ,  116.331920302,      -7.146983094,
+ 2027-Oct-29 16:00,*, ,  116.358307694,      -7.147225038,
+ 2027-Oct-29 17:00,*, ,  116.384201210,      -7.146797770,
+ 2027-Oct-29 18:00,*, ,  116.409595433,      -7.145703034,
+ 2027-Oct-29 19:00,*, ,  116.434485031,      -7.143942660,
+ 2027-Oct-29 20:00,*, ,  116.458864743,      -7.141518563,
+ 2027-Oct-29 21:00,*, ,  116.482729394,      -7.138432742,
+ 2027-Oct-29 22:00,*, ,  116.506073891,      -7.134687276,
+ 2027-Oct-29 23:00,*, ,  116.528893221,      -7.130284326,
+ 2027-Oct-30 00:00,*, ,  116.551182460,      -7.125226133,
+ 2027-Oct-30 01:00,*, ,  116.572936771,      -7.119515017,
+ 2027-Oct-30 02:00,*, ,  116.594151403,      -7.113153376,
+ 2027-Oct-30 03:00,*, ,  116.614821695,      -7.106143682,
+ 2027-Oct-30 04:00,*, ,  116.634943079,      -7.098488485,
+ 2027-Oct-30 05:00,*, ,  116.654511078,      -7.090190408,
+ 2027-Oct-30 06:00,*, ,  116.673521308,      -7.081252146,
+ 2027-Oct-30 07:00,*, ,  116.691969482,      -7.071676466,
+ 2027-Oct-30 08:00,*, ,  116.709851407,      -7.061466207,
+ 2027-Oct-30 09:00,*, ,  116.727162988,      -7.050624273,
+ 2027-Oct-30 10:00,*, ,  116.743900229,      -7.039153639,
+ 2027-Oct-30 11:00,*, ,  116.760059233,      -7.027057346,
+ 2027-Oct-30 12:00,*, ,  116.775636203,      -7.014338499,
+ 2027-Oct-30 13:00,*, ,  116.790627443,      -7.001000269,
+ 2027-Oct-30 14:00,*, ,  116.805029362,      -6.987045886,
+ 2027-Oct-30 15:00,*, ,  116.818838470,      -6.972478644,
+ 2027-Oct-30 16:00,*, ,  116.832051381,      -6.957301896,
+ 2027-Oct-30 17:00,*, ,  116.844664815,      -6.941519054,
+ 2027-Oct-30 18:00,*, ,  116.856675597,      -6.925133588,
+ 2027-Oct-30 19:00,*, ,  116.868080660,      -6.908149021,
+ 2027-Oct-30 20:00,*, ,  116.878877042,      -6.890568933,
+ 2027-Oct-30 21:00,*, ,  116.889061891,      -6.872396957,
+ 2027-Oct-30 22:00,*, ,  116.898632461,      -6.853636779,
+ 2027-Oct-30 23:00,*, ,  116.907586117,      -6.834292131,
+$$EOE
+*******************************************************************************
+Column meaning:
+ 
+TIME
+
+  Times PRIOR to 1962 are UT1, a mean-solar time closely related to the
+prior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current
+civil or "wall-clock" time-scale. UTC is kept within 0.9 seconds of UT1
+using integer leap-seconds for 1972 and later years.
+
+  Conversion from the internal Barycentric Dynamical Time (TDB) of solar
+system dynamics to the non-uniform civil UT time-scale requested for output
+has not been determined for UTC times after the next July or January 1st.
+Therefore, the last known leap-second is used as a constant over future
+intervals.
+
+  Time tags refer to the UT time-scale conversion from TDB on Earth
+regardless of observer location within the solar system, although clock
+rates may differ due to the local gravity field and no analog to "UT"
+may be defined for that location.
+
+  Any 'b' symbol in the 1st-column denotes a B.C. date. First-column blank
+(" ") denotes an A.D. date.
+ 
+CALENDAR SYSTEM
+
+  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15
+(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)
+are in the Julian calendar system, which is automatically extended for dates
+prior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for
+matching historical dates. The Gregorian calendar more accurately corresponds
+to the Earth's orbital motion and seasons. A "Gregorian-only" calendar mode is
+available if such physical events are the primary interest.
+
+  NOTE: "n.a." in output means quantity "not available" at the print-time.
+ 
+SOLAR PRESENCE (OBSERVING SITE)
+  Time tag is followed by a blank, then a solar-presence symbol:
+
+       '*'  Daylight (solar upper-limb on or above apparent horizon)
+       ' '  Night OR body-centered ephemeris
+
+INTERFERING BODY PRESENCE (OBSERVING SITE)
+  The solar-presence symbol is immediately followed by an "interfering body"
+presence symbol.
+
+       'i'  Upper-limb of interfering body on or above apparent horizon
+       ' '  Upper-limb of interfering body below apparent horizon OR body
+              centered ephemeris.
+
+  An "interfering body" is the largest other body in the immediate
+planet/satellite system, potentially compromising visual observations due to
+its brightness. Any such body is identified in the print-out header.
+ 
+ 'Azimuth_(a-app), Elevation_(a-app),' =
+  Airless apparent azimuth and elevation of target center. Compensated
+for light-time, the gravitational deflection of light, stellar aberration,
+precession and nutation. Azimuth is measured clockwise from north:
+
+  North(0) -> East(90) -> South(180) -> West(270) -> North (360)
+
+Elevation angle is with respect to a plane perpendicular to the reference
+surface local zenith direction. TOPOCENTRIC ONLY.  Units: DEGREES
+
+Computations by ...
+
+    Solar System Dynamics Group, Horizons On-Line Ephemeris System
+    4800 Oak Grove Drive, Jet Propulsion Laboratory
+    Pasadena, CA  91109   USA
+
+    General site: https://ssd.jpl.nasa.gov/
+    Mailing list: https://ssd.jpl.nasa.gov/email_list.html
+    System news : https://ssd.jpl.nasa.gov/horizons/news.html
+    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html
+    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x
+                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html
+                  command-line   telnet ssd.jpl.nasa.gov 6775
+                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt
+                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS
+    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov
+
+*******************************************************************************
