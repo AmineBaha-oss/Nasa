@@ -63,7 +63,40 @@ export function unwrapAngle(previousUnwrapped: number, nextDeg: number): number 
   return previousUnwrapped + delta;
 }
 
-export const formatDeg =(deg: number | null | undefined, digits = 1): string =>
+const pt = (cx: number, cy: number, r: number, azDeg: number) => {
+  const a = azDeg * Math.PI / 180;
+  return `${(cx + r * Math.sin(a)).toFixed(2)},${(cy - r * Math.cos(a)).toFixed(2)}`;
+};
+
+/** Arc drawn clockwise (increasing azimuth) from one azimuth to another. */
+export function arcPath(cx: number, cy: number, r: number, fromAzDeg: number, toAzDeg: number): string {
+  const span = normalizeDeg(toAzDeg - fromAzDeg);
+  return `M${pt(cx, cy, r, fromAzDeg)} A${r},${r} 0 ${span > 180 ? 1 : 0} 1 ${pt(cx, cy, r, toAzDeg)}`;
+}
+
+/** Filled wedge from the centre, clockwise from one azimuth to another. */
+export function sectorPath(cx: number, cy: number, r: number, fromAzDeg: number, toAzDeg: number): string {
+  const span = normalizeDeg(toAzDeg - fromAzDeg);
+  return `M${cx},${cy} L${pt(cx, cy, r, fromAzDeg)} A${r},${r} 0 ${span > 180 ? 1 : 0} 1 ${pt(cx, cy, r, toAzDeg)} Z`;
+}
+
+/** Deterministic decorative star positions (unit disc), so renders and tests are stable. */
+export function seededStars(count: number, seed = 7): { x: number; y: number; r: number; o: number }[] {
+  let s = seed >>> 0;
+  const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296;
+  return Array.from({ length: count }, () => {
+    const rad = Math.sqrt(rnd()), th = rnd() * 2 * Math.PI;
+    return { x: rad * Math.cos(th), y: rad * Math.sin(th), r: 0.4 + rnd() * 1.1, o: 0.25 + rnd() * 0.6 };
+  });
+}
+
+/** Snap to the nearest detent when within `withinDeg` degrees (knob feel). */
+export function snapToDetent(deg: number, stepDeg: number, withinDeg: number): number {
+  const nearest = Math.round(deg / stepDeg) * stepDeg;
+  return Math.abs(nearest - deg) <= withinDeg ? normalizeDeg(nearest) : normalizeDeg(deg);
+}
+
+export const formatDeg = (deg: number | null | undefined, digits = 1): string =>
   typeof deg === 'number' && Number.isFinite(deg) ? `${deg.toFixed(digits)}°` : 'unknown';
 
 /** Keeps the trailing Z so the UTC convention stays visible. */

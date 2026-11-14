@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bodyVectorAzimuthDeg, bodyVectorElevationDeg, chooseElevationScale, formatDeg, formatUtc, normalizeDeg, polarPoint, unwrapAngle, yawFromKey, yawFromPointer } from './geometry';
+import { bodyVectorAzimuthDeg, bodyVectorElevationDeg, chooseElevationScale, formatDeg, formatUtc, normalizeDeg, polarPoint, unwrapAngle, yawFromKey, yawFromPointer, snapToDetent, arcPath, sectorPath, seededStars } from './geometry';
 
 const scale = { minElDeg: -10, maxElDeg: 10 };
 const close = (a: number, b: number) => expect(Math.abs(a - b)).toBeLessThan(1e-9);
@@ -47,4 +47,19 @@ describe('display geometry (synthetic unit tests only)', () => {
     expect(unwrapAngle(10, 190)).toBe(-170); expect(unwrapAngle(720, 90)).toBe(810);
   });
   it('keeps the UTC Z suffix', () => expect(formatUtc('2027-10-01T00:00:00Z')).toBe('2027-10-01 00:00Z'));
+});
+
+describe('instrument helpers (synthetic unit tests only)', () => {
+  it('snaps to 15° detents only when close', () => {
+    expect(snapToDetent(44, 15, 3)).toBe(45); expect(snapToDetent(40, 15, 3)).toBe(40); expect(snapToDetent(358, 15, 3)).toBe(0);
+  });
+  it('draws arcs and wedges with the right sweep', () => {
+    expect(arcPath(0, 0, 10, 350, 10)).toContain(' 0 0 1 '); // 20° span, small arc
+    expect(sectorPath(0, 0, 10, 0, 270)).toContain(' 0 1 1 '); // 270° span, large arc
+  });
+  it('places decorative stars deterministically inside the unit disc', () => {
+    const a = seededStars(50), b = seededStars(50);
+    expect(JSON.stringify(a)).toBe(JSON.stringify(b));
+    expect(a.every(s => Math.hypot(s.x, s.y) <= 1)).toBe(true);
+  });
 });

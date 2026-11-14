@@ -59,6 +59,43 @@ describe('navigator page (synthetic unit tests only)', () => {
     expect(html).toContain('role="slider"'); expect(html).toContain('aria-valuenow="30"');
     expect(html).toContain('tabindex="0"'); expect(html).not.toContain('is-animated');
   });
+  it('never shows a green status when data quality is synthetic or unverified', () => {
+    const pass = { status: 'pass' as const, reason: 'engine pass', sourceIds: ['src'] };
+    const allPass = (d: SiteDateData, _h: HardwareConfig, yawDeg: number): HeadingEvaluation => ({
+      yawDeg, siteId: d.site.id, startUtc: d.samples[0].utc, endUtc: d.samples[0].utc,
+      solar: pass, battery: pass, antenna: pass, deployment: pass, minimumBatteryWh: 50, contactHours: 1, unresolved: [],
+    });
+    const render = (d: SiteDateData) => renderToStaticMarkup(<NavigatorPage datasets={[d]} hardwarePresets={[syntheticHardware]} evaluate={allPass} />);
+    // 1. Synthetic purpose.
+    expect(render(data())).not.toContain('lp-tone-pass');
+    // 2. Research purpose but unverified (approximate) ephemeris and local-only terrain.
+    const unverified = data(); unverified.purpose = 'research';
+    unverified.provenance[0].id = 'src'; unverified.samples[0].sourceId = 'src';
+    unverified.sunHorizon.sourceId = unverified.earthHorizon.sourceId = 'src';
+    expect(render(unverified)).not.toContain('lp-tone-pass');
+    // 3. Verified ephemeris but a null horizon bin: still not green.
+    const gap = structuredClone(unverified); gap.samples[0].ephemerisQuality = 'jpl-verified';
+    gap.sunHorizon.horizonCoverage = gap.earthHorizon.horizonCoverage = 'far-field-validated';
+    expect(render(gap)).not.toContain('lp-tone-pass');
+    // Control: complete evidence flags do allow the pass tone, so the assertions above can fail.
+    const full = structuredClone(gap); full.earthHorizon.anglesDeg = [0, 0, 0, 0];
+    expect(render(full)).toContain('lp-tone-pass');
+  });
+  it('keeps every limit in the page even when the warning band is collapsible', () => {
+    const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);
+    expect(html).toContain('What this view can&#x27;t tell you');
+    expect(html).toContain('+5 more'); expect(html).toContain('Show all 6');
+    expect(html).toContain('SYNTHETIC</li>'); expect(html).toContain('EPHEMERIS UNVERIFIED'); expect(html).toContain('LOCAL TERRAIN ONLY');
+    for (const t of ['SYNTHETIC TEST DATA', 'not independently verified', 'local terrain only', 'is hypothetical', 'not flight certified'])
+      expect(html).toContain(t);
+  });
+  it('labels decorative and illustrative elements honestly', () => {
+    const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);
+    expect(html).toContain('phase drawn is illustrative');
+    expect(html).toContain('not a link check');
+    expect(html).toContain('Shadow direction from Sun azimuth (illustrative)');
+    expect(html).toContain('Engine not connected');
+  });
   it('handles no data without crashing', () => {
     expect(renderToStaticMarkup(<NavigatorPage datasets={[]} hardwarePresets={[]} />)).toContain('No processed science data loaded');
   });
