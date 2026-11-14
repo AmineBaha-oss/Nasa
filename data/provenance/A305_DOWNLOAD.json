@@ -1,0 +1,35 @@
+{
+  "downloaded_utc": "2026-11-14T15:52:29Z",
+  "url": "https://zenodo.org/records/17954508/files/A3CLR22_5_Connecting_Ridge_Extension.zip?download=1",
+  "record": "https://doi.org/10.5281/zenodo.17954508",
+  "record_version": "1.0.0",
+  "license": "CC-BY-4.0",
+  "archive": {
+    "name": "A3CLR22_5_Connecting_Ridge_Extension.zip",
+    "bytes": 2225897760,
+    "md5": "9141ec5d298a3aebab4d3671f7f38a79",
+    "md5_matches_published": true,
+    "sha256": "eb0c77f6f1ef91f686278ca2d3409c9194f759d5356018f40c523d58be6612cd"
+  },
+  "repo_path": "data/nasa_a305/A3CLR22_5_Connecting_Ridge_Extension",
+  "originals": [
+    {"path": "README.txt", "bytes": 4034, "sha256": "7328c1b4d24a1a38b1fc9cc754f9b609611a1c411dd84bf96da1bc07224ba749"},
+    {"path": "A305_GLDELEV_005.tif", "bytes": 35148852, "sha256": "b40378d7e11c6998b77ac4840f16623b092b30531e59555a8b117c05742c7c63", "matches_manifest": true},
+    {"path": "A305_GLDMASK_005.tif", "bytes": 429004, "sha256": "9f3a450095513c09df8995447214aec536c861ba7c50e53112b725d55c831aec", "matches_manifest": true},
+    {"path": "A305_GLDBRES_005.tif", "bytes": 222649, "sha256": "fcd4d097e607190d4fc2d0ae25be44ec5616cbaba802ad604940d5a84eb10643", "matches_manifest": true},
+    {"path": "A305_GLDSIGM_005.tif", "bytes": 43457482, "sha256": "12a8272b50d72527f624d43ea23329ff5b137fac3855fecea599cc3f5df5c9e5", "matches_manifest": true},
+    {"path": "SLOPE_MAPS/A305_GLDTSLP_005_005.tif", "bytes": 63728994, "sha256": "3d5d18000ff9a09d6992ce675f488d31a94551e8bac6b0d235afb9f9328f87bd", "matches_manifest": true}
+  ],
+  "derived": [
+    {
+      "path": "derived/A305_GLDTSLP_005_005_lunar_crs.tif",
+      "bytes": 48000881,
+      "sha256": "4dcddc4b9e0cf9c59823d56d197a87e702fd37c91ff2549df3b654a2e4194723",
+      "parent": "SLOPE_MAPS/A305_GLDTSLP_005_005.tif",
+      "crs_source": "A305_GLDELEV_005.tif",
+      "processing": "science/preprocess/prepare_a305.py; rasterio 1.5.2; deflate, predictor 3, 256x256 tiles",
+      "verified": "pixel values, transform, size and nodata equal to parent",
+      "note": "Byte hash differs from the historical DATA_MANIFEST.json derivative; pixel equality is the check."
+    }
+  ]
+}

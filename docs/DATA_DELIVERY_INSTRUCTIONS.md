@@ -1,6 +1,12 @@
 # Data setup — download from the official online sources
 
-**Status: TODO for the lead and Science/Terrain team.** Source pages and archive member names checked on 2026-11-14; dataset bytes have not been downloaded or validated here. This workflow does not require the team's handoff or repackaged CORE ZIP.
+**Status: done 2026-11-14.** The required files are committed in `data/nasa_a305/`, validated against the published MD5 and `data/provenance/DATA_MANIFEST.json`, with the CRS-corrected slope in `derived/`. Team members only need to pull and set:
+
+```powershell
+$env:NASA_DATA_DIR = "$PWD\data\nasa_a305\A3CLR22_5_Connecting_Ridge_Extension"
+```
+
+See `data/nasa_a305/README.md` for attribution (CC BY 4.0) and `data/provenance/A305_DOWNLOAD.json` for hashes. The steps below remain the reproducible way to rebuild the subset from Zenodo.
 
 ## Online sources
 

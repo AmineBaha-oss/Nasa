@@ -12,7 +12,7 @@
 
 ## NASA data
 - Enhanced south-pole SDEM: https://pgda.gsfc.nasa.gov/products/104 (A305 Connecting Ridge Extension 5m NASA lunar data)
-- Dataset archive: https://zenodo.org/records/17954508
+- Dataset archive: https://zenodo.org/records/17954508 (v1.0.0, doi:10.5281/zenodo.17954508, CC BY 4.0). Subset redistributed in `data/nasa_a305/` with attribution; one modified derivative (slope CRS added), documented in its README.
 - JPL Horizons: https://ssd.jpl.nasa.gov/horizons/
 - NAIF/SPICE: https://naif.jpl.nasa.gov/naif/
 - Lunar imaging: https://quickmap.lroc.asu.edu/

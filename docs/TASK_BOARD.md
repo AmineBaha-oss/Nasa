@@ -3,7 +3,7 @@
 ## Gate 0 (Saturday 9:00–10:30)
 
 Open inputs: `docs/INPUT_REQUESTS.md`. Data setup: `docs/DATA_DELIVERY_INSTRUCTIONS.md`.
-- [ ] **Team data setup:** follow `docs/DATA_DELIVERY_INSTRUCTIONS.md`; download the public Connecting Ridge Extension dataset from NASA’s linked Zenodo record, validate it, prepare the corrected slope, and share local access details with Science/Terrain.
+- [x] **Team data setup** (files in `data/nasa_a305/`): follow `docs/DATA_DELIVERY_INSTRUCTIONS.md`; download the public Connecting Ridge Extension dataset from NASA’s linked Zenodo record, validate it, prepare the corrected slope, and share local access details with Science/Terrain.
 - [x] Read and assign `docs/DATA_ASSET_INDEX.md`, `RESEARCH_ZIP_INDEX.md`, `docs/AGENT_DATA_DEPENDENCIES.md`.
 - [ ] Open `docs/TEAM_INPUT_REQUESTS.md` as a live request log and name a human lead for requested missing NASA resources/hardware.
 - [x] Inventory Sun/Earth and far-field gaps; precise acquisition and validation remain pending (docs/INPUT_REQUESTS.md).

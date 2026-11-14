@@ -10,6 +10,7 @@ __pycache__/
 !.env.example
 *.tif
 *.tiff
+!data/nasa_a305/**/*.tif
 data/raw/
 LANDERPRINT_Agent_Handoff_v3/
 .DS_Store

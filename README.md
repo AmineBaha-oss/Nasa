@@ -30,7 +30,7 @@ python3 -m venv .venv
 
 ## Data
 
-Follow [the download instructions](docs/DATA_DELIVERY_INSTRUCTIONS.md) to get the Connecting Ridge Extension dataset from Zenodo. Set `NASA_DATA_DIR` to your extracted data directory. Raw rasters and downloads stay out of Git.
+The validated Connecting Ridge Extension terrain subset is committed in `data/nasa_a305/` (CC BY 4.0; see its README). Set `NASA_DATA_DIR` to `data/nasa_a305/A3CLR22_5_Connecting_Ridge_Extension`. [The download instructions](docs/DATA_DELIVERY_INSTRUCTIONS.md) rebuild it from Zenodo. Other rasters and downloads stay out of Git.
 
 ## Project structure
 
