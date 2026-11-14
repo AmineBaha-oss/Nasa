@@ -1,6 +1,10 @@
 """Horizons table parsing tests (no live network)."""
-from science.ephemeris.horizons import HorizonsError, _parse_horizons_table
+import io
+import json
+
 import pytest
+
+from science.ephemeris.horizons import HorizonsError, _parse_horizons_table, fetch_az_el_series
 
 
 SAMPLE = """
@@ -38,3 +42,28 @@ def test_parse_rows_with_letter_flags():
 def test_parse_requires_markers():
     with pytest.raises(HorizonsError):
         _parse_horizons_table('no table here')
+
+
+@pytest.mark.parametrize('body', [[], None, 'oops'])
+def test_non_object_json_payload_raises(body):
+    class _Resp(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    def opener(request, timeout=60.0):  # noqa: ARG001
+        return _Resp(json.dumps(body).encode('utf-8'))
+
+    with pytest.raises(HorizonsError, match='must be an object'):
+        fetch_az_el_series(
+            target='sun',
+            longitude_east_deg=-102.7,
+            latitude_deg=-89.1,
+            altitude_km=0.0,
+            start_utc='2027-10-01T00:00:00Z',
+            stop_utc='2027-10-01T06:00:00Z',
+            step='6h',
+            opener=opener,
+        )

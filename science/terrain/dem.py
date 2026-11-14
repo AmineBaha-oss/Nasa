@@ -49,14 +49,19 @@ def sample_dem_elevation(
                 False,
                 str(dem_path),
             )
-        value = float(list(src.sample([(easting, northing)]))[0][0])
-        nodata = src.nodata
-        if nodata is not None and (value == nodata or not np.isfinite(value)):
-            elev = None
-        elif not np.isfinite(value):
+        sampled = list(src.sample([(easting, northing)], masked=True))[0]
+        band = sampled[0]
+        if np.ma.is_masked(band):
             elev = None
         else:
-            elev = value
+            value = float(band)
+            nodata = src.nodata
+            if nodata is not None and value == nodata:
+                elev = None
+            elif not np.isfinite(value):
+                elev = None
+            else:
+                elev = value
         return DemSample(
             longitude_east_deg,
             latitude_deg,

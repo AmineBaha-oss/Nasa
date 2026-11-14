@@ -1,8 +1,8 @@
 """Build Gate-1 SiteDateData JSON for curated A305 sites and 2027 windows.
 
-Usage:
+Usage (from repository root):
   set NASA_DATA_DIR to the A305 folder, then:
-  python science/preprocess/build_site_date.py
+  python -m science.preprocess.build_site_date
 
 Writes research JSON under data/processed/. Ephemeris from JPL Horizons.
 Horizons are local DEM only (far-field still unknown / DATA-004).
@@ -160,12 +160,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
-        data_dir = resolve_nasa_data_dir()
+        dem_path = resolve_nasa_data_dir(relative='A305_GLDELEV_005.tif')
     except Exception as exc:  # noqa: BLE001 - CLI surface
         print(f'NASA_DATA_DIR error: {exc}', file=sys.stderr)
         return 1
 
-    dem_path = data_dir / 'A305_GLDELEV_005.tif'
     if not dem_path.is_file():
         print(f'Missing DEM at {dem_path}', file=sys.stderr)
         return 1
@@ -190,7 +189,11 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             out_path = out_dir / f'{site.id}_{window.id}.json'
             out_path.write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
-            print(f'OK {out_path.relative_to(REPO_ROOT)} samples={len(payload["samples"])}')
+            try:
+                display = out_path.resolve().relative_to(REPO_ROOT)
+            except ValueError:
+                display = out_path
+            print(f'OK {display} samples={len(payload["samples"])}')
             written += 1
 
     print(

@@ -33,6 +33,15 @@ def test_stereo_round_trip():
     assert lat2 == pytest.approx(lat, abs=1e-6)
 
 
+def test_destination_along_true_north_increases_latitude():
+    from science.coords.lunar import destination_lonlat
+
+    lon, lat = -102.713980, -89.111829
+    lon2, lat2 = destination_lonlat(lon, lat, azimuth_deg=0.0, distance_m=1000.0)
+    assert lat2 > lat
+    assert lon2 == pytest.approx(lon, abs=0.05)
+
+
 def test_candidates_inside_dem(a305_dir: Path):
     for site in CANDIDATE_SITES:
         sample = sample_dem_elevation(site.longitude_east_deg, site.latitude_deg)

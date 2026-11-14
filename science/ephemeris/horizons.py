@@ -130,6 +130,8 @@ def fetch_az_el_series(
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
         raise HorizonsError(f'Horizons request failed: {exc}') from exc
 
+    if not isinstance(payload, dict):
+        raise HorizonsError('Horizons JSON payload must be an object')
     result_text = payload.get('result')
     if not isinstance(result_text, str) or not result_text.strip():
         raise HorizonsError('Horizons JSON missing result text')

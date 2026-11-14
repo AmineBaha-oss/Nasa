@@ -32,3 +32,14 @@ def test_local_horizon_profile_shape(a305_dir: Path):
     assert profile['sourceId'] == 'a305-dem-local'
     assert len(profile['anglesDeg']) == 4
     assert all(isinstance(v, float) for v in profile['anglesDeg'])
+
+
+def test_zero_step_rejected_before_sampling(a305_dir: Path):
+    site = CANDIDATE_SITES[0]
+    with pytest.raises(ValueError, match='step_m'):
+        compute_local_horizon(
+            site.longitude_east_deg,
+            site.latitude_deg,
+            observer_height_m=2.0,
+            step_m=0.0,
+        )

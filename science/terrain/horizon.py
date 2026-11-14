@@ -8,8 +8,7 @@ from pathlib import Path
 import numpy as np
 import rasterio
 
-from science.coords.lunar import LUNAR_RADIUS_M, lonlat_to_stereographic
-from science.geometry.frames import az_el_to_enu
+from science.coords.lunar import LUNAR_RADIUS_M, destination_lonlat, lonlat_to_stereographic
 from science.io.paths import confined_path, resolve_nasa_data_dir
 from science.terrain.dem import DEFAULT_DEM_NAME
 
@@ -27,6 +26,10 @@ def compute_local_horizon(
 ) -> dict:
     """Ray-march the local DEM to build a horizon elevation profile.
 
+    Azimuth bins are clockwise from true lunar local north. Sample points are
+    advanced on the lunar sphere along that bearing, then projected into the DEM
+    grid (avoids polar-stereographic grid-north error).
+
     Returns a HorizonProfile-compatible dict with coverage ``local-only``.
     Distant terrain beyond the DEM / extent is unmodeled.
     """
@@ -34,6 +37,8 @@ def compute_local_horizon(
         raise ValueError('azimuth_step_deg must be a positive divisor of 360')
     if observer_height_m < 0:
         raise ValueError('observer_height_m must be >= 0')
+    if not math.isfinite(step_m) or step_m <= 0:
+        raise ValueError('step_m must be a finite value > 0')
 
     root = data_dir if data_dir is not None else resolve_nasa_data_dir()
     dem_path = confined_path(dem_relative, root)
@@ -45,18 +50,18 @@ def compute_local_horizon(
     with rasterio.open(dem_path) as src:
         band = src.read(1, masked=True)
         transform = src.transform
-        nodata = src.nodata
 
         def elev_at(easting: float, northing: float) -> float | None:
             row, col = rasterio.transform.rowcol(transform, easting, northing)
             if not (0 <= row < src.height and 0 <= col < src.width):
                 return None
-            value = float(band[row, col])
-            if nodata is not None and value == nodata:
+            value = band[row, col]
+            if np.ma.is_masked(value):
                 return None
-            if not np.isfinite(value):
+            elev = float(value)
+            if not np.isfinite(elev):
                 return None
-            return value
+            return elev
 
         origin_elev = elev_at(origin_e, origin_n)
         if origin_elev is None:
@@ -72,13 +77,17 @@ def compute_local_horizon(
         observer_up = origin_elev + observer_height_m
         for i in range(n_bins):
             az = i * azimuth_step_deg
-            east_u, north_u, _ = az_el_to_enu(az, 0.0)
             max_el = -90.0
             saw_terrain = False
             distance = step_m
             while distance <= max_range_m:
-                sample_e = origin_e + east_u * distance
-                sample_n = origin_n + north_u * distance
+                sample_lon, sample_lat = destination_lonlat(
+                    longitude_east_deg,
+                    latitude_deg,
+                    az,
+                    distance,
+                )
+                sample_e, sample_n = lonlat_to_stereographic(sample_lon, sample_lat)
                 sample_elev = elev_at(sample_e, sample_n)
                 if sample_elev is None:
                     break

@@ -6,6 +6,8 @@ Never route lunar coordinates through Earth WGS84 / EPSG:4326.
 
 from __future__ import annotations
 
+import math
+
 from pyproj import Transformer
 
 LUNAR_RADIUS_M = 1_737_400.0
@@ -31,3 +33,32 @@ def stereographic_to_lonlat(easting_m: float, northing_m: float) -> tuple[float,
     """Return (longitude_east_deg, latitude_deg)."""
     lon, lat = _TO_LONLAT.transform(easting_m, northing_m)
     return (float(lon), float(lat))
+
+
+def destination_lonlat(
+    longitude_east_deg: float,
+    latitude_deg: float,
+    azimuth_deg: float,
+    distance_m: float,
+) -> tuple[float, float]:
+    """Move ``distance_m`` along a true bearing (clockwise from local north).
+
+    Returns (longitude_east_deg, latitude_deg) on the lunar sphere.
+    """
+    if distance_m == 0.0:
+        return (longitude_east_deg, latitude_deg)
+    lat1 = math.radians(latitude_deg)
+    lon1 = math.radians(longitude_east_deg)
+    bearing = math.radians(azimuth_deg % 360.0)
+    angular = distance_m / LUNAR_RADIUS_M
+    sin_lat1 = math.sin(lat1)
+    cos_lat1 = math.cos(lat1)
+    sin_d = math.sin(angular)
+    cos_d = math.cos(angular)
+    lat2 = math.asin(sin_lat1 * cos_d + cos_lat1 * sin_d * math.cos(bearing))
+    lon2 = lon1 + math.atan2(
+        math.sin(bearing) * sin_d * cos_lat1,
+        cos_d - sin_lat1 * math.sin(lat2),
+    )
+    lon_deg = (math.degrees(lon2) + 180.0) % 360.0 - 180.0
+    return (lon_deg, math.degrees(lat2))
