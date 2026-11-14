@@ -26,15 +26,19 @@ def _is_relative_to(path: Path, root: Path) -> bool:
         return False
 
 
-def _assert_no_forbidden_parts(path: Path, label: str) -> None:
-    for part in path.parts:
-        cleaned = part.rstrip('\\/')
-        if cleaned in FORBIDDEN_PATH_PARTS:
-            raise PathSecurityError(f'{label} contains forbidden path component: {cleaned}')
+def _is_forbidden_part(part: str) -> bool:
+    cleaned = part.rstrip('\\/').lower()
+    return cleaned in FORBIDDEN_PATH_PARTS or cleaned.startswith('.env.')
+
+
+def _assert_no_forbidden_parts(parts: tuple[str, ...], label: str) -> None:
+    for part in parts:
+        if _is_forbidden_part(part):
+            raise PathSecurityError(f'{label} contains forbidden path component: {part}')
 
 
 def confined_path(path: Path | str, allowed_root: Path) -> Path:
-    """Resolve *path* and require it to stay under *allowed_root*."""
+    """Resolve *path*, require it to stay under *allowed_root*, and reject credential-like children."""
     root = allowed_root.resolve()
     candidate = Path(path)
     if not candidate.is_absolute():
@@ -42,6 +46,7 @@ def confined_path(path: Path | str, allowed_root: Path) -> Path:
     resolved = candidate.resolve()
     if not _is_relative_to(resolved, root):
         raise PathSecurityError(f'path escapes allowed root: {resolved} not under {root}')
+    _assert_no_forbidden_parts(resolved.relative_to(root).parts, 'path')
     return resolved
 
 
@@ -74,7 +79,7 @@ def resolve_nasa_data_dir(
     resolved_root = root.resolve()
     if not resolved_root.is_dir():
         raise PathSecurityError(f'{env_var} is not an existing directory: {resolved_root}')
-    _assert_no_forbidden_parts(resolved_root, env_var)
+    _assert_no_forbidden_parts(resolved_root.parts, env_var)
     if relative is None:
         return resolved_root
     return confined_path(relative, resolved_root)

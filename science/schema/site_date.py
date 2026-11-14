@@ -11,7 +11,9 @@ Rules align with docs/INTERFACES.md and web/src/integration/quality.ts:
 
 from __future__ import annotations
 
+import math
 import re
+from datetime import datetime
 from typing import Any, Mapping
 
 SCHEMA_VERSION = '1.0'
@@ -46,12 +48,18 @@ def _require_number(obj: Mapping[str, Any], key: str, label: str | None = None) 
     value = obj.get(key)
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise SiteDateValidationError(f'{where} must be a number')
+    if not math.isfinite(value):
+        raise SiteDateValidationError(f'{where} must be finite')
     return float(value)
 
 
 def _require_utc_z(value: str, label: str) -> str:
     if not UTC_Z_RE.match(value):
         raise SiteDateValidationError(f'{label} must be UTC ISO-8601 ending in Z')
+    try:
+        datetime.fromisoformat(value[:-1] + '+00:00')
+    except ValueError as exc:
+        raise SiteDateValidationError(f'{label} is not a valid UTC date/time') from exc
     return value
 
 
@@ -121,8 +129,10 @@ def _validate_sample(
     label = f'samples[{index}]'
     obj = _require_mapping(sample, label)
     _require_utc_z(_require_str(obj, 'utc', f'{label}.utc'), f'{label}.utc')
-    _validate_direction(obj.get('sun'), f'{label}.sun')
-    _validate_direction(obj.get('earth'), f'{label}.earth')
+    for body in ('sun', 'earth'):
+        if body not in obj:
+            raise SiteDateValidationError(f'{label}.{body} is required (direction or null)')
+        _validate_direction(obj[body], f'{label}.{body}')
     quality = _require_str(obj, 'ephemerisQuality', f'{label}.ephemerisQuality')
     if quality not in EPHEMERIS_QUALITIES:
         raise SiteDateValidationError(f'{label}.ephemerisQuality invalid: {quality}')
@@ -169,8 +179,10 @@ def _validate_horizon(
     if len(angles) > MAX_HORIZON_BINS:
         raise SiteDateValidationError(f'{label}.anglesDeg exceeds max bins ({MAX_HORIZON_BINS})')
     for i, angle in enumerate(angles):
-        if angle is not None and (isinstance(angle, bool) or not isinstance(angle, (int, float))):
-            raise SiteDateValidationError(f'{label}.anglesDeg[{i}] must be number or null')
+        if angle is None:
+            continue
+        if isinstance(angle, bool) or not isinstance(angle, (int, float)) or not math.isfinite(angle):
+            raise SiteDateValidationError(f'{label}.anglesDeg[{i}] must be a finite number or null')
 
     if coverage == 'missing':
         if angles:

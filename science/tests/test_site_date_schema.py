@@ -122,6 +122,46 @@ def test_slope_source_must_resolve_to_provenance():
         validate_site_date_data(payload)
 
 
+@pytest.mark.parametrize('body', ['sun', 'earth'])
+def test_omitted_direction_key_rejected(body: str):
+    payload = _load_fixture()
+    del payload['samples'][0][body]
+    with pytest.raises(SiteDateValidationError, match=f'{body} is required'):
+        validate_site_date_data(payload)
+
+
+@pytest.mark.parametrize('bad', [float('nan'), float('inf'), float('-inf')])
+def test_non_finite_horizon_angle_rejected(bad: float):
+    payload = _load_fixture()
+    payload['sunHorizon']['anglesDeg'][0] = bad
+    with pytest.raises(SiteDateValidationError, match='finite'):
+        validate_site_date_data(payload)
+
+
+def test_nan_extent_rejected():
+    payload = _load_fixture()
+    payload['sunHorizon']['horizonCoverage'] = 'far-field-validated'
+    payload['sunHorizon']['sourceId'] = 'synthetic'
+    payload['sunHorizon']['extentKm'] = float('nan')
+    with pytest.raises(SiteDateValidationError, match='extentKm must be finite'):
+        validate_site_date_data(payload)
+
+
+@pytest.mark.parametrize('bad_utc', ['2027-02-30T00:00:00Z', '2027-10-01T99:00:00Z'])
+def test_impossible_utc_rejected(bad_utc: str):
+    payload = _load_fixture()
+    payload['samples'][0]['utc'] = bad_utc
+    with pytest.raises(SiteDateValidationError, match='not a valid UTC'):
+        validate_site_date_data(payload)
+
+
+def test_impossible_generated_utc_rejected():
+    payload = _load_fixture()
+    payload['provenance'][0]['generatedUtc'] = '2026-13-01T00:00:00Z'
+    with pytest.raises(SiteDateValidationError, match='not a valid UTC'):
+        validate_site_date_data(payload)
+
+
 def test_utc_must_end_with_z():
     payload = _load_fixture()
     payload['samples'][0]['utc'] = '2027-10-01T00:00:00'

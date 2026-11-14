@@ -62,6 +62,21 @@ def test_nasa_data_dir_confines_relative_child(monkeypatch: pytest.MonkeyPatch, 
         resolve_nasa_data_dir(relative='../secrets.env')
 
 
+def test_nasa_data_dir_rejects_forbidden_child(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
+    data_root = tmp_path / 'nasa_core'
+    (data_root / '.ssh').mkdir(parents=True)
+    monkeypatch.setenv('NASA_DATA_DIR', str(data_root))
+    with pytest.raises(PathSecurityError, match='forbidden path component'):
+        resolve_nasa_data_dir(relative='.ssh/id_rsa')
+    with pytest.raises(PathSecurityError, match='forbidden path component'):
+        resolve_nasa_data_dir(relative='.env.local')
+
+
+def test_repo_data_root_rejects_forbidden_child():
+    with pytest.raises(PathSecurityError, match='forbidden path component'):
+        resolve_repo_data_root('.env')
+
+
 def test_nasa_data_dir_rejects_forbidden_name(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
     bad = tmp_path / '.env'
     bad.mkdir()
