@@ -40,17 +40,15 @@ function Compass({ props }: { props: LanderSceneProps }) {
   })}</>;
 }
 
-/** Image-based light for reflections on metal and cells; rebuilt when the Sun bearing moves by more than 10 degrees. */
-function Reflections({ sunAzDeg }: { sunAzDeg: number | null }) {
-  const bucket = sunAzDeg === null ? 'none' : String(Math.round(sunAzDeg / 10) * 10);
-  const warm = sunAzDeg === null ? null : azElToThree(Number(bucket), 4);
+/** Neutral studio reflections are display aids; actual sunlight remains driven by the engine. */
+function Reflections() {
   return (
-    <Environment key={bucket} resolution={128} frames={1} environmentIntensity={0.55}>
+    <Environment resolution={128} frames={1} environmentIntensity={0.65}>
       <color attach="background" args={['#05070b']} />
-      <Lightformer form="rect" intensity={0.6} color={PALETTE.fill} scale={[30, 30, 1]} position={[0, 12, 0]} rotation={[Math.PI / 2, 0, 0]} />
+      <Lightformer form="rect" intensity={0.8} color="#e2e8f0" scale={[30, 30, 1]} position={[0, 12, 0]} rotation={[Math.PI / 2, 0, 0]} />
       <Lightformer form="rect" intensity={0.35} color="#8a7f6d" scale={[40, 4, 1]} position={[0, -3, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-      {warm && <Lightformer form="rect" intensity={4} color={PALETTE.sunLight} scale={[10, 2.5, 1]}
-        position={[warm[0] * 10, warm[1] * 10 + 0.5, warm[2] * 10]} target={[0, 0, 0]} />}
+      <Lightformer form="rect" intensity={1.1} color="#e7edf5" scale={[12, 8, 1]} position={[-10, 6, -8]} target={[0, 1, 0]} />
+      <Lightformer form="rect" intensity={0.85} color="#d2dae5" scale={[12, 8, 1]} position={[10, 4, 8]} target={[0, 1, 0]} />
     </Environment>
   );
 }
@@ -67,7 +65,7 @@ function SceneContents(props: LanderSceneProps & { apiRef: RefObject<CameraApi |
       <color attach="background" args={[PALETTE.space]} />
       <fog attach="fog" args={[PALETTE.space, 160, 420]} />
       <SunLight readout={readout} />
-      <Reflections sunAzDeg={sunAzDeg} />
+      <Reflections />
       {layers.terrain && (
         <Terrain terrain={props.terrain} site={data.site} verticalExaggeration={props.verticalExaggeration}
           slopeColours={layers.slopeColours} slopeLimitDeg={ILLUSTRATIVE_DEPLOYMENT_THRESHOLDS.maxFootprintSlopeDeg} />
@@ -91,9 +89,9 @@ function SceneContents(props: LanderSceneProps & { apiRef: RefObject<CameraApi |
         terrain={props.terrain} site={data.site} verticalExaggeration={props.verticalExaggeration} layers={sceneLayers}
         hardwareLabels={hardwareLabels} reducedMotion={props.reducedMotion} />
       {cameraMode !== 'lander' && <HeadingRing yawDeg={yawDeg} onYawChange={props.onYawChange} />}
-      {layers.labels && <Compass props={props} />}
-      {layers.terrain && <RangeRings terrain={props.terrain} site={data.site} verticalExaggeration={props.verticalExaggeration} labels={layers.labels} />}
-      <CameraRig mode={cameraMode} yawDeg={yawDeg} eyeHeightM={Math.max(hardware.panelHeightM, hardware.antennaHeightM) + 0.8}
+      {layers.labels && cameraMode !== 'hardware' && <Compass props={props} />}
+      {layers.terrain && cameraMode !== 'hardware' && <RangeRings terrain={props.terrain} site={data.site} verticalExaggeration={props.verticalExaggeration} labels={layers.labels} />}
+      <CameraRig hardware={hardware} mode={cameraMode} yawDeg={yawDeg} eyeHeightM={Math.max(hardware.panelHeightM, hardware.antennaHeightM) + 0.8}
         sunAzDeg={sunAzDeg} reducedMotion={props.reducedMotion} resetKey={data.site.id} apiRef={props.apiRef} needleRef={props.needleRef} insets={props.viewInsets} />
     </>
   );
@@ -175,7 +173,7 @@ export default function LanderScene(props: LanderSceneProps) {
         <summary>About this view</summary>
         <p>
           Skyline and sky are drawn by angle, not distance. The Sun is drawn larger than life. Sunlight direction and strength come from the engine;
-          the blue fill light, reflections, ground grain and the boost that lets grazing sunlight show on flat ground are display aids.
+          the soft fill light, neutral studio reflections, ground grain and the boost that lets grazing sunlight show on flat ground are display aids.
           Terrain shadows are not modelled; only the lander casts a shadow.
           Short Sun/Earth markers are direction guides, not nearby objects. Green solar guides mean nonzero direct incidence with visible Sun, not battery survival.
           Highlighted skyline segments mark angular obstruction, not a located obstacle on the local terrain patch.

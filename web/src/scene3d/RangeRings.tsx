@@ -28,7 +28,7 @@ export function RangeRings({ terrain, site, verticalExaggeration, labels }: { te
     <group name="range-rings">
       {rings.map(({ r, runs, label }) => (
         <group key={r}>
-          {runs.map((pts, i) => <Line key={i} points={pts} color="#cfd6df" lineWidth={1} transparent opacity={0.28} />)}
+          {runs.map((pts, i) => <Line key={i} points={pts} color="#b6bfcb" lineWidth={0.8} transparent opacity={0.16} />)}
           {labels && label && <Label position={label}>{r} m</Label>}
         </group>
       ))}

@@ -134,16 +134,22 @@ function PanelModel({ layout, readout, fraction, sunLocal, sunVisible, primary, 
         <meshStandardMaterial attach="material-1" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
         <meshStandardMaterial attach="material-2" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
         <meshStandardMaterial attach="material-3" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
-        <meshPhysicalMaterial attach="material-4" map={cells} color={incidence === null ? '#7b818b' : '#ffffff'} metalness={0.2} roughness={0.22}
-          clearcoat={1} clearcoatRoughness={0.15} emissive={PALETTE.sun} emissiveIntensity={glow ? 0.35 * strength : 0} />
-        <meshStandardMaterial attach="material-5" color="#e9ebee" metalness={0.1} roughness={0.7} />
+        <meshPhysicalMaterial attach="material-4" map={cells} color={incidence === null ? '#7b818b' : '#ffffff'} metalness={0.12} roughness={0.44}
+          clearcoat={0.3} clearcoatRoughness={0.42} emissive={PALETTE.sun} emissiveIntensity={glow ? 0.07 * strength : 0} />
+        <meshStandardMaterial attach="material-5" color="#9da8b5" metalness={0.3} roughness={0.65} />
       </mesh>
+      <group position={face} quaternion={orientation}>
+        {[-0.3, 0, 0.3].map(offset => <mesh key={offset} position={[0, layout.sideM * offset, -PANEL_THICKNESS_M / 2 - 0.009]} raycast={() => null}>
+          <boxGeometry args={[layout.sideM * 0.94, 0.018, 0.018]} />
+          <meshStandardMaterial color="#687889" metalness={0.5} roughness={0.55} />
+        </mesh>)}
+      </group>
       {lit && sunLocal && (
         <>
           <Billboard position={add(face, scale(unit(normal), 0.05))}>
             <mesh raycast={() => null}>
               <planeGeometry args={[layout.sideM * 1.2, layout.sideM * 1.2]} />
-              <meshBasicMaterial map={radialGlow()} color={PALETTE.sun} transparent opacity={0.18 * strength} depthWrite={false}
+              <meshBasicMaterial map={radialGlow()} color={PALETTE.sun} transparent opacity={0.07 * strength} depthWrite={false}
                 blending={AdditiveBlending} toneMapped={false} />
             </mesh>
           </Billboard>
@@ -216,7 +222,11 @@ function AntennaModel({ hardware, readout, earthPoint, yawDeg, showBeam, label }
         onPointerOver={e => { e.stopPropagation(); setHover(true); guidance.hover('antenna'); }}
         onPointerOut={() => { setHover(false); guidance.hover(null); }}>
         <mesh geometry={dishGeo.geometry} position={[0, 0.06, 0]} castShadow>
-          <meshStandardMaterial color="#f1f2f4" metalness={0.15} roughness={0.5} side={DoubleSide} />
+          <meshStandardMaterial color="#d5dde5" metalness={0.25} roughness={0.58} side={DoubleSide} />
+        </mesh>
+        <mesh position={[0, dishGeo.rimY + 0.06, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[DISH_RADIUS_M, 0.012, 8, 48]} />
+          <meshStandardMaterial color="#8898aa" metalness={0.6} roughness={0.4} />
         </mesh>
         {feedStruts.map((p, i) => <Strut key={i} from={add(p, [0, 0.06, 0])} to={[0, dishGeo.focusY + 0.06, 0]} radius={0.008} colour="#d0d4da" />)}
         <mesh position={[0, dishGeo.focusY + 0.08, 0]}>
