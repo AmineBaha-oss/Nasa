@@ -3,6 +3,7 @@
 | Item | Needed | Owner | Until available |
 |---|---|---|---|
 | HARDWARE-001–003: lander | Agree on PV area/normals/tracking, loads, battery/reserve, efficiencies, antenna geometry, heights and yaw control. Science currently uses hypothetical heights (panels 2 m, antenna 3 m) in `science/landerprint_science/config.py`. | Team lead / Power / Comms | No approved hardware results; Science outputs labelled hypothetical |
+| HARDWARE-004: deployment geometry | Approved landing footprint radius, ramp direction and length, and slope thresholds. The web app uses hypothetical values in `web/src/integration/hardware.ts`: 2 m footprint, aft ramp of 15 m, 10° footprint and ramp limits (after VIPER draft examples, not a standard), and a gimballed antenna with a 15° half-beam, pan ±90° and tilt −10° to 60°. | Team lead / Terrain / Comms | Deployment and antenna results labelled hypothetical |
 | ACCESS-001: deployment | Owners assigned in `docs/TASK_BOARD.md` (Amine reviews and merges). Choose deployment account when needed. | Team lead | Work locally |
 | POLICY-001: submission | Check the actual submission form, deadline and demo format. | Team lead | Keep submission as a draft |
 

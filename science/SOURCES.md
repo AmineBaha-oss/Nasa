@@ -14,6 +14,7 @@ Checked 2026-11-14 (UTC). Lists where each Science input comes from, how it may 
 | Projection | `+proj=stere +lat_0=-90 +lon_0=0 +R=1737400 +units=m` (IAU 30135, Moon 2015 sphere) |
 | Frame | Not stated in the README. PGDA says the SDEMs stay "consistent with the LOLA geodetic reference" (MOON_ME / DE421). Confirmed 2026-11-14: LOLA 80 m minus A305 (averaged per 80 m pixel) at 1000 random points has median 0.02 m, std 1.12 m, and the best fit is at zero horizontal shift (`data/provenance/A305_FRAME_CHECK.json`). |
 | Coverage | 20 × 20 km; local horizon only |
+| Excerpts shipped | `data/processed/terrain/site-<n>.json`: 400 m × 400 m (80 × 80 pixel) windows of `A305_GLDELEV_005.tif` and the CRS-corrected 5 m slope, one per site, values rounded to 0.001 m / 0.001°. Changes: cropped and rounded only. Each file carries the source URL and SHA256; CC BY 4.0 attribution as above. |
 
 ## 2. Far-field terrain — LOLA south-pole DEMs (DATA-004)
 

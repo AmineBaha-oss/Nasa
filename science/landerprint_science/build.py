@@ -11,7 +11,7 @@ import sys
 
 import numpy as np
 
-from . import ephemeris, export, framecheck, frame, horizon
+from . import ephemeris, export, framecheck, frame, horizon, patches
 from .config import (A305_DEM, ANTENNA_HEIGHT_M, HEIGHTS_ARE_HYPOTHETICAL, HORIZON_EXTENT_KM, LOLA, LOLA_DIR,
                      PANEL_HEIGHT_M, PROCESSED, SITES, WINDOWS)
 from .terrain import Grid, TerrainStack
@@ -78,6 +78,8 @@ def main() -> int:
                   f'earth az {checks["earth"].get("maxAzSkyDeg", float("nan")):.5f} el {checks["earth"].get("maxElDeg", float("nan")):.5f} deg, '
                   f'horizon {data["sunHorizon"]["horizonCoverage"]}')
         report['sites'].append(entry)
+    for path in patches.write_all(generated):
+        print(f'wrote {export.rel(path)}')
     (PROCESSED / 'validation_report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(f'wrote {PROCESSED / "validation_report.json"}')
     return 0

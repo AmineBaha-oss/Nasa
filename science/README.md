@@ -17,6 +17,8 @@ cd science
 
 The build first checks A305 against LOLA 80 m (`data/provenance/A305_FRAME_CHECK.json`) and stops if they disagree. It then writes one `SiteDateData` file per site and window (`data/processed/site-<n>_window-<x>.json`, contract in `web/src/contracts/index.ts`) plus `data/processed/validation_report.json`.
 
+The build also writes `data/processed/terrain/<site>.json` (`SiteTerrain`): a pixel-aligned 400 m × 400 m window of the A305 DEM and 5 m slope around each site for the web deployment screen. Missing pixels are `null`, never 0; values are rounded to 3 decimals. To refresh only these: `..\.venv\Scripts\python.exe -m landerprint_science.patches`. Afterwards run `npm run sync-data` in `web/` (dev and build do this automatically).
+
 Sites, windows and instrument heights live in `landerprint_science/config.py`. Panel (2 m) and antenna (3 m) heights are hypothetical until hardware is approved (HARDWARE-001); change them there and rerun `horizons_ref --refresh` and `build`.
 
 ## Tests

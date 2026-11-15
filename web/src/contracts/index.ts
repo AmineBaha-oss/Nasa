@@ -22,6 +22,16 @@ export interface SiteDateData {
   sunHorizon: HorizonProfile; earthHorizon: HorizonProfile;
   slopeSourceId?: string;
 }
+/** North-up grid on the lunar south polar stereographic sphere (R 1737400 m); row 0 is the top (largest y). Null is unknown. */
+export interface TerrainGrid {
+  sourceId: string | null; originXM: number; originYM: number; pixelSizeM: number;
+  width: number; height: number; values: (number | null)[]; nodata: number | null;
+}
+/** Per-site DEM and 5 m slope patches for the deployment screen (v1.0 addition). */
+export interface SiteTerrain {
+  schemaVersion: '1.0'; purpose: DataPurpose; siteId: string; provenance: Provenance[];
+  dem: TerrainGrid; slope5m: TerrainGrid;
+}
 export interface Panel { name: string; areaFraction: number; normalBodyRFU: [number, number, number]; mode: 'fixed' | 'tracked'; maxTrackingAngleDeg?: number; }
 export interface Antenna { boresightBodyRFU: [number, number, number]; beamHalfAngleDeg: number; gimbal?: { panMinDeg: number; panMaxDeg: number; tiltMinDeg: number; tiltMaxDeg: number }; }
 export interface HardwareConfig {
