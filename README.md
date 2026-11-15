@@ -8,7 +8,14 @@ LANDERPRINT is an interactive lunar site, date and spacecraft-heading explorer b
 
 **Challenge:** [Lunar Landing Site Navigator](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/)
 
-> **Main screenshot goes here.** Show the 3D navigator with the lander, selected site and constraint results. Save it as `docs/images/navigator.png`, then replace this block with the image line below.
+<img width="1435" height="893" alt="Screenshot 2026-11-15 at 11 51 05 AM" src="https://github.com/user-attachments/assets/fb4fc2e2-9838-43e6-8908-1efb903626c0" />
+<img width="1437" height="900" alt="Screenshot 2026-11-15 at 11 51 35 AM" src="https://github.com/user-attachments/assets/656a1698-9dd4-4f72-bf05-ae425016b72c" />
+<img width="1440" height="878" alt="Screenshot 2026-11-15 at 11 51 42 AM" src="https://github.com/user-attachments/assets/c7edf786-389f-45b3-84f1-e5ef1b92f6af" />
+<img width="1436" height="804" alt="Screenshot 2026-11-15 at 11 55 15 AM" src="https://github.com/user-attachments/assets/070b27a5-d19b-4944-8632-b916c8a70fff" />
+<img width="1440" height="900" alt="Screenshot 2026-11-15 at 11 55 53 AM" src="https://github.com/user-attachments/assets/42b2b508-9647-43fa-9a69-73728728b243" />
+<img width="1440" height="892" alt="Screenshot 2026-11-15 at 11 57 01 AM" src="https://github.com/user-attachments/assets/930b3cf8-ce0a-4ac7-9cc6-1570eb85a72a" />
+<img width="1166" height="494" alt="Screenshot 2026-11-15 at 11 57 20 AM" src="https://github.com/user-attachments/assets/6c66a3f8-4f1d-44a4-ad38-ea9f5f1bd258" />
+
 
 <!-- ![LANDERPRINT's 3D navigator showing the selected lunar site, spacecraft and modeled constraints](docs/images/navigator.png) -->
 
