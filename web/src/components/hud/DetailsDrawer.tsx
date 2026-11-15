@@ -2,6 +2,7 @@ import type { HardwareConfig, HeadingEvaluation, SiteDateData } from '../../cont
 import { hasFullCoverageEvidence } from '../../integration/quality';
 import { ComparisonTable } from '../ComparisonTable';
 import { QualityChips } from '../QualityChips';
+import { SiteFooter } from '../SiteFooter';
 import type { Alternative } from '../ComparisonTable';
 
 interface Props {
@@ -43,6 +44,7 @@ export function DetailsDrawer({ open, onClose, data, hardware, evaluation, alter
           </section>
         )}
         <ComparisonTable alternatives={alternatives} yawDeg={yawDeg} currentIndex={currentIndex} onSelect={onSelect} />
+        <SiteFooter />
       </div>
       <button type="button" className="lp3-drawer-scrim" aria-label="Close details" onClick={onClose} />
     </div>

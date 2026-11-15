@@ -10,6 +10,7 @@ import { IntroSequence, shouldPlayIntro } from '../components/IntroSequence';
 import { LanderTopDown } from '../components/LanderTopDown';
 import { QualityChips } from '../components/QualityChips';
 import { SelectionPanel } from '../components/SelectionPanel';
+import { SiteFooter } from '../components/SiteFooter';
 import { YawControl } from '../components/YawControl';
 import { Scene3DShell } from '../components/hud/Scene3DShell';
 import { DEFAULT_LAYERS } from '../scene3d/types';
@@ -251,6 +252,7 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
       </div>
 
       <ComparisonTable alternatives={alternatives} yawDeg={deferredYaw} currentIndex={state.datasetIndex} onSelect={changeDataset} />
+      <SiteFooter />
       {intro === 'count' && <IntroSequence onDone={introCounted} />}
       <ApolloEasterEgg />
     </main>

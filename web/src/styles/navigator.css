@@ -465,3 +465,33 @@ button.lp-alt-pick:hover { background: rgba(255, 255, 255, .06); }
   .lp-live-check > summary { column-gap: 5px; }
   .lp-model-notes { margin-top: 20px; padding-inline: 14px; }
 }
+
+/* Project credits close the page with the same restrained instrument typography. */
+.lp-footer {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px 48px; max-width: 1504px; margin: 0 auto;
+  padding: 36px clamp(20px, 3vw, 48px) 24px; border-top: 1px solid var(--lp-line);
+}
+.lp-footer::before { content: ''; position: absolute; top: -1px; left: clamp(20px, 3vw, 48px); width: 36px; height: 2px; background: var(--lp-signal); }
+.lp-footer-brand { display: flex; align-items: center; gap: 10px; font: 600 16px/1.3 var(--lp-mono); letter-spacing: .12em; color: var(--lp-paper); }
+.lp-footer-brand img { display: block; flex: none; }
+.lp-footer-intro p { margin: 10px 0 0; font-size: 14px; color: var(--lp-dim); }
+.lp-footer-intro .lp-footer-event { margin-top: 4px; font-size: 12px; }
+.lp-footer-links { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.lp-page .lp-footer-links a { color: var(--lp-dim); font-size: 13px; text-decoration: none; }
+.lp-page .lp-footer-links .lp-footer-github { display: flex; gap: 32px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--lp-line); color: var(--lp-paper); font: 600 14px/1.4 var(--lp-mono); }
+.lp-footer-github > span[aria-hidden] { color: var(--lp-signal); }
+.lp-page .lp-footer-links a:hover { color: var(--lp-paper); text-decoration: underline; text-underline-offset: 4px; }
+.lp-footer-links a:focus-visible { outline: 2px solid var(--lp-sun); outline-offset: 5px; }
+.lp-footer-team { grid-column: 1 / -1; }
+.lp-footer-team > p { margin: 0 0 10px; font: 500 10px/1.3 var(--lp-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--lp-dim); }
+.lp-footer-team ul { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; padding: 0; margin: 0; }
+.lp-footer-team li { font-size: 13px; color: var(--lp-paper); }
+.lp-footer-note { grid-column: 1 / -1; margin: 0; padding-top: 16px; border-top: 1px solid var(--lp-line); font-size: 11px; color: var(--lp-dim); }
+.lp-footer-sr { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.lp3-drawer-panel .lp-footer { grid-template-columns: minmax(0, 1fr); padding: 24px 0 0; }
+.lp3-drawer-panel .lp-footer::before { left: 0; }
+@media (max-width: 599px) {
+  .lp-footer { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .lp-footer-team ul { display: grid; gap: 8px; }
+}
