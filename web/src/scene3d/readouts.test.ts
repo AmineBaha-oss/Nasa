@@ -40,6 +40,16 @@ describe('sampleReadout', () => {
     expect(r.panels[0].incidence).toBeNull();
     expect(r.panels[0].clamped).toBe(false);
   });
+  it('does not draw a known target when the ephemeris is marked missing', () => {
+    const d = data([{ ...s(0, { azDeg: 40, elDeg: 5 }), ephemerisQuality: 'missing' }]);
+    const r = sampleReadout(d, limited, 0, 0)!;
+    expect(r.sun.azDeg).toBeNull();
+    expect(r.sun.elDeg).toBeNull();
+    expect(r.panels[0].incidence).toBeNull();
+    const tracks = windowTracks(d, limited, 0);
+    expect(tracks.sun[0].azDeg).toBeNull();
+    expect(tracks.earth[0].azDeg).toBeNull();
+  });
   it('flags a clamped limited tracker', () => {
     const r = sampleReadout(data([s(0, { azDeg: 150, elDeg: 5 }), s(1, { azDeg: 150, elDeg: 5 })]), limited, 0, 0)!;
     expect(r.panels[0].clamped).toBe(true);

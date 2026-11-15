@@ -67,3 +67,8 @@
   .lp3d-nav-group:nth-of-type(2), .lp3d-help { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .lp3d-nav-btn { transition: none; } }
+
+.lp3d-guide-controls .lp3d-nav-btn[aria-pressed="true"] {
+  background: rgba(77, 103, 137, .55); box-shadow: inset 0 0 0 1px #e9ecf1;
+}
+.lp3d-guide-controls { max-height: 190px; overflow-y: auto; }

@@ -1,4 +1,4 @@
-import { useMemo, useRef, type ReactNode, type RefObject } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, Lightformer } from '@react-three/drei';
 import { ILLUSTRATIVE_DEPLOYMENT_THRESHOLDS } from '../integration/hardware';
@@ -13,6 +13,8 @@ import { sampleReadout, windowTracks } from './readouts';
 import { Sky, SunLight } from './Sky';
 import { SkylineRing } from './SkylineRing';
 import { Terrain } from './Terrain';
+import { GuidanceContext, useGuidance } from './PointingGuide';
+import { ObstructionMarker } from './ObstructionMarker';
 import { terrainHeightAt } from './terrainMesh';
 import type { CameraMode, LanderSceneProps } from './types';
 import './scene3d.css';
@@ -26,7 +28,7 @@ const COMPASS_RADIUS_M = 40;
 const HELP: Record<CameraMode, string> = {
   orbit: 'Drag to orbit, right-drag to pan, scroll to zoom. Double-click the ground to focus there. Drag the orange ring to turn the lander.',
   top: 'Drag to pan, right-drag to rotate, scroll to zoom. Drag the orange ring to turn the lander.',
-  hardware: 'Drag to orbit, scroll to zoom. Hover a panel or the dish for its readout. The view turns slowly until you touch it.',
+  hardware: 'Drag to orbit, scroll to zoom. Select a panel or dish (or its icon) to inspect its aim. Solid arrows show aim; target rings show Sun/Earth direction. A crossed square means terrain blockage; a cross means missed pointing; dotted guides mean unknown. The view turns slowly until you touch it.',
   lander: 'Drag to look around from the mast, scroll to zoom. The view follows the lander heading.',
 };
 
@@ -76,6 +78,11 @@ function SceneContents(props: LanderSceneProps & { apiRef: RefObject<CameraApi |
             colour={PALETTE.sun} wall label="sun-skyline" />
           <SkylineRing horizon={data.earthHorizon} eyeHeightM={hardware.antennaHeightM} radiusM={SKYLINE_RADIUS_M - 8} floorY={SKYLINE_FLOOR_Y}
             colour={PALETTE.earth} wall={false} label="earth-skyline" />
+          {layers.panelGlow && <ObstructionMarker horizon={data.sunHorizon} visible={readout?.sun.visible ?? 'unknown'}
+            az={readout?.sun.azDeg ?? null} el={readout?.sun.elDeg ?? null} eye={hardware.panelHeightM} radius={SKYLINE_RADIUS_M} kind="sun" />}
+          {sceneLayers.antennaBeam && <ObstructionMarker horizon={data.earthHorizon} visible={readout?.earth.earthVisible ?? 'unknown'}
+            az={tracks.earth[sampleIndex]?.azDeg ?? null} el={tracks.earth[sampleIndex]?.elDeg ?? null}
+            eye={hardware.antennaHeightM} radius={SKYLINE_RADIUS_M - 8} kind="earth" />}
         </>
       )}
       <Sky sunTrack={tracks.sun} earthTrack={tracks.earth} sampleIndex={sampleIndex} readout={readout} radiusM={SKY_RADIUS_M}
@@ -97,7 +104,8 @@ function NavButton({ label, onClick, children }: { label: string; onClick: () =>
 }
 
 /** Map-style navigation widget: compass (click for north up), zoom, rotate and reset. */
-function NavWidget({ api, needle, mode }: { api: RefObject<CameraApi | null>; needle: RefObject<HTMLSpanElement | null>; mode: CameraMode }) {
+function NavWidget({ api, needle, mode, hardware, layers }: { api: RefObject<CameraApi | null>; needle: RefObject<HTMLSpanElement | null>; mode: CameraMode; hardware: LanderSceneProps['hardware']; layers: LanderSceneProps['layers'] }) {
+  const guidance = useGuidance();
   return (
     <div className="lp3d-nav" role="toolbar" aria-label="Camera navigation" aria-orientation="vertical">
       <button type="button" className="lp3d-nav-btn lp3d-compass" aria-label="Turn view to north" title="Turn view to north" onClick={() => api.current?.northUp()}>
@@ -118,6 +126,17 @@ function NavWidget({ api, needle, mode }: { api: RefObject<CameraApi | null>; ne
         <NavButton label="Rotate view 45 degrees right" onClick={() => api.current?.rotate(45)}><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M11 4.5A5 5 0 1 0 12.8 9" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /><path d="M13.5 2.5v3.5H10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></NavButton>
       </div>
       <NavButton label="Reset view" onClick={() => api.current?.reset()}><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8 8 3l5.5 5M4.5 6.5V13h7V6.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></NavButton>
+      {mode !== 'lander' && <div className="lp3d-nav-group lp3d-guide-controls" role="group" aria-label="Inspect hardware pointing">
+        {layers.panelGlow && hardware.panels.map((panel, i) => <button key={i} type="button" className="lp3d-nav-btn"
+          aria-label={`Inspect ${panel.name} panel pointing`} title={`Inspect ${panel.name} panel pointing`}
+          aria-pressed={guidance.selected === `panel-${i}`} onClick={() => guidance.select(guidance.selected === `panel-${i}` ? null : `panel-${i}`)}>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 8h15v11H3zM8 8v11m5-11v11M3 13h15M18 6l3-3m-4 0h4v4" fill="none" stroke="#ffb547" strokeWidth="1.5" /></svg>
+        </button>)}
+        {layers.antennaBeam && <button type="button" className="lp3d-nav-btn" aria-label="Inspect antenna pointing" title="Inspect antenna pointing"
+          aria-pressed={guidance.selected === 'antenna'} onClick={() => guidance.select(guidance.selected === 'antenna' ? null : 'antenna')}>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 6q-3 14 12 12ZM11 13l8-8M15 4h5v5M10 18v3M6 21h8" fill="none" stroke="#5cc8ff" strokeWidth="1.5" /></svg>
+        </button>}
+      </div>}
       <details className="lp3d-help">
         <summary aria-label="How to move the camera" title="How to move the camera">?</summary>
         <p>{HELP[mode]}</p>
@@ -136,8 +155,13 @@ export default function LanderScene(props: LanderSceneProps) {
   const api = useRef<CameraApi>(null);
   const needle = useRef<HTMLSpanElement>(null);
   const spin = props.cameraMode === 'hardware' && !props.reducedMotion;
+  const [selected, select] = useState<string | null>(null);
+  const [hovered, hover] = useState<string | null>(null);
+  useEffect(() => { select(null); hover(null); }, [props.hardware, props.layers.panelGlow, props.layers.antennaBeam]);
+  const active = hovered ?? selected;
   return (
-    <div className="lp3d-root">
+    <GuidanceContext.Provider value={{ active, selected, select, hover }}>
+    <div className="lp3d-root" onKeyDown={e => { if (e.key === 'Escape') { select(null); hover(null); } }}>
       <Canvas frameloop={spin ? 'always' : 'demand'} dpr={[1, 2]} shadows="percentage"
         onCreated={({ gl }) => { gl.toneMappingExposure = 1.1; }}
         camera={{ position: [11, 6.5, 13], fov: 45, near: 0.05, far: 4000 }} aria-label="3D lander scene">
@@ -146,16 +170,19 @@ export default function LanderScene(props: LanderSceneProps) {
         </OverlayContext.Provider>
       </Canvas>
       <div ref={overlay} className="lp3d-overlay" />
-      <NavWidget api={api} needle={needle} mode={props.cameraMode} />
+      <NavWidget api={api} needle={needle} mode={props.cameraMode} hardware={props.hardware} layers={props.layers} />
       <details className="lp3d-caption">
         <summary>About this view</summary>
         <p>
           Skyline and sky are drawn by angle, not distance. The Sun is drawn larger than life. Sunlight direction and strength come from the engine;
           the blue fill light, reflections, ground grain and the boost that lets grazing sunlight show on flat ground are display aids.
           Terrain shadows are not modelled; only the lander casts a shadow.
+          Short Sun/Earth markers are direction guides, not nearby objects. Green solar guides mean nonzero direct incidence with visible Sun, not battery survival.
+          Highlighted skyline segments mark angular obstruction, not a located obstacle on the local terrain patch.
           {props.verticalExaggeration !== 1 && ` Heights are exaggerated ×${props.verticalExaggeration}.`}
         </p>
       </details>
     </div>
+    </GuidanceContext.Provider>
   );
 }
