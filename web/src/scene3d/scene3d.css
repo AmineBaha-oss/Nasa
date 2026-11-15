@@ -1,12 +1,69 @@
-.lp3d-root { position: relative; width: 100%; height: 100%; min-height: 320px; background: #05070b; overflow: hidden; }
+.lp3d-root {
+  position: relative; width: 100%; height: 100%; min-height: 320px; background: #03050a; overflow: hidden;
+  --lp3d-glass: rgba(10, 14, 22, .78); --lp3d-edge: rgba(170, 186, 210, .22); --lp3d-ink: #e9ecf1; --lp3d-dim: #9aa5b5;
+}
 .lp3d-root > canvas, .lp3d-root > div:first-child { position: absolute; inset: 0; }
+.lp3d-root canvas { touch-action: none; }
 .lp3d-overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .lp3d-label {
   font: 500 11px/1.25 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .02em; white-space: nowrap;
-  color: #eceae4; background: rgba(5, 7, 11, .72); border: 1px solid rgba(160, 175, 195, .35); border-radius: 4px; padding: 2px 6px;
-  pointer-events: none; user-select: none; transform: translateY(-50%);
+  color: #eceae4; background: rgba(5, 8, 14, .74); border: 1px solid rgba(160, 175, 195, .3); border-radius: 6px; padding: 2px 7px;
+  pointer-events: none; user-select: none; transform: translateY(-50%); backdrop-filter: blur(4px);
 }
+
+.lp3d-nav {
+  position: absolute; z-index: 3; right: var(--lp3-right-inset, 14px); top: var(--lp3-top-inset, 14px);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.lp3d-nav-group {
+  display: flex; flex-direction: column; border-radius: 10px; overflow: hidden;
+  background: var(--lp3d-glass); border: 1px solid var(--lp3d-edge); backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
+}
+.lp3d-nav-group .lp3d-nav-btn { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.lp3d-nav-group .lp3d-nav-btn + .lp3d-nav-btn { border-top: 1px solid var(--lp3d-edge); }
+.lp3d-nav-btn {
+  width: 38px; height: 38px; display: grid; place-items: center; padding: 0; cursor: pointer;
+  color: var(--lp3d-ink); background: var(--lp3d-glass); border: 1px solid var(--lp3d-edge); border-radius: 10px;
+  backdrop-filter: blur(10px); box-shadow: 0 6px 20px rgba(0, 0, 0, .35); transition: background .15s, color .15s;
+}
+.lp3d-nav-btn:hover { background: rgba(40, 52, 72, .9); color: #fff; }
+.lp3d-nav-btn:focus-visible { outline: 2px solid #ffb547; outline-offset: 2px; }
+.lp3d-compass { width: 46px; height: 46px; border-radius: 50%; }
+.lp3d-needle { display: grid; place-items: center; will-change: transform; }
+
+.lp3d-help { position: relative; }
+.lp3d-help > summary {
+  list-style: none; width: 28px; height: 28px; display: grid; place-items: center; cursor: pointer; border-radius: 50%;
+  font: 600 13px/1 system-ui, sans-serif; color: var(--lp3d-dim); background: var(--lp3d-glass); border: 1px solid var(--lp3d-edge);
+}
+.lp3d-help > summary::-webkit-details-marker { display: none; }
+.lp3d-help > summary:focus-visible { outline: 2px solid #ffb547; outline-offset: 2px; }
+.lp3d-help[open] > summary { color: #fff; }
+.lp3d-help > p {
+  position: absolute; right: calc(100% + 10px); top: -4px; width: 240px; margin: 0; padding: 10px 12px;
+  font: 12px/1.45 system-ui, sans-serif; color: var(--lp3d-ink); background: var(--lp3d-glass);
+  border: 1px solid var(--lp3d-edge); border-radius: 10px; backdrop-filter: blur(10px);
+}
+
 .lp3d-caption {
-  position: absolute; right: 12px; top: 8px; margin: 0; max-width: min(46ch, calc(100% - 24px)); text-align: right; pointer-events: none;
-  font: 11px/1.3 system-ui, sans-serif; color: #a9b1bd; text-shadow: 0 1px 2px #000;
+  position: absolute; z-index: 2; right: calc(var(--lp3-right-inset, 14px) + 58px); bottom: var(--lp3-bottom-inset, 14px);
+  max-width: min(44ch, calc(100% - 100px)); font: 11px/1.4 system-ui, sans-serif; color: var(--lp3d-dim);
 }
+.lp3d-caption > summary {
+  cursor: pointer; text-align: right; list-style: none; padding: 4px 10px; border-radius: 999px; margin-left: auto; width: max-content;
+  background: rgba(10, 14, 22, .55); border: 1px solid var(--lp3d-edge);
+}
+.lp3d-caption > summary::-webkit-details-marker { display: none; }
+.lp3d-caption > summary:focus-visible { outline: 2px solid #ffb547; outline-offset: 2px; }
+.lp3d-caption > p {
+  margin: 6px 0 0; padding: 8px 10px; border-radius: 10px; color: var(--lp3d-ink);
+  background: var(--lp3d-glass); border: 1px solid var(--lp3d-edge); backdrop-filter: blur(10px);
+}
+
+@media (max-width: 899px) {
+  .lp3d-nav-btn { width: 34px; height: 34px; }
+  .lp3d-compass { width: 40px; height: 40px; }
+  .lp3d-nav-group:nth-of-type(2), .lp3d-help { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .lp3d-nav-btn { transition: none; } }

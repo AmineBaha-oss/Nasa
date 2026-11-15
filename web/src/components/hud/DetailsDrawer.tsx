@@ -14,9 +14,11 @@ interface Props {
   alternatives: Alternative[];
   yawDeg: number;
   focus?: 'solar' | 'battery' | 'antenna' | 'deployment' | null;
+  currentIndex?: number;
+  onSelect?: (index: number) => void;
 }
 
-export function DetailsDrawer({ open, onClose, data, hardware, evaluation, alternatives, yawDeg, focus }: Props) {
+export function DetailsDrawer({ open, onClose, data, hardware, evaluation, alternatives, yawDeg, focus, currentIndex, onSelect }: Props) {
   if (!open) return null;
   const evidence = hasFullCoverageEvidence(data);
   const reason = focus && evaluation ? evaluation[focus] : null;
@@ -42,7 +44,7 @@ export function DetailsDrawer({ open, onClose, data, hardware, evaluation, alter
             <ul>{evaluation.unresolved.map(u => <li key={u}>{u}</li>)}</ul>
           </section>
         )}
-        <ComparisonTable alternatives={alternatives} yawDeg={yawDeg} />
+        <ComparisonTable alternatives={alternatives} yawDeg={yawDeg} currentIndex={currentIndex} onSelect={onSelect} />
       </div>
       <button type="button" className="lp3-drawer-scrim" aria-label="Close details" onClick={onClose} />
     </div>

@@ -15,7 +15,7 @@ import { YawControl } from '../components/YawControl';
 import { Scene3DShell } from '../components/hud/Scene3DShell';
 import { DEFAULT_LAYERS } from '../scene3d/types';
 import { createInitialState, navigatorReducer } from '../state/navigatorState';
-import { parseHash, resolveDatasetIndex, serializeHash } from '../state/urlHash';
+import { parseHash, prefersReducedMotion, resolveDatasetIndex, serializeHash } from '../state/urlHash';
 import '../styles/navigator.css';
 import '../styles/scene3d.css';
 
@@ -107,15 +107,24 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === 'v' || e.key === 'V') { e.preventDefault(); dispatch({ type: 'toggleView' }); return; }
       if (state.view !== '3d') return;
       const step = e.shiftKey ? 15 : 1;
       if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); dispatch({ type: 'nudgeYaw', delta: step }); }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); dispatch({ type: 'nudgeYaw', delta: -step }); }
+      if (e.key === ',' || e.key === '.') {
+        e.preventDefault();
+        dispatch({ type: 'setSample', index: state.sampleIndex + (e.key === '.' ? 1 : -1), sampleCount });
+      }
+      if (e.key === ' ' && tag !== 'BUTTON' && tag !== 'SUMMARY' && !prefersReducedMotion()) {
+        e.preventDefault();
+        dispatch({ type: 'setPlaying', playing: !state.playing });
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [state.view]);
+  }, [state.view, state.sampleIndex, state.playing, sampleCount]);
 
   const turn = useCallback((deg: number, animate: boolean) => {
     setAnimateTurn(animate);
@@ -167,8 +176,16 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   if (state.view === '3d' && hardware) {
     return (
       <main className="lp-page lp-page-3d">
-        {viewToggle}
         <Scene3DShell
+          topLeft={(
+            <div className="lp3-brandbar">
+              <span className="lp3-brand">Landerprint</span>
+              <div className="lp3-viewtoggle" role="group" aria-label="View mode">
+                <button type="button" aria-pressed={false} onClick={() => dispatch({ type: 'setView', view: '2d' })} title="Switch to 2D (V)">2D</button>
+                <button type="button" aria-pressed={true} title="3D view (V)">3D</button>
+              </div>
+            </div>
+          )}
           datasets={datasets} hardwarePresets={hardwarePresets} state={state}
           data={data} hardware={hardware} terrain={terrain} evaluation={ev}
           alternatives={alternatives} deferredYaw={deferredYaw} focus={focus}
@@ -245,7 +262,7 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
         <p className="lp-hint">Battery gauge: engine minimum battery ÷ preset capacity. Antenna gauge: engine contact hours ÷ evaluated window. No gauge value is shown without an engine result.</p>
       </section>
 
-      <ComparisonTable alternatives={alternatives} yawDeg={deferredYaw} />
+      <ComparisonTable alternatives={alternatives} yawDeg={deferredYaw} currentIndex={state.datasetIndex} onSelect={changeDataset} />
       {intro === 'count' && <IntroSequence onDone={introCounted} />}
       <ApolloEasterEgg />
     </main>

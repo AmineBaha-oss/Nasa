@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { BufferAttribute, BufferGeometry, DoubleSide } from 'three';
+import { BufferAttribute, BufferGeometry, Color, DoubleSide } from 'three';
 import { Line } from '@react-three/drei';
 import type { HorizonProfile } from '../contracts';
 import { Label } from './Label';
@@ -12,7 +12,7 @@ interface Props {
   radiusM: number;
   floorY: number;
   colour: string;
-  /** Opaque wall below the line; only the Sun-horizon ring gets one. */
+  /** Silhouette wall below the line; only the Sun-horizon ring gets one. */
   wall: boolean;
   label?: string;
 }
@@ -25,6 +25,10 @@ export function SkylineRing({ horizon, eyeHeightM, radiusM, floorY, colour, wall
     const w = skylineWall(sky, floorY);
     const g = new BufferGeometry();
     g.setAttribute('position', new BufferAttribute(w.positions, 3));
+    const colours = new Float32Array(w.positions.length);
+    const top = new Color(PALETTE.wallTop), bottom = new Color(PALETTE.space);
+    for (let v = 0; v < w.positions.length / 3; v++) (v % 2 === 0 ? bottom : top).toArray(colours, v * 3);
+    g.setAttribute('color', new BufferAttribute(colours, 3));
     g.setIndex(new BufferAttribute(w.indices, 1));
     return g;
   }, [sky, wall, floorY]);
@@ -36,13 +40,13 @@ export function SkylineRing({ horizon, eyeHeightM, radiusM, floorY, colour, wall
   return (
     <group name={label ?? 'skyline'}>
       {geometry && (
-        <mesh geometry={geometry}>
-          <meshBasicMaterial color={PALETTE.wall} side={DoubleSide} />
+        <mesh geometry={geometry} raycast={() => null}>
+          <meshBasicMaterial vertexColors side={DoubleSide} fog={false} />
         </mesh>
       )}
       {sky.runs.map((run, i) => {
         const pts = run.points.map(p => p.position);
-        return <Line key={i} points={run.closed ? [...pts, pts[0]] : pts} color={colour} lineWidth={1.5} transparent opacity={0.85} />;
+        return <Line key={i} points={run.closed ? [...pts, pts[0]] : pts} color={colour} lineWidth={1.6} transparent opacity={0.9} fog={false} />;
       })}
     </group>
   );

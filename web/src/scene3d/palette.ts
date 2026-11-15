@@ -1,10 +1,12 @@
 import type { Status } from '../contracts';
 
-/** Same colours as web/src/styles/navigator.css so 2D and 3D read alike. */
+/** Same status colours as web/src/styles/navigator.css so 2D and 3D read alike. */
 export const PALETTE = {
-  space: '#05070b', paper: '#eceae4', regolith: '#8a8578', sun: '#ffb547', earth: '#4fc3f7', signal: '#fc3d21',
+  space: '#03050a', paper: '#eceae4', regolith: '#8f8b83', regolithDark: '#34322e', sun: '#ffb547', sunLight: '#fff0dc',
+  fill: '#9db4dc', earth: '#5cc8ff', signal: '#ff6a3d',
   pass: '#3dd68c', caution: '#f0a43a', fail: '#ff5d55', unknown: '#9aa1ab',
-  panel: '#1c3157', foil: '#c9a24a', wall: '#0b0f16',
+  cell: '#14254a', cellLine: '#3a5a92', frame: '#c9ced6', foil: '#d9ad55', foilDark: '#8a6a2c', deck: '#e8eaee',
+  wall: '#191814', wallTop: '#3a372f',
 } as const;
 
 export function statusColour(status: Status | null | undefined): string {
