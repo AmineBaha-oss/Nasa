@@ -33,11 +33,11 @@ export function windowTracks(data: SiteDateData, hardware: HardwareConfig, yawDe
   const byUtc = new Map(evaluatePowerWindow(data, hardware, yawDeg).batterySeries.map(b => [b.utc, b.energyWh]));
   return {
     sun: data.samples.map(s => ({
-      utc: s.utc, azDeg: s.sun?.azDeg ?? null, elDeg: s.sun?.elDeg ?? null,
+      utc: s.utc, azDeg: s.ephemerisQuality === 'missing' ? null : s.sun?.azDeg ?? null, elDeg: s.ephemerisQuality === 'missing' ? null : s.sun?.elDeg ?? null,
       visible: evaluateSolarSample(s, data.sunHorizon, hardware, yawDeg).sunlit,
     })),
     earth: data.samples.map(s => ({
-      utc: s.utc, azDeg: s.earth?.azDeg ?? null, elDeg: s.earth?.elDeg ?? null,
+      utc: s.utc, azDeg: s.ephemerisQuality === 'missing' ? null : s.earth?.azDeg ?? null, elDeg: s.ephemerisQuality === 'missing' ? null : s.earth?.elDeg ?? null,
       visible: evaluateEarthPointing(s, data.earthHorizon, hardware, yawDeg).earthVisible,
     })),
     batteryWh: data.samples.map(s => byUtc.get(s.utc) ?? null),
@@ -64,7 +64,7 @@ export function sampleReadout(data: SiteDateData, hardware: HardwareConfig, yawD
   const peak = Number.isFinite(hardware.peakSolarPowerW) ? Math.max(0, hardware.peakSolarPowerW) : 0;
   return {
     utc: sample.utc,
-    sun: { visible: solar.sunlit, fraction: solar.visibleFraction, azDeg: sample.sun?.azDeg ?? null, elDeg: sample.sun?.elDeg ?? null },
+    sun: { visible: solar.sunlit, fraction: solar.visibleFraction, azDeg: sun ? sample.sun!.azDeg : null, elDeg: sun ? sample.sun!.elDeg : null },
     powerW: hardwareOk ? solar.powerW : { low: 0, high: peak },
     panels,
     earth: evaluateEarthPointing(sample, data.earthHorizon, hardware, yawDeg),

@@ -124,14 +124,14 @@ const fmtDeg = (v: number | null | undefined) => (v === null || v === undefined 
 export function SunLight({ readout }: { readout: SampleReadout | null }) {
   const s = readout?.sun;
   const dir = s && s.azDeg !== null && s.elDeg !== null ? azElToThree(s.azDeg, s.elDeg) : null;
-  const intensity = dir && s ? 5 * s.fraction.low : 0;
+  const intensity = dir && s ? 3.2 * s.fraction.low : 0;
   const unknown = !s || s.visible === 'unknown';
   const fillAz = s?.azDeg !== null && s?.azDeg !== undefined ? s.azDeg + 180 : 200;
   const fill = azElToThree(fillAz, 35);
   return (
     <>
-      <hemisphereLight args={['#b9b3a8', '#3a332a', unknown ? 1.0 : 0.6]} />
-      <directionalLight position={[fill[0] * 80, fill[1] * 80, fill[2] * 80]} intensity={0.25} color={PALETTE.fill} />
+      <hemisphereLight args={['#cbd3df', '#50483d', unknown ? 1.0 : 0.85]} />
+      {!unknown && <directionalLight position={[fill[0] * 80, fill[1] * 80, fill[2] * 80]} intensity={0.4} color={PALETTE.fill} />}
       {dir && intensity > 0 && (
         <directionalLight position={[dir[0] * 120, dir[1] * 120, dir[2] * 120]} intensity={intensity} color={PALETTE.sunLight}
           castShadow shadow-mapSize={[2048, 2048]} shadow-camera-left={-30} shadow-camera-right={30}

@@ -14,6 +14,7 @@ import type { SampleReadout, TrackPoint } from './readouts';
 import { terrainHeightAt } from './terrainMesh';
 import { foilTexture } from './textures';
 import type { SceneLayers } from './types';
+import { useGuidance } from './PointingGuide';
 
 const RAMP_PLANK_M = 2.4;
 /** Octagon whose flat faces sit at BODY.halfWidthM, so panel standoffs stay outside the body. */
@@ -111,9 +112,11 @@ function ForwardArrow() {
     return s;
   }, []);
   return (
-    <mesh position={[0, BODY.topM + 0.05, -0.25]} rotation={[-Math.PI / 2, 0, 0]}>
+    <mesh position={[0, BODY.topM + 0.065, -0.25]} rotation={[-Math.PI / 2, 0, 0]}>
       <shapeGeometry args={[shape]} />
-      <meshStandardMaterial color={PALETTE.signal} emissive={PALETTE.signal} emissiveIntensity={0.6} side={DoubleSide} />
+      {/* The deck surface is topM + .05. Keep the marking above it to avoid depth fighting while orbiting. */}
+      <meshStandardMaterial color={PALETTE.signal} emissive={PALETTE.signal} emissiveIntensity={0.6}
+        side={DoubleSide} polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-1} />
     </mesh>
   );
 }
@@ -133,6 +136,7 @@ interface Props {
 }
 
 export function Lander({ hardware, yawDeg, readout, earthPoint, evaluation, terrain, site, verticalExaggeration, layers, hardwareLabels, reducedMotion }: Props) {
+  const inspecting = useGuidance().active !== null;
   const group = useYawGroup(yawDeg, reducedMotion);
   const footprint = hardware.landingFootprintRadiusM ?? 2;
   const deployment = evaluation?.deployment.status;
@@ -143,7 +147,7 @@ export function Lander({ hardware, yawDeg, readout, earthPoint, evaluation, terr
     <group ref={group} name="lander">
       <mesh position={[0, (BODY.bottomM + BODY.topM) / 2, 0]} rotation={[0, Math.PI / 8, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[OCTAGON_R, OCTAGON_R, height, 8]} />
-        <meshStandardMaterial map={foil} color="#ffffff" metalness={0.75} roughness={0.33} />
+        <meshStandardMaterial map={foil} color="#ffffff" metalness={0.55} roughness={0.48} />
       </mesh>
       <mesh position={[0, BODY.topM + 0.025, 0]} rotation={[0, Math.PI / 8, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[OCTAGON_R + 0.05, OCTAGON_R + 0.05, 0.05, 8]} />
@@ -176,13 +180,13 @@ export function Lander({ hardware, yawDeg, readout, earthPoint, evaluation, terr
           </group>
         );
       })}
-      {layers.labels && <Label position={[0, BODY.topM + 0.55, -BODY.halfWidthM - 0.2]} tone={PALETTE.signal}>Forward</Label>}
+      {layers.labels && !inspecting && <Label position={[0, BODY.topM + 0.55, -BODY.halfWidthM - 0.2]} tone={PALETTE.signal}>Forward</Label>}
       <HardwareModel hardware={hardware} readout={readout} earthPoint={earthPoint} yawDeg={yawDeg}
         showBeam={layers.antennaBeam} glow={layers.panelGlow} labels={hardwareLabels} />
       {layers.footprint && (
         <mesh position={[0, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]} raycast={() => null}>
           <ringGeometry args={[footprint - 0.05, footprint + 0.05, 72]} />
-          <meshBasicMaterial color={statusColour(deployment)} transparent opacity={0.9} />
+          <meshBasicMaterial color={statusColour(deployment)} transparent opacity={inspecting ? 0.2 : 0.55} />
         </mesh>
       )}
       {layers.ramp && hardware.rampHeadingBodyDeg !== undefined && (

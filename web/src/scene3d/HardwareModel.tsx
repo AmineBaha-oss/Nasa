@@ -1,20 +1,17 @@
 import { useMemo, useState } from 'react';
 import { AdditiveBlending, DoubleSide, LatheGeometry, Quaternion, Vector2, Vector3 } from 'three';
 import { Billboard, Line } from '@react-three/drei';
-import type { HardwareConfig } from '../contracts';
+import type { HardwareConfig, Status } from '../contracts';
 import type { Interval, Vec3 } from '../engine/power';
 import { azElToThree, bodyToLocal, enuToThree, threeToLocal } from './frames';
-import { ANTENNA_MAST, BODY, gimbalPatch, panelLayout, type PanelLayout } from './hardwareLayout';
+import { ANTENNA_MAST, BODY, PANEL_THICKNESS_M, gimbalPatch, panelLayout, trackerAngles, type PanelLayout } from './hardwareLayout';
 import { Label } from './Label';
 import { PALETTE, statusColour } from './palette';
 import type { PanelReadout, SampleReadout, TrackPoint } from './readouts';
 import { radialGlow } from './Sky';
 import { solarCellTexture } from './textures';
+import { PointingGuide, useGuidance } from './PointingGuide';
 
-/** Short dashed pointer from the dish toward Earth; Earth itself sits on the sky dome. */
-const EARTH_POINTER_M = 9;
-/** Length of the drawn sunlight shaft arriving at a lit panel. Decorative; direction is the ephemeris Sun. */
-const SUN_RAY_M = 16;
 const DISH_RADIUS_M = 0.45;
 const Y = new Vector3(0, 1, 0);
 const Z = new Vector3(0, 0, 1);
@@ -37,6 +34,13 @@ export function Strut({ from, to, radius = 0.04, colour = '#b9c0c9' }: { from: V
 /** Open cone with its apex at the origin, opening along local +y, with a rim ring so its edge reads. */
 function Cone({ halfAngleDeg, lengthM, colour, opacity, wireframe = false }: { halfAngleDeg: number; lengthM: number; colour: string; opacity: number; wireframe?: boolean }) {
   const r = lengthM * Math.tan(halfAngleDeg * Math.PI / 180);
+  if (wireframe) {
+    const rim = Array.from({ length: 65 }, (_, i): Vec3 => [Math.cos(i * Math.PI / 32) * r, lengthM, Math.sin(i * Math.PI / 32) * r]);
+    return <group raycast={() => null}>
+      <Line points={rim} color={colour} lineWidth={1.5} transparent opacity={opacity} raycast={() => null} />
+      {[0, 16, 32, 48].map(i => <Line key={i} points={[[0, 0, 0], rim[i]]} color={colour} lineWidth={1} transparent opacity={opacity * 0.6} raycast={() => null} />)}
+    </group>;
+  }
   return (
     <group raycast={() => null}>
       <mesh rotation={[Math.PI, 0, 0]} position={[0, lengthM / 2, 0]} raycast={() => null}>
@@ -55,19 +59,53 @@ function Cone({ halfAngleDeg, lengthM, colour, opacity, wireframe = false }: { h
 
 const fmtW = (w: Interval) => (Math.abs(w.high - w.low) < 0.05 ? `${w.low.toFixed(0)} W` : `${w.low.toFixed(0)}–${w.high.toFixed(0)} W`);
 
+function GimbalOutline({ patch, colour }: { patch: ReturnType<typeof gimbalPatch>; colour: string }) {
+  const point = (p: number, t: number): Vec3 => [-Math.cos(p) * Math.sin(t) * 1.4, Math.cos(t) * 1.4, Math.sin(p) * Math.sin(t) * 1.4];
+  const edges = [0, 1].flatMap(end => [
+    Array.from({ length: 49 }, (_, i) => point(patch.phiStart + patch.phiLength * i / 48, patch.thetaStart + patch.thetaLength * end)),
+    Array.from({ length: 33 }, (_, i) => point(patch.phiStart + patch.phiLength * end, patch.thetaStart + patch.thetaLength * i / 32)),
+  ]);
+  return <>{edges.map((points, i) => <Line key={i} points={points} color={colour} lineWidth={1.5} transparent opacity={0.65} raycast={() => null} />)}</>;
+}
+
+/** Illustrative pan/tilt cradle: the side bearings stay outside the panel at every tilt. */
+function TrackerSupport({ layout, pan }: { layout: PanelLayout; pan: number }) {
+  const half = layout.sideM / 2;
+  const width = half + 0.14;
+  const bottom = -half - 0.2;
+  const base = add(layout.centre, [0, bottom - 0.12, 0]);
+  return <>
+    <Strut from={[-BODY.halfWidthM, base[1], 0]} to={base} radius={0.055} />
+    <Strut from={base} to={add(layout.centre, [0, bottom, 0])} radius={0.065} />
+    <group position={layout.centre} rotation={[0, pan, 0]}>
+      <Strut from={[-width, bottom, 0]} to={[width, bottom, 0]} radius={0.035} />
+      {[-1, 1].map(sign => <group key={sign}>
+        <Strut from={[sign * width, bottom, 0]} to={[sign * width, 0, 0]} radius={0.035} />
+        <Strut from={[sign * width, 0, 0]} to={[sign * half, 0, 0]} radius={0.04} />
+      </group>)}
+    </group>
+  </>;
+}
+
 interface PanelProps {
   layout: PanelLayout;
   readout: PanelReadout | undefined;
   fraction: Interval;
   sunLocal: Vec3 | null;
+  sunVisible: Status;
+  primary: boolean;
   peakW: number;
   yawDeg: number;
   glow: boolean;
   label: boolean;
 }
 
-function PanelModel({ layout, readout, fraction, sunLocal, peakW, yawDeg, glow, label }: PanelProps) {
+function PanelModel({ layout, readout, fraction, sunLocal, sunVisible, primary, peakW, yawDeg, glow, label }: PanelProps) {
   const [hover, setHover] = useState(false);
+  const guidance = useGuidance();
+  const id = `panel-${layout.index}`;
+  const focused = guidance.active === id;
+  const muted = guidance.active !== null && !focused;
   const areaFraction = layout.areaFraction;
   const incidence = readout?.incidence ?? null;
   const tracked = layout.mode === 'tracked';
@@ -75,51 +113,57 @@ function PanelModel({ layout, readout, fraction, sunLocal, peakW, yawDeg, glow, 
   const clamped = tracked && (readout?.clamped ?? false);
   const strength = incidence === null ? 0 : incidence * fraction.low;
   const watts = incidence === null ? null : { low: peakW * areaFraction * incidence * fraction.low, high: peakW * areaFraction * incidence * fraction.high };
-  const mast: Vec3 = [layout.centre[0], BODY.topM, layout.centre[2]];
-  const face = add(layout.centre, tracked ? scale(unit(normal), 0.08) : [0, 0, 0]);
+  const angles = trackerAngles(normal);
+  const orientation = tracked
+    ? new Quaternion().setFromAxisAngle(Y, angles.pan).multiply(new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), angles.tilt))
+    : quatFrom(Z, normal);
+  const face = layout.centre;
   const cells = solarCellTexture();
   const lit = glow && strength > 0.01 && sunLocal !== null;
   return (
     <group name={`panel-${layout.name}`}>
       {tracked
-        ? <Strut from={mast} to={add(layout.centre, [0, -0.06, 0])} radius={0.05} />
+        ? <TrackerSupport layout={layout} pan={angles.pan} />
         : <Strut from={[layout.centre[0] * 0.9, BODY.topM - 0.05, layout.centre[2] * 0.9]} to={add(layout.centre, [0, -layout.sideM / 2, 0])} radius={0.03} />}
-      <mesh position={face} quaternion={quatFrom(Z, normal)} castShadow
-        onPointerOver={e => { e.stopPropagation(); setHover(true); }} onPointerOut={() => setHover(false)}>
-        <boxGeometry args={[layout.sideM, layout.sideM, 0.035]} />
+      <mesh position={face} quaternion={orientation} castShadow
+        onClick={e => { e.stopPropagation(); guidance.select(guidance.selected === id ? null : id); }}
+        onPointerOver={e => { e.stopPropagation(); setHover(true); guidance.hover(id); }}
+        onPointerOut={() => { setHover(false); guidance.hover(null); }}>
+        <boxGeometry args={[layout.sideM, layout.sideM, PANEL_THICKNESS_M]} />
         <meshStandardMaterial attach="material-0" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
         <meshStandardMaterial attach="material-1" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
         <meshStandardMaterial attach="material-2" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
         <meshStandardMaterial attach="material-3" color={PALETTE.frame} metalness={0.8} roughness={0.3} />
-        <meshPhysicalMaterial attach="material-4" map={cells} color={incidence === null ? '#7b818b' : '#ffffff'} metalness={0.2} roughness={0.22}
-          clearcoat={1} clearcoatRoughness={0.15} emissive={PALETTE.sun} emissiveIntensity={glow ? 0.9 * strength : 0} />
-        <meshStandardMaterial attach="material-5" color="#e9ebee" metalness={0.1} roughness={0.7} />
+        <meshPhysicalMaterial attach="material-4" map={cells} color={incidence === null ? '#7b818b' : '#ffffff'} metalness={0.12} roughness={0.44}
+          clearcoat={0.3} clearcoatRoughness={0.42} emissive={PALETTE.sun} emissiveIntensity={glow ? 0.07 * strength : 0} />
+        <meshStandardMaterial attach="material-5" color="#9da8b5" metalness={0.3} roughness={0.65} />
       </mesh>
+      <group position={face} quaternion={orientation}>
+        {[-0.3, 0, 0.3].map(offset => <mesh key={offset} position={[0, layout.sideM * offset, -PANEL_THICKNESS_M / 2 - 0.009]} raycast={() => null}>
+          <boxGeometry args={[layout.sideM * 0.94, 0.018, 0.018]} />
+          <meshStandardMaterial color="#687889" metalness={0.5} roughness={0.55} />
+        </mesh>)}
+      </group>
       {lit && sunLocal && (
         <>
-          <Line points={[add(face, scale(sunLocal, SUN_RAY_M)), face]} color={PALETTE.sunLight} lineWidth={2.2} transparent
-            opacity={0.25 + 0.6 * strength} raycast={() => null} />
           <Billboard position={add(face, scale(unit(normal), 0.05))}>
             <mesh raycast={() => null}>
-              <planeGeometry args={[layout.sideM * 1.8, layout.sideM * 1.8]} />
-              <meshBasicMaterial map={radialGlow()} color={PALETTE.sun} transparent opacity={0.65 * strength} depthWrite={false}
+              <planeGeometry args={[layout.sideM * 1.2, layout.sideM * 1.2]} />
+              <meshBasicMaterial map={radialGlow()} color={PALETTE.sun} transparent opacity={0.07 * strength} depthWrite={false}
                 blending={AdditiveBlending} toneMapped={false} />
             </mesh>
           </Billboard>
         </>
       )}
-      {tracked && (
-        <mesh position={layout.centre}>
-          <sphereGeometry args={[0.09, 16, 10]} />
-          <meshStandardMaterial color={clamped ? PALETTE.caution : '#cfd6df'} metalness={0.6} roughness={0.3} />
-        </mesh>
-      )}
-      {tracked && layout.maxTrackingAngleDeg !== null && layout.maxTrackingAngleDeg < 89 && (
+      {glow && <PointingGuide origin={face} aim={normal} target={sunLocal} kind="sun" visibility={sunVisible}
+        pointing={incidence === null ? 'unknown' : incidence <= 0 ? 'fail' : 'pass'} limited={clamped} focused={focused} muted={muted}
+        showTarget={!muted && (focused || primary)} />}
+      {glow && tracked && focused && layout.maxTrackingAngleDeg !== null && layout.maxTrackingAngleDeg < 89 && (
         <group position={layout.centre} quaternion={quatFrom(Y, layout.restNormal)}>
-          <Cone halfAngleDeg={layout.maxTrackingAngleDeg} lengthM={1.1} colour={clamped ? PALETTE.caution : '#8fa6c8'} opacity={0.35} wireframe />
+          <Cone halfAngleDeg={layout.maxTrackingAngleDeg} lengthM={0.65} colour={clamped ? PALETTE.caution : '#8fa6c8'} opacity={0.65} wireframe />
         </group>
       )}
-      {(label || hover) && (
+      {((label && focused) || hover) && (
         <Label position={tracked ? add(layout.centre, [0, layout.sideM / 2 + 0.5, 0])
           : add(layout.centre, [layout.restNormal[0] * 1.1, layout.sideM / 2 + 0.15, layout.restNormal[2] * 1.1])}
           tone={clamped ? PALETTE.caution : undefined}>
@@ -152,6 +196,9 @@ interface AntennaProps {
 
 function AntennaModel({ hardware, readout, earthPoint, yawDeg, showBeam, label }: AntennaProps) {
   const [hover, setHover] = useState(false);
+  const guidance = useGuidance();
+  const focused = guidance.active === 'antenna';
+  const muted = guidance.active !== null && !focused;
   const dishGeo = useDishGeometry();
   const { antenna, antennaHeightM } = hardware;
   const dish: Vec3 = [ANTENNA_MAST[0], antennaHeightM, ANTENNA_MAST[2]];
@@ -171,27 +218,29 @@ function AntennaModel({ hardware, readout, earthPoint, yawDeg, showBeam, label }
         <meshStandardMaterial color="#9aa3ae" metalness={0.8} roughness={0.3} />
       </mesh>
       <group position={dish} quaternion={quatFrom(Y, aim)}
-        onPointerOver={e => { e.stopPropagation(); setHover(true); }} onPointerOut={() => setHover(false)}>
+        onClick={e => { e.stopPropagation(); guidance.select(guidance.selected === 'antenna' ? null : 'antenna'); }}
+        onPointerOver={e => { e.stopPropagation(); setHover(true); guidance.hover('antenna'); }}
+        onPointerOut={() => { setHover(false); guidance.hover(null); }}>
         <mesh geometry={dishGeo.geometry} position={[0, 0.06, 0]} castShadow>
-          <meshStandardMaterial color="#f1f2f4" metalness={0.15} roughness={0.5} side={DoubleSide} />
+          <meshStandardMaterial color="#d5dde5" metalness={0.25} roughness={0.58} side={DoubleSide} />
+        </mesh>
+        <mesh position={[0, dishGeo.rimY + 0.06, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[DISH_RADIUS_M, 0.012, 8, 48]} />
+          <meshStandardMaterial color="#8898aa" metalness={0.6} roughness={0.4} />
         </mesh>
         {feedStruts.map((p, i) => <Strut key={i} from={add(p, [0, 0.06, 0])} to={[0, dishGeo.focusY + 0.06, 0]} radius={0.008} colour="#d0d4da" />)}
         <mesh position={[0, dishGeo.focusY + 0.08, 0]}>
           <cylinderGeometry args={[0.035, 0.05, 0.08, 12]} />
           <meshStandardMaterial color="#c9a24a" metalness={0.7} roughness={0.35} />
         </mesh>
-        {showBeam && <Cone halfAngleDeg={antenna.beamHalfAngleDeg} lengthM={3.5} colour={tone} opacity={0.05} />}
+        {showBeam && focused && antenna.beamHalfAngleDeg < 89 && <Cone halfAngleDeg={antenna.beamHalfAngleDeg} lengthM={1.7} colour={PALETTE.earth} opacity={0.05} />}
       </group>
-      {showBeam && label && patch && (
-        <mesh position={dish} raycast={() => null}>
-          <sphereGeometry args={[1.1, 24, 10, patch.phiStart, patch.phiLength, patch.thetaStart, patch.thetaLength]} />
-          <meshBasicMaterial color="#8fa6c8" wireframe transparent opacity={0.12} depthWrite={false} />
-        </mesh>
+      {showBeam && focused && patch && (
+        <group position={dish}><GimbalOutline patch={patch} colour={earth?.pointing === 'fail' ? PALETTE.caution : PALETTE.earth} /></group>
       )}
-      {showBeam && earthLocal && earth && (
-        <Line points={[dish, add(dish, scale(earthLocal, EARTH_POINTER_M))]} color={tone} lineWidth={2} dashed dashSize={0.5} gapSize={0.35} transparent opacity={0.9} />
-      )}
-      {(label || hover) && (
+      {showBeam && <PointingGuide origin={dish} aim={aim} target={earthLocal} kind="earth"
+        visibility={earth?.earthVisible ?? 'unknown'} pointing={earth?.pointing ?? 'unknown'} focused={focused} muted={muted} />}
+      {((label && focused) || hover) && (
         <Label position={add(dish, [0, 0.9, 0])} tone={tone}>
           Antenna ±{antenna.beamHalfAngleDeg}° {antenna.gimbal ? 'gimballed' : 'fixed'}, Earth {earth ? (earth.status === 'pass' ? 'reachable' : earth.status === 'fail' ? 'not reachable' : 'unknown') : 'unknown'}
         </Label>
@@ -215,11 +264,13 @@ export function HardwareModel({ hardware, readout, earthPoint, yawDeg, showBeam,
   const layout = panelLayout(hardware);
   const fraction = readout?.sun.fraction ?? { low: 0, high: 1 };
   const s = readout?.sun;
-  const sunLocal = s && s.azDeg !== null && s.elDeg !== null && s.visible !== 'fail' ? threeToLocal(azElToThree(s.azDeg, s.elDeg), yawDeg) : null;
+  // One shared Sun target by default for multi-face arrays; inspect any face to reveal its own gap.
+  const primary = layout.reduce((best, p) => (readout?.panels[p.index]?.incidence ?? -1) > (readout?.panels[best]?.incidence ?? -1) ? p.index : best, layout[0]?.index ?? 0);
+  const sunLocal = s && s.azDeg !== null && s.elDeg !== null ? threeToLocal(azElToThree(s.azDeg, s.elDeg), yawDeg) : null;
   return (
     <group name="hardware">
       {layout.map(l => (
-        <PanelModel key={`${hardware.name}-${l.index}`} layout={l} readout={readout?.panels[l.index]} sunLocal={sunLocal}
+        <PanelModel key={`${hardware.name}-${l.index}`} layout={l} readout={readout?.panels[l.index]} sunLocal={sunLocal} sunVisible={s?.visible ?? 'unknown'} primary={l.index === primary}
           fraction={fraction} peakW={hardware.peakSolarPowerW} yawDeg={yawDeg} glow={glow} label={labels} />
       ))}
       <AntennaModel hardware={hardware} readout={readout} earthPoint={earthPoint} yawDeg={yawDeg} showBeam={showBeam} label={labels} />

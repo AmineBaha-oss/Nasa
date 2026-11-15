@@ -3,6 +3,7 @@ import { useThree, type ThreeEvent } from '@react-three/fiber';
 import { BufferGeometry, Float32BufferAttribute, Plane, Vector3 } from 'three';
 import { azElToThree, groundPointToYawDeg } from './frames';
 import { PALETTE } from './palette';
+import { useGuidance } from './PointingGuide';
 
 const RING_RADIUS_M = 3.4;
 const RING_Y = 0.3;
@@ -30,6 +31,7 @@ function useTicks() {
  * The HUD heading dial is the keyboard equivalent. Camera controls pause while dragging.
  */
 export function HeadingRing({ yawDeg, onYawChange }: { yawDeg: number; onYawChange?: (yawDeg: number) => void }) {
+  const inspecting = useGuidance().active !== null;
   const controls = useThree(s => s.controls) as unknown as Controls;
   const invalidate = useThree(s => s.invalidate);
   const dragging = useRef(false);
@@ -56,16 +58,16 @@ export function HeadingRing({ yawDeg, onYawChange }: { yawDeg: number; onYawChan
   return (
     <group name="heading-ring">
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, RING_Y, 0]} raycast={() => null}>
-        <torusGeometry args={[RING_RADIUS_M, hot ? 0.07 : 0.045, 8, 128]} />
-        <meshBasicMaterial color={colour} transparent opacity={hot ? 0.95 : 0.7} />
+        <torusGeometry args={[RING_RADIUS_M, hot ? 0.055 : 0.025, 8, 128]} />
+        <meshBasicMaterial color={colour} transparent opacity={hot ? 0.95 : inspecting ? 0.18 : 0.5} />
       </mesh>
       <lineSegments geometry={ticks} raycast={() => null}>
-        <lineBasicMaterial color={colour} transparent opacity={0.8} />
+        <lineBasicMaterial color={colour} transparent opacity={inspecting && !hot ? 0.16 : 0.5} />
       </lineSegments>
       <group position={handle} rotation={[0, Math.atan2(hx, hz), 0]}>
         <mesh rotation={[Math.PI / 2, 0, 0]} raycast={() => null}>
-          <coneGeometry args={[0.24, 0.55, 20]} />
-          <meshBasicMaterial color={colour} />
+          <coneGeometry args={[0.18, 0.4, 20]} />
+          <meshBasicMaterial color={colour} transparent opacity={inspecting && !hot ? 0.3 : 0.9} />
         </mesh>
       </group>
       {interactive && (

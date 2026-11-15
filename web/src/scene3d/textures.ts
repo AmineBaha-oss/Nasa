@@ -30,8 +30,8 @@ export function solarCellTexture(): Texture | null {
       for (let c = 0; c < n; c++) {
         const x = margin + c * (cell + gap), y = margin + r * (cell + gap);
         const g = ctx.createLinearGradient(x, y, x + cell, y + cell);
-        g.addColorStop(0, '#1d3566');
-        g.addColorStop(1, '#0f1d3d');
+        g.addColorStop(0, '#152c50');
+        g.addColorStop(1, '#09172e');
         ctx.fillStyle = g;
         ctx.fillRect(x, y, cell, cell);
         ctx.strokeStyle = 'rgba(150,175,220,.35)';
@@ -100,13 +100,13 @@ export function regolithTexture(): Texture | null {
 /** Crinkled multilayer-insulation foil: brightness noise used as a colour map on the gold body. */
 export function foilTexture(): Texture | null {
   const t = canvasTexture('foil', 256, (ctx, s) => {
-    ctx.fillStyle = '#d9ad55';
+    ctx.fillStyle = '#c8a25a';
     ctx.fillRect(0, 0, s, s);
     let seed = 7;
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
     for (let i = 0; i < 260; i++) {
       const x = rand() * s, y = rand() * s, w = 10 + rand() * 40, h = 6 + rand() * 26;
-      ctx.fillStyle = rand() > 0.5 ? `rgba(255,236,180,${0.08 + rand() * 0.18})` : `rgba(90,60,20,${0.08 + rand() * 0.16})`;
+      ctx.fillStyle = rand() > 0.5 ? `rgba(255,236,180,${0.025 + rand() * 0.065})` : `rgba(90,60,20,${0.025 + rand() * 0.06})`;
       ctx.beginPath();
       ctx.ellipse(x, y, w, h, rand() * Math.PI, 0, Math.PI * 2);
       ctx.fill();

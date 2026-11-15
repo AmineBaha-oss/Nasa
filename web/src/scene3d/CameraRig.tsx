@@ -2,7 +2,10 @@ import { useEffect, useImperativeHandle, useRef, type Ref, type RefObject } from
 import { useFrame, useThree } from '@react-three/fiber';
 import { CameraControls, CameraControlsImpl } from '@react-three/drei';
 import type { Vec3 } from '../engine/power';
+import type { HardwareConfig } from '../contracts';
 import { azElToThree } from './frames';
+import { hardwareFrame, framingDistance } from './cameraFraming';
+import { useGuidance } from './PointingGuide';
 import type { CameraMode, ViewInsets } from './types';
 
 const { ACTION } = CameraControlsImpl;
@@ -32,6 +35,7 @@ interface Props {
   /** Compass needle rotated every frame to show where north is on screen. */
   needleRef?: RefObject<HTMLElement | null>;
   insets?: ViewInsets;
+  hardware: HardwareConfig;
 }
 
 /**
@@ -92,7 +96,7 @@ function configure(c: CameraControlsImpl, mode: CameraMode) {
   c.smoothTime = 0.25;
   c.draggingSmoothTime = 0.12;
   c.minDistance = fpv ? 0.01 : 2;
-  c.maxDistance = fpv ? 0.01 : top ? 420 : mode === 'hardware' ? 30 : 320;
+  c.maxDistance = fpv ? 0.01 : top ? 420 : mode === 'hardware' ? 120 : 320;
   c.minPolarAngle = 0;
   c.maxPolarAngle = top ? 0.0001 : fpv ? Math.PI * 0.8 : 85 * DEG;
   c.azimuthRotateSpeed = fpv ? -0.35 : 1;
@@ -111,8 +115,10 @@ function configure(c: CameraControlsImpl, mode: CameraMode) {
  * Map-style camera: left drag orbits (pans in top view), right drag pans (rotates in top view), wheel zooms toward the cursor.
  * Lander view looks around from the mast. Views move smoothly; the pose resets only on mode or site change.
  */
-export function CameraRig({ mode, yawDeg, eyeHeightM, sunAzDeg, reducedMotion, resetKey, apiRef, needleRef, insets }: Props) {
+export function CameraRig({ mode, yawDeg, eyeHeightM, sunAzDeg, reducedMotion, resetKey, apiRef, needleRef, insets, hardware }: Props) {
   useViewOffset(insets);
+  const { selected } = useGuidance();
+  const size = useThree(s => s.size);
   const controls = useRef<CameraControlsImpl>(null);
   const invalidate = useThree(s => s.invalidate);
   const lastInput = useRef(-Infinity);
@@ -126,6 +132,17 @@ export function CameraRig({ mode, yawDeg, eyeHeightM, sunAzDeg, reducedMotion, r
     if (!c) return;
     const { yawDeg: y, eyeHeightM: h, sunAzDeg: s } = latest.current;
     const p = pose(mode, y, h, s);
+    if (mode === 'hardware' || (mode === 'orbit' && selected !== null)) {
+      const frame = hardwareFrame(hardware, y, selected);
+      const availableWidth = Math.max(180, size.width - (insets?.left ?? 0) - (insets?.right ?? 0));
+      const availableHeight = Math.max(180, size.height - (insets?.top ?? 0) - (insets?.bottom ?? 0));
+      const offsetScale = Math.max(1 + Math.abs((insets?.left ?? 0) - (insets?.right ?? 0)) / size.width,
+        1 + Math.abs((insets?.top ?? 0) - (insets?.bottom ?? 0)) / size.height);
+      const effectiveFov = 2 * Math.atan(Math.tan(22.5 * DEG) * availableHeight / (size.height * offsetScale)) / DEG;
+      p.target = frame.target;
+      p.position = around(selected ? c.azimuthAngle / DEG : y + 35, selected ? Math.max(18, 90 - c.polarAngle / DEG) : 24,
+        framingDistance(frame.radius, availableWidth / availableHeight, effectiveFov), frame.target);
+    }
     void c.zoomTo(1, transition);
     void c.setLookAt(...p.position, ...p.target, transition);
     invalidate();
@@ -138,9 +155,9 @@ export function CameraRig({ mode, yawDeg, eyeHeightM, sunAzDeg, reducedMotion, r
     goHome(animate);
     // Pose resets on mode, site and eye-height changes only; heading changes are followed below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, resetKey, eyeHeightM]);
+  }, [mode, resetKey, eyeHeightM, hardware, selected, size.width, size.height, insets]);
 
-  const followYaw = mode === 'lander' ? yawDeg : null;
+  const followYaw = mode === 'lander' || (selected && (mode === 'hardware' || mode === 'orbit')) ? yawDeg : null;
   useEffect(() => {
     if (followYaw === null) return;
     goHome(animate);
@@ -181,13 +198,13 @@ export function CameraRig({ mode, yawDeg, eyeHeightM, sunAzDeg, reducedMotion, r
       invalidate();
     },
     reset() { lastInput.current = -Infinity; goHome(animate); },
-  }), [mode, animate, invalidate]);
+  }), [mode, animate, invalidate, hardware, selected, size, insets]);
 
   useFrame((_, delta) => {
     clock.current += delta;
     const c = controls.current;
     if (!c) return;
-    if (mode === 'hardware' && animate && clock.current - lastInput.current > SPIN_PAUSE_S) {
+    if (mode === 'hardware' && !selected && animate && clock.current - lastInput.current > SPIN_PAUSE_S) {
       c.azimuthAngle += SPIN_RAD_PER_S * Math.min(delta, 0.1);
     }
     const needle = needleRef?.current;
