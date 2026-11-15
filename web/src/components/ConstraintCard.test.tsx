@@ -21,6 +21,6 @@ describe('constraint status presentation (synthetic unit tests only)', () => {
   });
   it('explains a missing engine result', () => {
     const html = renderToStaticMarkup(<ConstraintCard title="Battery" result={null} evidenceComplete={false} />);
-    expect(html).toContain('No engine result is connected');
+    expect(html).toContain('No engine result yet');
   });
 });

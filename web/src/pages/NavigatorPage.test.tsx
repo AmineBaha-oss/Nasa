@@ -18,11 +18,15 @@ const syntheticHardware: HardwareConfig = {
 describe('navigator page (synthetic unit tests only)', () => {
   it('flags synthetic data, local-only terrain and hypothetical hardware', () => {
     const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);
-    expect(html).toContain('SYNTHETIC TEST DATA');
-    expect(html).toContain('local terrain only');
-    expect(html).toContain('distant obstructions unmodeled');
-    expect(html).toContain('is hypothetical');
-    expect(html).toContain('not flight certified');
+    expect(html).toContain('SYNTHETIC');
+    expect(html).toContain('LOCAL TERRAIN ONLY');
+    expect(html).toContain('HYPOTHETICAL HW');
+    expect(html).toContain('5 M DEM · RESEARCH');
+    const d = qualityDisclosures(data(), syntheticHardware);
+    expect(d.some(x => x.text.includes('SYNTHETIC TEST DATA'))).toBe(true);
+    expect(d.some(x => x.text.includes('local terrain only') && x.text.includes('distant obstructions unmodeled'))).toBe(true);
+    expect(d.some(x => x.text.includes('is hypothetical'))).toBe(true);
+    expect(d.some(x => x.text.includes('not flight certified'))).toBe(true);
   });
   it('shows Unknown everywhere when no engine is connected', () => {
     const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);
@@ -37,8 +41,8 @@ describe('navigator page (synthetic unit tests only)', () => {
   });
   it('asks for hardware instead of inventing it', () => {
     const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[]} />);
-    expect(html).toContain('no team-approved hardware preset');
-    expect(html).toContain('No hardware preset selected');
+    expect(html).toContain('No team-approved hardware preset');
+    expect(html).toContain('NO HARDWARE');
   });
   it('keeps an engine pass on synthetic data out of the green tone', () => {
     const r = { status: 'pass' as const, reason: 'synthetic', sourceIds: ['synthetic'] };
@@ -81,13 +85,14 @@ describe('navigator page (synthetic unit tests only)', () => {
     const full = structuredClone(gap); full.earthHorizon.anglesDeg = [0, 0, 0, 0];
     expect(render(full)).toContain('lp-tone-pass');
   });
-  it('keeps every limit in the page even when the warning band is collapsible', () => {
+  it('keeps limits visible as chips next to results', () => {
     const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);
-    expect(html).toContain('What this view can&#x27;t tell you');
-    expect(html).toContain('+5 more'); expect(html).toContain('Show all 6');
-    expect(html).toContain('SYNTHETIC</li>'); expect(html).toContain('EPHEMERIS UNVERIFIED'); expect(html).toContain('LOCAL TERRAIN ONLY');
-    for (const t of ['SYNTHETIC TEST DATA', 'not independently verified', 'local terrain only', 'is hypothetical', 'not flight certified'])
-      expect(html).toContain(t);
+    expect(html).not.toContain('What this view can&#x27;t tell you');
+    expect(html).toContain('SYNTHETIC</li>');
+    expect(html).toContain('EPHEMERIS UNVERIFIED');
+    expect(html).toContain('LOCAL TERRAIN ONLY');
+    expect(html).toContain('HYPOTHETICAL HW');
+    expect(html).toContain('5 M DEM · RESEARCH');
   });
   it('labels decorative and illustrative elements honestly', () => {
     const html = renderToStaticMarkup(<NavigatorPage datasets={[data()]} hardwarePresets={[syntheticHardware]} />);

@@ -41,12 +41,12 @@ export function HeroSection({ data, sample, yawDeg, hardware }: Props) {
       <div className="lp-hero-copy">
         <p className="lp-wordmark">Landerprint</p>
         <h1 id="lp-hero-h">Which way should<br />the lander <span className="lp-outline">face?</span></h1>
-        <p className="lp-lede">Pick a site, a UTC period and a heading. The dial shows where the Sun and Earth sit above the local terrain; the checks report what the engines found, and say so when they found nothing.</p>
+        <p className="lp-lede">Site · UTC window · heading. Dial shows Sun and Earth above the local terrain.</p>
       </div>
       <div className="lp-hero-dial">
         <HorizonWheel sunHorizon={data.sunHorizon} earthHorizon={data.earthHorizon} sample={sample} yawDeg={yawDeg} hardware={hardware} decorative />
       </div>
-      <a className="lp-scroll-cue" href="#lp-cockpit"><span className="lp-scroll-line" aria-hidden="true" />Scroll to land</a>
+      <a className="lp-scroll-cue" href="#lp-cockpit"><span className="lp-scroll-line" aria-hidden="true" />Setup</a>
       <div className="lp-ticker" role="group" aria-label="Telemetry">
         <div className="lp-ticker-track">
           <div className="lp-ticker-run">{strip}</div>

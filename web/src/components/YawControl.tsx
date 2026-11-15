@@ -71,9 +71,7 @@ export function YawControl({ valueDeg, onChange, animate = false }: Props) {
             aria-label={`Turn ${Math.abs(step)}° ${step > 0 ? 'clockwise' : 'counter-clockwise'}`}>{step > 0 ? `+${step}` : `−${-step}`}°</button>
         ))}
       </div>
-      <p className="lp-hint" id={`${id}-hint`}>
-        Degrees clockwise from lunar north. On the dial or knob: <kbd>←</kbd> <kbd>→</kbd> ±1°, <kbd>Shift</kbd>+<kbd>→</kbd> ±10°, <kbd>Home</kbd> 0°.
-      </p>
+      <p className="lp-hint" id={`${id}-hint`}>Clockwise from north · <kbd>←</kbd><kbd>→</kbd> ±1° · <kbd>Shift</kbd> ±10°</p>
     </fieldset>
   );
 }

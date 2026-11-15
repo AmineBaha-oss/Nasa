@@ -8,6 +8,7 @@ export function qualityChips(data: SiteDateData, hardware: HardwareConfig | null
   if ([data.sunHorizon, data.earthHorizon].some(h => h.horizonCoverage !== 'far-field-validated')) chips.push({ text: 'LOCAL TERRAIN ONLY', tone: 'caution' });
   if (!hardware) chips.push({ text: 'NO HARDWARE', tone: 'critical' });
   else if (hardware.identity === 'hypothetical') chips.push({ text: 'HYPOTHETICAL HW', tone: 'caution' });
+  chips.push({ text: '5 M DEM · RESEARCH', tone: 'caution' });
   return chips;
 }
 

@@ -268,17 +268,22 @@ export function HorizonWheel({ sunHorizon, earthHorizon, sample, yawDeg, hardwar
         {onYawChange && <div ref={hoverRef} className="lp-crosshair" aria-hidden="true"><span className="lp-crosshair-line" /><span ref={readoutRef} className="lp-crosshair-readout" /></div>}
       </div>
       {!decorative && <figcaption>
-        <ul className="lp-legend">
-          <li><span className="lp-key lp-key-sun" />Sun {sample?.sun ? `az ${formatDeg(sample.sun.azDeg)}, el ${formatDeg(sample.sun.elDeg)}` : 'unknown for this sample'}</li>
-          <li><span className="lp-key lp-key-earth" />Earth {sample?.earth ? `az ${formatDeg(sample.earth.azDeg)}, el ${formatDeg(sample.earth.elDeg)}` : 'unknown for this sample'}; phase drawn is illustrative</li>
-          <li><span className="lp-key lp-key-hs" />Terrain horizon at panel height ({sunHorizon.observerHeightM} m)</li>
-          <li><span className="lp-key lp-key-he" />Horizon at antenna height ({earthHorizon.observerHeightM} m)</li>
-          <li><span className="lp-key lp-key-head" />Body forward {yawDeg}°</li>
-          {hardware && <li><span className="lp-key lp-key-beam" />Antenna half-beam ±{hardware.antenna.beamHalfAngleDeg}° (preset geometry, not a link check)</li>}
-          {hardware && <li><span className="lp-key lp-key-panel" />Panel normals (body-fixed)</li>}
-          {gaps && <li><span className="lp-key lp-key-gap" />Unknown horizon bins (no data, not clear sky)</li>}
+        <ul className="lp-legend lp-legend-compact">
+          <li><span className="lp-key lp-key-sun" />Sun {sample?.sun ? `${formatDeg(sample.sun.azDeg)} / ${formatDeg(sample.sun.elDeg)}` : 'unknown'}</li>
+          <li><span className="lp-key lp-key-earth" />Earth {sample?.earth ? `${formatDeg(sample.earth.azDeg)} / ${formatDeg(sample.earth.elDeg)}` : 'unknown'} · phase drawn is illustrative</li>
+          <li><span className="lp-key lp-key-head" />Heading {yawDeg}°</li>
+          {hardware && <li><span className="lp-key lp-key-beam" />Beam ±{hardware.antenna.beamHalfAngleDeg}° · not a link check</li>}
+          {gaps && <li><span className="lp-key lp-key-gap" />Unknown horizon bins</li>}
         </ul>
-        <p className="lp-hint">Seen from above: north up, east right. Rim {scale.minElDeg}°, centre {scale.maxElDeg > 0 ? '+' : ''}{scale.maxElDeg}° elevation.</p>
+        <details className="lp-more">
+          <summary>Dial notes</summary>
+          <ul className="lp-legend">
+            <li><span className="lp-key lp-key-hs" />Panel horizon: {sunHorizon.horizonCoverage === 'far-field-validated' ? `far-field validated (${sunHorizon.extentKm} km, observer ${sunHorizon.observerHeightM} m)` : sunHorizon.horizonCoverage === 'local-only' ? `local terrain only (${sunHorizon.extentKm} km, observer ${sunHorizon.observerHeightM} m)` : `missing (observer ${sunHorizon.observerHeightM} m)`}</li>
+            <li><span className="lp-key lp-key-he" />Antenna horizon: {earthHorizon.horizonCoverage === 'far-field-validated' ? `far-field validated (${earthHorizon.extentKm} km, observer ${earthHorizon.observerHeightM} m)` : earthHorizon.horizonCoverage === 'local-only' ? `local terrain only (${earthHorizon.extentKm} km, observer ${earthHorizon.observerHeightM} m)` : `missing (observer ${earthHorizon.observerHeightM} m)`}</li>
+            {hardware && <li><span className="lp-key lp-key-panel" />Panel normals (body-fixed)</li>}
+            <li>North up, east right. Rim {scale.minElDeg}°, centre {scale.maxElDeg > 0 ? '+' : ''}{scale.maxElDeg}° elevation.</li>
+          </ul>
+        </details>
       </figcaption>}
     </figure>
   );

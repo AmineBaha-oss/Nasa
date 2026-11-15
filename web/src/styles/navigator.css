@@ -189,6 +189,13 @@
 
 /* Legends */
 .lp-legend { list-style: none; padding: 0; margin: 14px 0 0; font-size: .82rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 4px 20px; color: var(--lp-dim); }
+.lp-legend-compact { margin-top: 10px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.lp-more { margin-top: 8px; color: var(--lp-dim); font-size: .8rem; }
+.lp-more > summary { cursor: pointer; color: var(--lp-paper); list-style: none; width: max-content; }
+.lp-more > summary::-webkit-details-marker { display: none; }
+.lp-more > summary::before { content: '+ '; color: var(--lp-signal); }
+.lp-more[open] > summary::before { content: '− '; }
+.lp-more .lp-legend { margin-top: 8px; }
 .lp-key { display: inline-block; width: 16px; height: 3px; margin-right: 10px; vertical-align: middle; background: var(--lp-dim); }
 .lp-key-sun, .lp-key-earth { width: 10px; height: 10px; border-radius: 50%; margin: 0 13px 0 3px; }
 .lp-key-sun { background: var(--lp-sun); } .lp-key-earth { background: var(--lp-earth); }
@@ -275,13 +282,19 @@
 .lp-gauge-text { position: absolute; inset: 0; display: grid; place-items: center; font: 600 .9rem var(--lp-mono); }
 .lp-status { font: 700 clamp(1.4rem, 2vw, 1.9rem)/1.05 var(--lp-display); margin: 0; }
 .lp-reason { margin: 0; color: var(--lp-dim); font-size: .82rem; }
+details.lp-reason > summary { cursor: pointer; color: var(--lp-dim); list-style: none; width: max-content; }
+details.lp-reason > summary::-webkit-details-marker { display: none; }
+details.lp-reason > p { margin: 6px 0 0; }
 .lp-sources { color: var(--lp-faint); }
 .lp-tone-pass { border-top-color: var(--lp-pass); } .lp-tone-pass .lp-status, td.lp-tone-pass { color: var(--lp-pass); } .lp-tone-pass .lp-gauge-value { stroke: var(--lp-pass); }
 .lp-tone-caution { border-top-color: var(--lp-caution); } .lp-tone-caution .lp-status, td.lp-tone-caution { color: var(--lp-caution); } .lp-tone-caution .lp-gauge-value { stroke: var(--lp-caution); }
 .lp-tone-fail { border-top-color: var(--lp-fail); } .lp-tone-fail .lp-status, td.lp-tone-fail { color: var(--lp-fail); } .lp-tone-fail .lp-gauge-value { stroke: var(--lp-fail); }
 .lp-tone-unknown .lp-status, td.lp-tone-unknown { color: var(--lp-unknown); }
 .lp-card.lp-tone-unknown { background: repeating-linear-gradient(45deg, rgba(154, 161, 171, .045) 0 2px, transparent 2px 10px), var(--lp-panel); }
-.lp-unresolved { margin-top: 16px; color: var(--lp-dim); }
+.lp-unresolved { margin-top: 16px; color: var(--lp-dim); font-size: .9rem; }
+.lp-unresolved > summary { cursor: pointer; color: var(--lp-paper); list-style: none; width: max-content; font-family: var(--lp-mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+.lp-unresolved > summary::-webkit-details-marker { display: none; }
+.lp-unresolved ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: .85rem; }
 
 /* ── Alternatives: site cards + accessible table ─────────────────────────────────────────────── */
 .lp-page .lp-compare { padding: 24px clamp(20px, 3vw, 48px) 96px; max-width: 1600px; margin: 0 auto; }

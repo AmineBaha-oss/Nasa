@@ -146,7 +146,7 @@ export function ComparisonTable({ alternatives, yawDeg, currentIndex, onSelect }
       <div className="lp-compare-head">
         <div>
           <h2 id="lp-cmp-h">Alternatives at heading {yawDeg}°</h2>
-          <p className="lp-compare-sub">Every site and window, checked over the whole window at the same heading. Listed in data order, not ranked.</p>
+          <p className="lp-compare-sub">Same heading · whole window · data order, not ranked.</p>
         </div>
         <div className="lp-toggle" role="group" aria-label="Alternatives view">
           <button type="button" aria-pressed={mode === 'cards'} onClick={() => setMode('cards')}>Cards</button>

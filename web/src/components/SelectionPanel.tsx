@@ -67,7 +67,7 @@ export const SelectionPanel = memo(function SelectionPanel(p: Props) {
           <input id={`${id}-time`} type="range" min={0} max={Math.max(0, current.samples.length - 1)} value={p.sampleIndex}
             onChange={e => p.onSample(Number(e.target.value))} aria-valuetext={sample ? formatUtc(sample.utc) : 'none'} />
           <output htmlFor={`${id}-time`} className="lp-mono">{sample ? formatUtc(sample.utc) : 'none'}</output>
-          <p className="lp-hint">Line: Sun elevation. Grey: Sun centre below 0° (terrain not applied) or unknown.</p>
+          <p className="lp-hint">Sun elevation · grey = below 0° or unknown</p>
         </div> : <p className="lp-hint">No ephemeris samples in this period.</p>}
       </section>
       <section className="lp-module" aria-labelledby={`${id}-m3`}>
@@ -77,7 +77,7 @@ export const SelectionPanel = memo(function SelectionPanel(p: Props) {
           <select id={`${id}-hw`} value={p.hardwareIndex} onChange={e => p.onHardware(Number(e.target.value))}>
             {p.hardwarePresets.map((h, i) => <option key={h.name} value={i}>{h.name} ({h.identity})</option>)}
           </select>
-        ) : <p className="lp-hint">There is no team-approved hardware preset yet. Request one from the lead in docs/INPUT_REQUESTS.md; the app will not guess your spacecraft.</p>}
+        ) : <p className="lp-hint">No team-approved hardware preset yet. The app will not invent one.</p>}
       </section>
     </div>
   );

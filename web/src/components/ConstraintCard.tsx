@@ -39,8 +39,14 @@ export function ConstraintCard({ title, result, evidenceComplete, gauge = null, 
       </div>
       <h3>{title}</h3>
       <p className="lp-status">{result ? label : 'Engine not connected'}</p>
-      <p className="lp-reason">{result?.reason || 'No engine result is connected for this check yet.'}
-        {result && result.sourceIds.length > 0 && <span className="lp-sources"> Sources: {result.sourceIds.join(', ')}</span>}</p>
+      {result ? (
+        <details className="lp-reason">
+          <summary>Why</summary>
+          <p>{result.reason}{result.sourceIds.length > 0 && <span className="lp-sources"> Sources: {result.sourceIds.join(', ')}</span>}</p>
+        </details>
+      ) : (
+        <p className="lp-reason">No engine result yet.</p>
+      )}
     </article>
   );
 }

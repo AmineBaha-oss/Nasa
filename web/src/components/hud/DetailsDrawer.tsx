@@ -1,7 +1,6 @@
 import type { HardwareConfig, HeadingEvaluation, SiteDateData } from '../../contracts';
 import { hasFullCoverageEvidence } from '../../integration/quality';
 import { ComparisonTable } from '../ComparisonTable';
-import { DataQualityNotice } from '../DataQualityNotice';
 import { QualityChips } from '../QualityChips';
 import type { Alternative } from '../ComparisonTable';
 
@@ -30,7 +29,6 @@ export function DetailsDrawer({ open, onClose, data, hardware, evaluation, alter
           <button type="button" onClick={onClose}>Close</button>
         </div>
         <QualityChips data={data} hardware={hardware} />
-        <DataQualityNotice data={data} hardware={hardware} />
         {reason && (
           <section>
             <h3>{focus} reason</h3>

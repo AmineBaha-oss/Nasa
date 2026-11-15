@@ -12,7 +12,7 @@ interface Props {
 export function LanderTopDown({ hardware, yawDeg, animateTurn = false, sunAzDeg = null }: Props) {
   const turn = useUnwrappedAngle(yawDeg);
   if (!hardware) {
-    return <div className="lp-empty" role="status">No hardware preset loaded. The lead must approve a preset (see docs/INPUT_REQUESTS.md).</div>;
+    return <div className="lp-empty" role="status">No hardware preset loaded.</div>;
   }
   const antennaAz = bodyVectorAzimuthDeg(hardware.antenna.boresightBodyRFU);
   // Shadow falls away from the Sun: azimuth + 180°, offset of 45% of the body size.
@@ -48,16 +48,20 @@ export function LanderTopDown({ hardware, yawDeg, animateTurn = false, sunAzDeg 
       </div>
       <figcaption>
         <p className="lp-hw-name"><strong>{hardware.name}</strong> <span className={`lp-badge lp-badge-${hardware.identity}`}>{hardware.identity}</span></p>
-        <ul className="lp-legend lp-hw-sheet">
-          {hardware.panels.map(p => (
-            <li key={p.name}><span className="lp-key lp-key-panel" />{p.name}: {p.mode}, {(p.areaFraction * 100).toFixed(0)}% of {hardware.totalActivePvAreaM2} m²,
-              normal {bodyVectorAzimuthDeg(p.normalBodyRFU) === null ? 'body-up' : `${formatDeg(bodyVectorAzimuthDeg(p.normalBodyRFU), 0)} from forward`}, tilt {formatDeg(bodyVectorElevationDeg(p.normalBodyRFU), 0)}
-              {p.mode === 'tracked' && p.maxTrackingAngleDeg === undefined ? ' (ideal unconstrained tracking)' : ''}. Exposure: shown neutral until the engine reports it.</li>
-          ))}
-          <li><span className="lp-key lp-key-antenna" />Antenna boresight {antennaAz === null ? 'body-up' : `${formatDeg(antennaAz, 0)} from forward`}, elevation {formatDeg(bodyVectorElevationDeg(hardware.antenna.boresightBodyRFU), 0)}, half-beam {hardware.antenna.beamHalfAngleDeg}°{hardware.antenna.gimbal ? ', gimballed' : ', fixed'}</li>
-          {hardware.rampHeadingBodyDeg !== undefined && <li><span className="lp-key lp-key-ramp" />Ramp {hardware.rampHeadingBodyDeg}° from forward</li>}
-          {shadow && <li><span className="lp-key lp-key-shadow" />Shadow direction from Sun azimuth (illustrative)</li>}
-        </ul>
+        <p className="lp-hint">{hardware.panels.length === 1 ? '1 panel' : `${hardware.panels.length} panels`} · {hardware.totalActivePvAreaM2} m² · beam ±{hardware.antenna.beamHalfAngleDeg}°{shadow ? ' · shadow illustrative' : ''}</p>
+        <details className="lp-more">
+          <summary>Hardware geometry</summary>
+          <ul className="lp-legend lp-hw-sheet">
+            {hardware.panels.map(p => (
+              <li key={p.name}><span className="lp-key lp-key-panel" />{p.name}: {p.mode}, {(p.areaFraction * 100).toFixed(0)}% of {hardware.totalActivePvAreaM2} m²,
+                normal {bodyVectorAzimuthDeg(p.normalBodyRFU) === null ? 'body-up' : `${formatDeg(bodyVectorAzimuthDeg(p.normalBodyRFU), 0)} from forward`}, tilt {formatDeg(bodyVectorElevationDeg(p.normalBodyRFU), 0)}
+                {p.mode === 'tracked' && p.maxTrackingAngleDeg === undefined ? ' (ideal unconstrained tracking)' : ''}.</li>
+            ))}
+            <li><span className="lp-key lp-key-antenna" />Antenna {antennaAz === null ? 'body-up' : `${formatDeg(antennaAz, 0)} from forward`}, el {formatDeg(bodyVectorElevationDeg(hardware.antenna.boresightBodyRFU), 0)}, half-beam {hardware.antenna.beamHalfAngleDeg}°{hardware.antenna.gimbal ? ', gimballed' : ', fixed'}</li>
+            {hardware.rampHeadingBodyDeg !== undefined && <li><span className="lp-key lp-key-ramp" />Ramp {hardware.rampHeadingBodyDeg}° from forward</li>}
+            {shadow && <li><span className="lp-key lp-key-shadow" />Shadow direction from Sun azimuth (illustrative)</li>}
+          </ul>
+        </details>
       </figcaption>
     </figure>
   );

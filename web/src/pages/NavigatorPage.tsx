@@ -4,7 +4,6 @@ import { hasFullCoverageEvidence } from '../integration/quality';
 import { ApolloEasterEgg } from '../components/ApolloEasterEgg';
 import { ComparisonTable } from '../components/ComparisonTable';
 import { ConstraintCard } from '../components/ConstraintCard';
-import { DataQualityNotice } from '../components/DataQualityNotice';
 import { HeroSection } from '../components/HeroSection';
 import { HorizonWheel } from '../components/HorizonWheel';
 import { IntroSequence, shouldPlayIntro } from '../components/IntroSequence';
@@ -155,14 +154,13 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
         <button type="button" aria-pressed={state.view === '2d'} onClick={() => dispatch({ type: 'setView', view: '2d' })}>2D</button>
         <button type="button" aria-pressed={state.view === '3d'} onClick={() => dispatch({ type: 'setView', view: '3d' })}>3D</button>
       </div>
-      <span className="lp-hint">Press <kbd>V</kbd> to toggle. 3D is experimental; default stays 2D until Sunday QA.</span>
     </div>
   );
 
   if (datasets.length === 0 || !data) {
     return <main className="lp-page lp-page-empty"><header className="lp-empty-head"><p className="lp-wordmark">Landerprint</p>
       <h1>Which way should the lander face?</h1>
-      <p className="lp-lede" role="status">No processed science data loaded. Results stay unknown until the science module delivers versioned JSON.</p></header></main>;
+      <p className="lp-lede" role="status">No processed science data loaded. Results stay unknown.</p></header></main>;
   }
 
   const current = alternatives[state.datasetIndex] ?? alternatives[0];
@@ -212,7 +210,6 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   return (
     <main className="lp-page">
       {viewToggle}
-      <DataQualityNotice data={data} hardware={hardware} />
       <HeroSection data={data} sample={sample} yawDeg={state.yawDeg} hardware={hardware} />
 
       <section id="lp-cockpit" className="lp-cockpit" aria-label="Instrument">
@@ -230,7 +227,6 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
 
         <div className="lp-center" key={`${data.site.id}-${state.datasetIndex}`}>
           <div className="lp-center-head">
-            <p className="lp-panel-tag" aria-hidden="true"><span>HZN-01</span><span>REV A</span><span>{data.site.latitudeDeg.toFixed(3)} / {data.site.longitudeEastDeg.toFixed(3)}E</span></p>
             <QualityChips data={data} hardware={hardware} />
           </div>
           <HorizonWheel sunHorizon={data.sunHorizon} earthHorizon={data.earthHorizon} sample={sample} yawDeg={state.yawDeg} hardware={hardware}
@@ -242,24 +238,27 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
         </div>
 
         <aside className="lp-starboard" aria-label="Lander">
-          <p className="lp-panel-tag" aria-hidden="true"><span>VIEW-02</span><span>TOP-DOWN</span></p>
           <LanderTopDown hardware={hardware} yawDeg={state.yawDeg} animateTurn={animateTurn} sunAzDeg={sample?.sun?.azDeg ?? null} />
         </aside>
       </section>
 
       <section className="lp-checks" aria-labelledby="lp-checks-h">
-        <div className="lp-section-head"><h2 id="lp-checks-h">Modeled checks at {state.yawDeg}°</h2><QualityChips data={data} hardware={hardware} /></div>
+        <div className="lp-section-head"><h2 id="lp-checks-h">Checks at {state.yawDeg}°</h2><QualityChips data={data} hardware={hardware} /></div>
         <div className="lp-cards">
-          <ConstraintCard code="CHK-SOL" title="Solar power" result={ev?.solar ?? null} evidenceComplete={current.evidenceComplete} />
-          <ConstraintCard code="CHK-BAT" title="Battery" result={ev?.battery ?? null} evidenceComplete={current.evidenceComplete}
+          <ConstraintCard title="Solar" result={ev?.solar ?? null} evidenceComplete={current.evidenceComplete} />
+          <ConstraintCard title="Battery" result={ev?.battery ?? null} evidenceComplete={current.evidenceComplete}
             gauge={batteryGauge} gaugeLabel={batteryGauge === null ? undefined : `${Math.round(batteryGauge * 100)}%`} />
-          <ConstraintCard code="CHK-ANT" title="Earth antenna" result={ev?.antenna ?? null} evidenceComplete={current.evidenceComplete}
+          <ConstraintCard title="Antenna" result={ev?.antenna ?? null} evidenceComplete={current.evidenceComplete}
             gauge={contactGauge} gaugeLabel={contactGauge === null ? undefined : `${Math.round(contactGauge * 100)}%`} />
-          <ConstraintCard code="CHK-DEP" title="Deployment (preliminary)" result={ev?.deployment ?? null} evidenceComplete={current.evidenceComplete} />
+          <ConstraintCard title="Deploy" result={ev?.deployment ?? null} evidenceComplete={current.evidenceComplete} />
         </div>
-        {ev && ev.unresolved.length > 0 && <div className="lp-unresolved"><h3>Unresolved inputs</h3><ul>{ev.unresolved.map(u => <li key={u}>{u}</li>)}</ul></div>}
-        {!evaluate && <p className="lp-hint" role="status">Engine adapter not connected yet: all checks are Unknown.</p>}
-        <p className="lp-hint">Battery gauge: engine minimum battery ÷ preset capacity. Antenna gauge: engine contact hours ÷ evaluated window. No gauge value is shown without an engine result.</p>
+        {ev && ev.unresolved.length > 0 && (
+          <details className="lp-unresolved">
+            <summary>Unresolved inputs ({ev.unresolved.length})</summary>
+            <ul>{ev.unresolved.map(u => <li key={u}>{u}</li>)}</ul>
+          </details>
+        )}
+        {!evaluate && <p className="lp-hint" role="status">Engine adapter not connected: all checks Unknown.</p>}
       </section>
 
       <ComparisonTable alternatives={alternatives} yawDeg={deferredYaw} currentIndex={state.datasetIndex} onSelect={changeDataset} />
