@@ -3,7 +3,7 @@ import type { HardwareConfig, HeadingEvaluation, SiteDateData, SiteTerrain } fro
 import { hasFullCoverageEvidence } from '../integration/quality';
 import { ApolloEasterEgg } from '../components/ApolloEasterEgg';
 import { ComparisonTable } from '../components/ComparisonTable';
-import { ConstraintCard } from '../components/ConstraintCard';
+import { LiveChecks } from '../components/LiveChecks';
 import { HeroSection } from '../components/HeroSection';
 import { HorizonWheel } from '../components/HorizonWheel';
 import { IntroSequence, shouldPlayIntro } from '../components/IntroSequence';
@@ -166,9 +166,6 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
   const current = alternatives[state.datasetIndex] ?? alternatives[0];
   const sample = data.samples[Math.min(state.sampleIndex, data.samples.length - 1)] ?? null;
   const ev = current.evaluation;
-  const windowHours = ev ? (Date.parse(ev.endUtc) - Date.parse(ev.startUtc)) / 3.6e6 : null;
-  const batteryGauge = ev?.minimumBatteryWh != null && hardware ? ev.minimumBatteryWh / hardware.batteryCapacityWh : null;
-  const contactGauge = ev?.contactHours != null && windowHours ? ev.contactHours / windowHours : null;
   const terrain = terrainBySite?.get(data.site.id) ?? null;
 
   if (state.view === '3d' && hardware) {
@@ -213,6 +210,7 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
       <HeroSection data={data} sample={sample} yawDeg={state.yawDeg} hardware={hardware} />
 
       <section id="lp-cockpit" className="lp-cockpit" aria-label="Instrument">
+        <LiveChecks evaluation={ev} evidenceComplete={current.evidenceComplete} yawDeg={state.yawDeg} batteryCapacityWh={hardware?.batteryCapacityWh} />
         <div className={drawerOpen ? 'lp-rail is-open' : 'lp-rail'} id="lp-rail">
           <div className="lp-rail-head">
             <p className="lp-rail-title">Mission setup</p>
@@ -242,24 +240,15 @@ export function NavigatorPage({ datasets, hardwarePresets, evaluate, initialYawD
         </aside>
       </section>
 
-      <section className="lp-checks" aria-labelledby="lp-checks-h">
-        <div className="lp-section-head"><h2 id="lp-checks-h">Checks at {state.yawDeg}°</h2><QualityChips data={data} hardware={hardware} /></div>
-        <div className="lp-cards">
-          <ConstraintCard title="Solar" result={ev?.solar ?? null} evidenceComplete={current.evidenceComplete} />
-          <ConstraintCard title="Battery" result={ev?.battery ?? null} evidenceComplete={current.evidenceComplete}
-            gauge={batteryGauge} gaugeLabel={batteryGauge === null ? undefined : `${Math.round(batteryGauge * 100)}%`} />
-          <ConstraintCard title="Antenna" result={ev?.antenna ?? null} evidenceComplete={current.evidenceComplete}
-            gauge={contactGauge} gaugeLabel={contactGauge === null ? undefined : `${Math.round(contactGauge * 100)}%`} />
-          <ConstraintCard title="Deploy" result={ev?.deployment ?? null} evidenceComplete={current.evidenceComplete} />
-        </div>
-        {ev && ev.unresolved.length > 0 && (
-          <details className="lp-unresolved">
-            <summary>Unresolved inputs ({ev.unresolved.length})</summary>
-            <ul>{ev.unresolved.map(u => <li key={u}>{u}</li>)}</ul>
-          </details>
-        )}
-        {!evaluate && <p className="lp-hint" role="status">Engine adapter not connected: all checks Unknown.</p>}
-      </section>
+      <div className="lp-model-notes">
+          {ev && ev.unresolved.length > 0 && (
+            <details className="lp-unresolved">
+              <summary>Unresolved inputs ({ev.unresolved.length})</summary>
+              <ul>{ev.unresolved.map(u => <li key={u}>{u}</li>)}</ul>
+            </details>
+          )}
+          {!evaluate && <p className="lp-hint" role="status">Engine adapter not connected: all checks Unknown.</p>}
+      </div>
 
       <ComparisonTable alternatives={alternatives} yawDeg={deferredYaw} currentIndex={state.datasetIndex} onSelect={changeDataset} />
       {intro === 'count' && <IntroSequence onDone={introCounted} />}
