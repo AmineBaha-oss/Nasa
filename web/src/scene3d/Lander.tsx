@@ -111,9 +111,11 @@ function ForwardArrow() {
     return s;
   }, []);
   return (
-    <mesh position={[0, BODY.topM + 0.05, -0.25]} rotation={[-Math.PI / 2, 0, 0]}>
+    <mesh position={[0, BODY.topM + 0.065, -0.25]} rotation={[-Math.PI / 2, 0, 0]}>
       <shapeGeometry args={[shape]} />
-      <meshStandardMaterial color={PALETTE.signal} emissive={PALETTE.signal} emissiveIntensity={0.6} side={DoubleSide} />
+      {/* The deck surface is topM + .05. Keep the marking above it to avoid depth fighting while orbiting. */}
+      <meshStandardMaterial color={PALETTE.signal} emissive={PALETTE.signal} emissiveIntensity={0.6}
+        side={DoubleSide} polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-1} />
     </mesh>
   );
 }
