@@ -51,7 +51,7 @@ describe('azimuthToGridDirection (true north is not grid up near the pole)', () 
   });
 
   it('at the candidate site, matches finite differences of the validated projection', () => {
-    const lat = -89.111829, lon = -102.71398; // docs/MASTER_PLAN.md section 5 (preliminary candidate)
+    const lat = -89.111829, lon = -102.71398; // Historical preliminary candidate used for this projection regression test.
     const p = lunarToPolarStereo(lat, lon)!;
     const unit = (a: ProjectedPoint, b: ProjectedPoint): [number, number] => {
       const dx = b.xM - a.xM, dy = b.yM - a.yM, n = Math.hypot(dx, dy);

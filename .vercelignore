@@ -9,9 +9,6 @@ web/dist
 data/raw
 data/nasa_a305
 science
-prompts
-skills_templates
-mcp_examples
 *.tif
 *.tiff
 *.zip

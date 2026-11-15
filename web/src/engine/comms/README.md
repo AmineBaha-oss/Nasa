@@ -11,7 +11,7 @@ Owner: Francisco (`francisco/comms`). Scope: `web/src/engine/comms/` only. Contr
 | `evaluateEarthPointing(sample, earthHorizon, hardware, yawDeg)` | one `EphemerisSample`, the antenna-height `HorizonProfile`, `{ antenna, antennaHeightM }` from `HardwareConfig`, yaw in degrees | `status`, `earthVisible`, `pointing` (each `pass` / `fail` / `unknown`) and a traceable `reason` |
 | `evaluateAntennaWindow(data, hardware, yawDeg)` | one `SiteDateData` window | `antenna: ConstraintResult`, `contactHours`, `unresolved[]` and per-sample results, ready for `HeadingEvaluation` |
 
-## Conventions (docs/MASTER_PLAN.md section 6)
+## Conventions (docs/INTERFACES.md — units and frames)
 
 - Earth direction: azimuth clockwise from true north, elevation above the local horizon; `ENU = [cos el·sin az, cos el·cos az, sin el]`.
 - Body `[right, forward, up]` to ENU at yaw clockwise from north: `E = r·cos yaw + f·sin yaw`, `N = −r·sin yaw + f·cos yaw`, `U = u`.
@@ -57,7 +57,7 @@ Owner: Francisco (`francisco/comms`). Scope: `web/src/engine/comms/` only. Contr
   - source IDs with no provenance record.
 - `antenna.sourceIds` includes the hardware `specificationSourceId` when one is given.
 
-## Assumptions and decisions for the lead (Amine)
+## Modeling and integration notes
 
 1. **Local-only horizon:** a clear local-only result is `pass` with a caveat in `reason` and `unresolved`, as agreed with Francisco. A local blockage is still `fail`.
 2. **Gimbal semantics:** pan and tilt are absolute body-frame angles, with (0, 0) at body-forward. Pan is positive toward body-right and tilt is positive toward body-up. The nominal `boresightBodyRFU` is not used when a gimbal is present.
@@ -68,13 +68,13 @@ Owner: Francisco (`francisco/comms`). Scope: `web/src/engine/comms/` only. Contr
 3. **Window pass means continuous pointing.** Partial availability shows up in `contactHours`.
 4. **Height mismatch:** if the Earth horizon's `observerHeightM` differs from `antennaHeightM`, the result is `unknown`. Science must supply an antenna-height profile.
 5. **Who builds `HeadingEvaluation`:** this engine returns its pieces; the integration layer assembles the record.
-6. **Missing source IDs:** samples or horizons without a source ID are flagged in `unresolved` but do not change the status. Amine may prefer to downgrade them to `unknown`.
+6. **Missing source IDs:** samples or horizons without a source ID are flagged in `unresolved` but do not change the status.
 7. **Performance:** a sweep of 360 yaws × 700 samples took about 0.3–0.5 s in a reviewer benchmark. Each window result also keeps its per-sample detail; that took about 230 MB when all 360 results were held. For a yaw sweep, keep only the selected yaw's `samples`.
 
 ## Inputs still open
 
 - **HARDWARE-003:** the real antenna boresight, beam half-angle, gimbal ranges and height. All values in the tests are hypothetical.
-- **Science:** Earth vectors from verified ephemeris, plus an Earth horizon computed at the antenna height.
+- Science inputs are integrated in `data/processed/`; the engine requires an Earth horizon computed at the antenna height.
 
 ## Tests
 

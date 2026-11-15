@@ -1,7 +1,7 @@
 import { azElToEnu, type Vec3 } from '../engine/power';
 
 /**
- * three.js is Y-up. World ENU maps to three as x = East, y = Up, z = -North (docs/3D_PLAN.md).
+ * three.js is Y-up. World ENU maps to three as x = East, y = Up, z = -North.
  * Lander-local body right-forward-up maps to (+x, -z, +y) before the yaw rotation about +y.
  */
 const DEG = Math.PI / 180;

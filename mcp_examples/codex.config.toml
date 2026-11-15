@@ -1,8 +1,0 @@
-# Example for Codex trusted-repository .codex/config.toml or user ~/.codex/config.toml.
-# Verify that local Codex version honors the chosen location; never commit credentials.
-[mcp_servers.context7]
-url = "https://mcp.context7.com/mcp"
-
-[mcp_servers.playwright]
-command = "npx"
-args = ["-y", "@playwright/mcp@latest"]

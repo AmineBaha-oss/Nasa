@@ -4,10 +4,10 @@
 |---|---|---|---|
 | HARDWARE-001–003: lander | Agree on PV area/normals/tracking, loads, battery/reserve, efficiencies, antenna geometry, heights and yaw control. Science currently uses hypothetical heights (panels 2 m, antenna 3 m) in `science/landerprint_science/config.py`. | Team lead / Power / Comms | No approved hardware results; Science outputs labelled hypothetical |
 | HARDWARE-004: deployment geometry | Approved landing footprint radius, ramp direction and length, and slope thresholds. The web app uses hypothetical values in `web/src/integration/hardware.ts`: 2 m footprint, aft ramp of 15 m, 10° footprint and ramp limits (after VIPER draft examples, not a standard), and a gimballed antenna with a 15° half-beam, pan ±90° and tilt −10° to 60°. | Team lead / Terrain / Comms | Deployment and antenna results labelled hypothetical |
-| ACCESS-001: deployment | Owners assigned in `docs/TASK_BOARD.md` (Amine reviews and merges). Choose deployment account when needed. | Team lead | Work locally |
+| ACCESS-001: deployment | Confirm the public demo URL and deployment ownership with the team lead. | Team lead | Work locally |
 | POLICY-001: submission | Check the actual submission form, deadline and demo format. | Team lead | Keep submission as a draft |
 
-The challenge Resources list was checked: Horizons is listed and selected for planned use. See `docs/CHALLENGE_RESOURCES.json`. Actual data integration is pending.
+The challenge Resources list was checked: Horizons is listed and selected for planned use. See `docs/CHALLENGE_RESOURCES.json`. The integrated app uses the processed science datasets in `data/processed/`.
 
 SCIENCE-001 (ephemeris) resolved 2026-11-14: seven exploratory sites (`science/CANDIDATE_SITES.md`) and two 2027 windows; SPICE (DE440, MOON_ME) agrees with cached JPL Horizons tables to under 5e-7 deg at all 2352 site-hours (tolerance 0.01 deg). Outputs in `data/processed/`; numbers in `data/processed/validation_report.json`.
 

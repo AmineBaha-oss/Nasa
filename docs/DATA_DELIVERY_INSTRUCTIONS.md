@@ -1,12 +1,8 @@
 # Data setup — download from the official online sources
 
-**Status: done 2026-11-14.** The required files are committed in `data/nasa_a305/`, validated against the published MD5 and `data/provenance/DATA_MANIFEST.json`, with the CRS-corrected slope in `derived/`. Team members only need to pull and set:
+The validated subset is committed in `data/nasa_a305/`, including the CRS-corrected slope in `derived/`. The science pipeline uses that location by default; no environment file is needed. The web app uses the committed processed JSON and requires no raster downloads.
 
-```powershell
-$env:NASA_DATA_DIR = "$PWD\data\nasa_a305\A3CLR22_5_Connecting_Ridge_Extension"
-```
-
-See `data/nasa_a305/README.md` for attribution (CC BY 4.0) and `data/provenance/A305_DOWNLOAD.json` for hashes. The steps below remain the reproducible way to rebuild the subset from Zenodo.
+See `data/nasa_a305/README.md` for attribution (CC BY 4.0) and `data/provenance/A305_DOWNLOAD.json` for hashes. Follow the steps below only to reproduce the subset or use a separate local copy.
 
 ## Online sources
 
@@ -17,15 +13,14 @@ See `data/nasa_a305/README.md` for attribution (CC BY 4.0) and `data/provenance/
 
 The publisher distributes this dataset as a regional ZIP. Download it directly from Zenodo; do not wait for a teammate's custom data bundle.
 
-## Team TODO
+## Reproduction checklist
 
 - [ ] **Each data user:** download the regional dataset from the link above into ignored `data/raw/`.
 - [ ] **Science:** verify its published MD5 (`9141ec5d298a3aebab4d3671f7f38a79` as checked above), record download UTC, URL, record version and a SHA256 of the download.
 - [ ] **Science/Terrain:** extract only the required files listed below plus README.txt; preserve originals unchanged.
 - [ ] **Terrain:** inspect slope CRS. If missing, create a separate corrected derivative with the DEM's lunar CRS only after confirming the slope's coordinate transform and 25m inset. Preserve dimensions, transform, nodata and pixel values; verify pixel equality. Never assign the DEM's transform to the inset slope.
 - [ ] **Science:** compare original file hashes, byte counts and grids against `data/provenance/DATA_MANIFEST.json`. Investigate mismatches; do not overwrite historical expectations to force a pass. Record new derivative hashes and processing versions separately.
-- [ ] **Each data user:** set `NASA_DATA_DIR` to their local dataset directory and provide that path to their agent. Keep absolute paths out of Git.
-- [ ] **Lead:** resolve DATA-002 in `docs/INPUT_REQUESTS.md` only after file access and validation succeed.
+- [ ] If using a different copy, export `NASA_DATA_DIR` with its local dataset path. Keep absolute paths out of Git.
 
 Required members within `A3CLR22_5_Connecting_Ridge_Extension/`:
 
@@ -40,7 +35,7 @@ SLOPE_MAPS/A305_GLDTSLP_005_005.tif
 
 The `_lunar_crs.tif` slope in the historical CORE manifest is a locally prepared derivative, not a publisher download. A newly written GeoTIFF may have a different byte hash despite identical pixel values; record its lineage and verify metadata and values independently. Do not run the historical five-file CORE checksum list against unmodified publisher files and expect the derivative to exist.
 
-## Example download commands — not executed
+## Download commands
 
 Run from the repository root:
 
@@ -76,6 +71,6 @@ export NASA_DATA_DIR="$PWD/data/raw/nasa_a305/A3CLR22_5_Connecting_Ridge_Extensi
 
 The project manifest expects DEM 4000×4000 at 5m, slope 3990×3990 with a 25m inset, and MASK/BRES 1333×1333 at 15m. Verify these on downloaded files using Rasterio and native lunar CRS. Sample layers by coordinates, never matching indices. Keep the slope subdirectory and record actual paths in preprocessing.
 
-Sun/Earth data require a separate reproducible [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) / [NAIF SPICE](https://naif.jpl.nasa.gov/naif/) workflow with selected sites, dates, frames and independent verification. Far-field terrain also remains a separate acquisition task. A regional DEM alone does not establish a complete horizon.
+Sun/Earth data require a separate reproducible [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) / [NAIF SPICE](https://naif.jpl.nasa.gov/naif/) workflow with selected sites, dates, frames and independent verification. The pipeline downloads far-field terrain separately; see `science/README.md`. A regional DEM alone does not establish a complete horizon.
 
 Raw downloads, extracted rasters and credentials stay out of Git. Commit only processing code, compact outputs and provenance. Preserve the dataset's citation and usage terms from the source pages and README.

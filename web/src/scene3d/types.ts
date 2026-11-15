@@ -1,6 +1,6 @@
 import type { HeadingEvaluation, HardwareConfig, SiteDateData, SiteTerrain } from '../contracts';
 
-/** Contract between the 3D scene (docs/3D_PLAN.md, Person A) and the HUD (Person B). Change only by agreement. */
+/** Contract between the 3D scene and the HUD. Coordinate changes across both consumers. */
 export type CameraMode = 'orbit' | 'lander' | 'top' | 'hardware';
 
 export interface SceneLayers {

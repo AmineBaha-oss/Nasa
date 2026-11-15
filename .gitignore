@@ -7,7 +7,6 @@ __pycache__/
 .worktrees/
 .env
 .env.*
-!.env.example
 *.tif
 *.tiff
 !data/nasa_a305/**/*.tif
@@ -16,7 +15,6 @@ data/raw/
 web/public/data/
 LANDERPRINT_Agent_Handoff_v3/
 .DS_Store
-
 
 # Empty placeholders are not project artifacts.
 .gitkeep

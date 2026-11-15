@@ -18,7 +18,7 @@ Owner: Mir (`mir/power`). Scope: `web/src/engine/power/` only. Contract: `web/sr
 
 `PowerHardware` is `Pick<HardwareConfig, …power fields…>`, so a full `HardwareConfig` is accepted. Antenna fields stay with the comms engine.
 
-## Conventions (docs/MASTER_PLAN.md section 6)
+## Conventions (docs/INTERFACES.md — units and frames)
 
 - Sun direction: azimuth clockwise from true north, elevation above the local horizontal; `ENU = [cos el·sin az, cos el·cos az, sin el]`.
 - Body `[right, forward, up]` to ENU at yaw clockwise from north: `E = r·cos yaw + f·sin yaw`, `N = −r·sin yaw + f·cos yaw`, `U = u`. Yaw is reduced modulo 360.
@@ -88,18 +88,18 @@ E = clamp(E, 0, batteryCapacityWh)
 
 The sweep never ranks headings or picks a winner.
 
-## Decisions for the lead (Amine)
+## Modeling and integration notes
 
-1. **Battery formula:** `docs/MASTER_PLAN.md` writes `P_gen·η_charge − P_load/η_discharge`. That applies both efficiencies even when the array feeds the load directly. This engine charges only the surplus and discharges only the deficit, which is physically consistent and less pessimistic. Confirm or ask for the plan's formula.
+1. **Battery formula:** the array serves the load directly first. Charge efficiency applies only to surplus energy; discharge efficiency applies only to a deficit. This differs from routing all generated and consumed energy through the battery.
 2. **Meaning of the solar check:** "array energy over the window covers the constant load". Battery is the separate "reserve holds throughout" check. Neither is a single magic score.
 3. **Local-only horizon:**
    - A local-only result can still `pass`, with a caveat, consistent with the comms engine's decision.
    - Distant terrain can only remove sunlight, so a `fail` stands. A `pass` may not survive far-field terrain, and the reason text says so.
-4. **Hardware-only fails:** if the load exceeds the array even at full peak power for the whole window, `solar` is `fail` although the Sun data are unknown. This holds for every possible Sun geometry, so it is not a fabricated result. Downgrade it to `unknown` if you prefer.
+4. **Hardware-only fails:** if the load exceeds the array even at full peak power for the whole window, `solar` is `fail` although the Sun data are unknown. This holds for every possible Sun geometry, so it is not a fabricated result.
 5. **Who builds `HeadingEvaluation`:** this engine returns `solar`, `battery`, `minimumBatteryWh` and `unresolved`. Integration merges them with comms (`antenna`, `contactHours`) and terrain (`deployment`).
 6. **Shared vector helpers:** `vectors.ts` duplicates the private helpers in the comms engine. Integration can move them to a shared module later; the formulas are identical.
 
-## Integration sketch (for `web/src/app/` or `web/src/integration/`, not done here)
+## Integration sketch
 
 ```ts
 const power = evaluatePowerWindow(data, hardware, yawDeg);
@@ -128,8 +128,7 @@ These were measured with a synthetic 709-hourly-sample window (about one lunar m
   - Peak power, load profile, battery capacity, reserve and efficiencies.
   - Panel height.
   - All current values are illustrative.
-- **Science:** verified Sun vectors, plus a Sun horizon computed at the panel height (`observerHeightM === panelHeightM`).
-- **DATA-004:** far-field terrain. Until then, passes are local-only.
+- Science inputs and far-field terrain are integrated in `data/processed/`. The engine still checks that the Sun horizon matches the panel height (`observerHeightM === panelHeightM`). See `docs/INPUT_REQUESTS.md` for the input record.
 
 ## Tests
 
