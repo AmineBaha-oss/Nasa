@@ -43,13 +43,13 @@ interface Props {
 
 export function Scene3DShell(p: Props) {
   const reduced = prefersReducedMotion();
-  const now = useMemo(
-    () => sampleReadout(p.data, p.hardware, p.deferredYaw, p.state.sampleIndex),
-    [p.data, p.hardware, p.deferredYaw, p.state.sampleIndex],
-  );
   const tracks = useMemo(
     () => windowTracks(p.data, p.hardware, p.deferredYaw),
     [p.data, p.hardware, p.deferredYaw],
+  );
+  const now = useMemo(
+    () => sampleReadout(p.data, p.hardware, p.deferredYaw, p.state.sampleIndex, tracks),
+    [p.data, p.hardware, p.deferredYaw, p.state.sampleIndex, tracks],
   );
 
   const sceneProps: LanderSceneProps = {

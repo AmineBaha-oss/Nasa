@@ -9,7 +9,7 @@ const data = () => structuredClone(fixture) as SiteDateData;
 
 const now: SampleReadout = {
   utc: '2027-10-10T00:00:00Z',
-  sun: { visible: 'pass', fraction: { low: 0.5, high: 0.5 }, elDeg: 2 },
+  sun: { visible: 'pass', fraction: { low: 0.5, high: 0.5 }, azDeg: 90, elDeg: 2 },
   powerW: { low: 40, high: 40 },
   panels: [],
   earth: { utc: '2027-10-10T00:00:00Z', status: 'pass', earthVisible: 'pass', pointing: 'pass', reason: 'synthetic' },

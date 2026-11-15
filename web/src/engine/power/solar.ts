@@ -32,6 +32,35 @@ export function panelIncidence(panel: Panel, sunEnu: Vec3, yawDeg: number): numb
 }
 
 /**
+ * Panel normal in ENU that panelIncidence assumes: fixed panels keep their yawed normal, trackers turn
+ * toward the Sun by min(theta, limit) along the great circle. With the Sun directly behind, the turn is
+ * toward local up (or east if the normal is vertical). Without a usable Sun a tracker rests at its normal.
+ * Null for a zero normal.
+ */
+export function panelPointingEnu(panel: Panel, sunEnu: Vec3, yawDeg: number): { normalEnu: Vec3; clamped: boolean } | null {
+  const n = normalize(bodyToEnu(panel.normalBodyRFU, yawDeg));
+  if (!n) return null;
+  const s = normalize(sunEnu);
+  if (panel.mode === 'fixed' || !s) return { normalEnu: n, clamped: false };
+  const theta = angleBetweenDeg(n, s);
+  const limit = panel.maxTrackingAngleDeg;
+  if (limit === undefined || theta <= limit) return { normalEnu: s, clamped: false };
+  const sinTheta = Math.sin(theta * RAD);
+  const toward = sinTheta > 1e-9
+    ? normalize([s[0] - n[0] * Math.cos(theta * RAD), s[1] - n[1] * Math.cos(theta * RAD), s[2] - n[2] * Math.cos(theta * RAD)])
+    : perpendicularTowardUp(n);
+  if (!toward) return { normalEnu: n, clamped: true };
+  const c = Math.cos(limit * RAD), si = Math.sin(limit * RAD);
+  return { normalEnu: [c * n[0] + si * toward[0], c * n[1] + si * toward[1], c * n[2] + si * toward[2]], clamped: true };
+}
+
+function perpendicularTowardUp(n: Vec3): Vec3 | null {
+  const ref: Vec3 = Math.abs(n[2]) > 1 - 1e-9 ? [1, 0, 0] : [0, 0, 1];
+  const k = dot(ref, n);
+  return normalize([ref[0] - k * n[0], ref[1] - k * n[1], ref[2] - k * n[2]]);
+}
+
+/**
  * Fraction of the solar disk above a skyline treated as a straight line across the disk.
  * `centreAboveSkylineDeg` is Sun-centre elevation minus skyline elevation. Uniform disk, no limb darkening.
  */

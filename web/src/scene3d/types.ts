@@ -1,28 +1,32 @@
-import type { EphemerisSample, HardwareConfig, HeadingEvaluation, SiteDateData, SiteTerrain } from '../contracts';
+import type { HeadingEvaluation, HardwareConfig, SiteDateData, SiteTerrain } from '../contracts';
 
+/** Contract between the 3D scene (docs/3D_PLAN.md, Person A) and the HUD (Person B). Change only by agreement. */
 export type CameraMode = 'orbit' | 'lander' | 'top' | 'hardware';
+
 export interface SceneLayers {
   terrain: boolean; slopeColours: boolean; skyline: boolean; sunPath: boolean; earthPath: boolean;
   antennaBeam: boolean; panelGlow: boolean; ramp: boolean; footprint: boolean; labels: boolean;
 }
+
 export interface LanderSceneProps {
   data: SiteDateData;
   terrain: SiteTerrain | null;
-  sampleIndex: number;            // index into data.samples
+  /** Index into data.samples. */
+  sampleIndex: number;
   hardware: HardwareConfig;
-  yawDeg: number;                 // clockwise from north
+  /** Clockwise from north. */
+  yawDeg: number;
   evaluation: HeadingEvaluation | null;
   layers: SceneLayers;
   cameraMode: CameraMode;
-  verticalExaggeration: number;   // 1 = true scale; HUD labels any other value
+  /** 1 is true scale; the HUD labels any other value. */
+  verticalExaggeration: number;
   reducedMotion: boolean;
-  onYawChange?: (yawDeg: number) => void;   // dragging the heading ring
+  onYawChange?: (yawDeg: number) => void;
   onCameraModeChange?: (mode: CameraMode) => void;
 }
+
 export const DEFAULT_LAYERS: SceneLayers = {
   terrain: true, slopeColours: false, skyline: true, sunPath: true, earthPath: true,
   antennaBeam: true, panelGlow: true, ramp: true, footprint: true, labels: true,
 };
-
-// Keep EphemerisSample in the type surface for Person A's later scene code.
-export type { EphemerisSample };

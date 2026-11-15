@@ -1,7 +1,9 @@
 export { evaluatePowerWindow, BATTERY_MODEL_NOTE, LOCAL_ONLY_NOTE, SOLAR_MODEL_NOTE } from './powerWindow';
 export type { PowerWindowResult } from './powerWindow';
-export { evaluateSolarSample, panelIncidence, sunDiskVisibleFraction, sunVisibility, SUN_ANGULAR_RADIUS_DEG } from './solar';
+export { evaluateSolarSample, panelIncidence, panelPointingEnu, sunDiskVisibleFraction, sunVisibility, SUN_ANGULAR_RADIUS_DEG } from './solar';
 export type { Interval, SolarSampleResult, SunVisibility } from './solar';
+export { azElToEnu, bodyToEnu } from './vectors';
+export type { Vec3 } from './vectors';
 export { simulateBattery } from './battery';
 export type { BatteryRun, PowerPoint } from './battery';
 export { batteryProblem, checkEqualPvArea, solarHardwareProblem } from './hardware';

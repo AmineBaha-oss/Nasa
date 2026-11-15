@@ -1,73 +1,73 @@
 import type { HardwareConfig, SiteDateData, Status } from '../contracts';
 import { evaluateEarthPointing, type EarthPointingResult } from '../engine/comms';
-import { evaluatePowerWindow, evaluateSolarSample, panelIncidence, type Interval } from '../engine/power';
-import { azElToEnu, bodyToEnu, normalize, type Vec3 } from '../engine/power/vectors';
+import {
+  azElToEnu, evaluatePowerWindow, evaluateSolarSample, panelIncidence, panelPointingEnu, solarHardwareProblem,
+  type Interval, type Vec3,
+} from '../engine/power';
+
+/**
+ * Engine values for the 3D scene and the HUD, so both always show the same numbers.
+ * Nothing here decides a status; it only collects engine output per sample.
+ */
+export interface TrackPoint { utc: string; azDeg: number | null; elDeg: number | null; visible: Status }
+
+export interface WindowTracks {
+  sun: TrackPoint[];
+  earth: TrackPoint[];
+  /** Battery energy bounds aligned with data.samples (matched by UTC); null where the engine has none. */
+  batteryWh: (Interval | null)[];
+}
+
+export interface PanelReadout { name: string; incidence: number | null; pointingEnu: Vec3 | null; clamped: boolean }
 
 export interface SampleReadout {
   utc: string;
-  sun: { visible: Status; fraction: Interval; elDeg: number | null };
+  sun: { visible: Status; fraction: Interval; azDeg: number | null; elDeg: number | null };
   powerW: Interval;
-  panels: { name: string; incidence: number | null; pointingEnu: Vec3 | null }[];
-  earth: EarthPointingResult | null;
+  panels: PanelReadout[];
+  earth: EarthPointingResult;
   batteryWh: Interval | null;
 }
 
-export interface TrackPoint {
-  utc: string;
-  azDeg: number | null;
-  elDeg: number | null;
-  aboveSkyline: boolean | null;
-}
-
-/** Per-sample numbers shared by the 3D scene and Person B's HUD. Engine output only. */
-export function sampleReadout(data: SiteDateData, hardware: HardwareConfig, yawDeg: number, sampleIndex: number): SampleReadout {
-  const i = Math.max(0, Math.min(sampleIndex, data.samples.length - 1));
-  const sample = data.samples[i];
-  const solar = evaluateSolarSample(sample, data.sunHorizon, hardware, yawDeg);
-  const sunEnu = sample.sun ? azElToEnu(sample.sun.azDeg, sample.sun.elDeg) : null;
-  const panels = hardware.panels.map(p => {
-    const pointing = normalize(bodyToEnu(p.normalBodyRFU, yawDeg));
-    const incidence = sunEnu && pointing ? panelIncidence(p, sunEnu, yawDeg) : null;
-    return { name: p.name, incidence, pointingEnu: pointing };
-  });
-  const earth = evaluateEarthPointing(sample, data.earthHorizon, hardware, yawDeg);
-  const power = evaluatePowerWindow(data, hardware, yawDeg);
-  const battery = power.batterySeries.find(b => b.utc === sample.utc)?.energyWh ?? null;
+export function windowTracks(data: SiteDateData, hardware: HardwareConfig, yawDeg: number): WindowTracks {
+  const byUtc = new Map(evaluatePowerWindow(data, hardware, yawDeg).batterySeries.map(b => [b.utc, b.energyWh]));
   return {
-    utc: sample.utc,
-    sun: { visible: solar.sunlit, fraction: solar.visibleFraction, elDeg: sample.sun?.elDeg ?? null },
-    powerW: solar.powerW,
-    panels,
-    earth,
-    batteryWh: battery,
+    sun: data.samples.map(s => ({
+      utc: s.utc, azDeg: s.sun?.azDeg ?? null, elDeg: s.sun?.elDeg ?? null,
+      visible: evaluateSolarSample(s, data.sunHorizon, hardware, yawDeg).sunlit,
+    })),
+    earth: data.samples.map(s => ({
+      utc: s.utc, azDeg: s.earth?.azDeg ?? null, elDeg: s.earth?.elDeg ?? null,
+      visible: evaluateEarthPointing(s, data.earthHorizon, hardware, yawDeg).earthVisible,
+    })),
+    batteryWh: data.samples.map(s => byUtc.get(s.utc) ?? null),
   };
 }
 
-function aboveSkyline(elDeg: number | null, azDeg: number | null, angles: (number | null)[], step: number): boolean | null {
-  if (elDeg === null || azDeg === null || step <= 0 || angles.length === 0) return null;
-  const i = Math.floor((((azDeg % 360) + 360) % 360) / step) % angles.length;
-  const a = angles[i], b = angles[(i + 1) % angles.length];
-  if (a === null || b === null) return null;
-  return elDeg > Math.max(a, b);
-}
-
-/** Full-window tracks for the timeline strip and sky path. Battery matched by UTC. */
-export function windowTracks(data: SiteDateData, hardware: HardwareConfig, yawDeg: number): {
-  sun: TrackPoint[]; earth: TrackPoint[]; batteryWh: (Interval | null)[];
-} {
-  const power = evaluatePowerWindow(data, hardware, yawDeg);
-  const byUtc = new Map(power.batterySeries.map(b => [b.utc, b.energyWh]));
-  const sun = data.samples.map(s => ({
-    utc: s.utc,
-    azDeg: s.sun?.azDeg ?? null,
-    elDeg: s.sun?.elDeg ?? null,
-    aboveSkyline: aboveSkyline(s.sun?.elDeg ?? null, s.sun?.azDeg ?? null, data.sunHorizon.anglesDeg, data.sunHorizon.azimuthStepDeg),
-  }));
-  const earth = data.samples.map(s => ({
-    utc: s.utc,
-    azDeg: s.earth?.azDeg ?? null,
-    elDeg: s.earth?.elDeg ?? null,
-    aboveSkyline: aboveSkyline(s.earth?.elDeg ?? null, s.earth?.azDeg ?? null, data.earthHorizon.anglesDeg, data.earthHorizon.azimuthStepDeg),
-  }));
-  return { sun, earth, batteryWh: data.samples.map(s => byUtc.get(s.utc) ?? null) };
+export function sampleReadout(data: SiteDateData, hardware: HardwareConfig, yawDeg: number, sampleIndex: number,
+  tracks?: WindowTracks): SampleReadout | null {
+  const sample = data.samples[sampleIndex];
+  if (!sample) return null;
+  const solar = evaluateSolarSample(sample, data.sunHorizon, hardware, yawDeg);
+  const hardwareOk = solarHardwareProblem(hardware) === null;
+  const sun = sample.ephemerisQuality !== 'missing' && sample.sun && Number.isFinite(sample.sun.azDeg) && Number.isFinite(sample.sun.elDeg)
+    ? azElToEnu(sample.sun.azDeg, sample.sun.elDeg) : null;
+  const panels = hardware.panels.map(p => {
+    const pointing = panelPointingEnu(p, sun ?? [0, 0, 0], yawDeg);
+    return {
+      name: p.name,
+      incidence: sun && hardwareOk ? panelIncidence(p, sun, yawDeg) : null,
+      pointingEnu: pointing?.normalEnu ?? null,
+      clamped: pointing?.clamped ?? false,
+    };
+  });
+  const peak = Number.isFinite(hardware.peakSolarPowerW) ? Math.max(0, hardware.peakSolarPowerW) : 0;
+  return {
+    utc: sample.utc,
+    sun: { visible: solar.sunlit, fraction: solar.visibleFraction, azDeg: sample.sun?.azDeg ?? null, elDeg: sample.sun?.elDeg ?? null },
+    powerW: hardwareOk ? solar.powerW : { low: 0, high: peak },
+    panels,
+    earth: evaluateEarthPointing(sample, data.earthHorizon, hardware, yawDeg),
+    batteryWh: (tracks ?? windowTracks(data, hardware, yawDeg)).batteryWh[sampleIndex] ?? null,
+  };
 }

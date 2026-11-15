@@ -55,6 +55,8 @@ Installed under `web/` for the optional 3D navigator. Loaded only via `React.laz
 
 Fiber 9 pairs with React 19 (repo pins 19.2.8). No upstream scene code was copied; LANDERPRINT owns `web/src/scene3d/**` and `web/src/components/hud/**`.
 
+Their transitive dependencies in `web/package-lock.json` are permissively licensed (MIT, ISC, Apache-2.0, BSD). All scene geometry is generated from the contract types; no third-party models. Agent guidance came from MIT skill packs EnzeD/r3f-skills @ 4a11805f and CloudAI-X/threejs-skills @ 0e181866 (installed at user level, not in the repository).
+
 ## Reuse review
 
 | Repository | Pinned commit | Files inspected | License | Decision |

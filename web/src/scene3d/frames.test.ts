@@ -1,33 +1,48 @@
+// SYNTHETIC UNIT TESTS ONLY.
 import { describe, expect, it } from 'vitest';
-import { azElToEnu, bodyToEnu } from '../engine/power/vectors';
-import { azElToThree, bodyToThree, enuToThree, yawToRotationY } from './frames';
+import { Vector3 } from 'three';
+import { azElToEnu, bodyToEnu, type Vec3 } from '../engine/power';
+import { azElToThree, bodyToLocal, enuToThree, groundPointToYawDeg, threeToLocal, yawToRotationY } from './frames';
 
-describe('scene3d frames', () => {
-  it('maps ENU east/north/up into three.js x/y/z', () => {
-    const east = enuToThree([1, 0, 0]);
-    expect(east[0]).toBeCloseTo(1); expect(east[1]).toBeCloseTo(0); expect(east[2]).toBeCloseTo(0);
-    expect(enuToThree([0, 1, 0])).toEqual([0, 0, -1]);
-    expect(enuToThree([0, 0, 1])).toEqual([0, 1, 0]);
+const close = (a: Vec3, b: Vec3) => a.forEach((v, i) => expect(v).toBeCloseTo(b[i], 12));
+
+describe('scene frames', () => {
+  it('maps north to -z, east to +x and up to +y', () => {
+    close(azElToThree(0, 0), [0, 0, -1]);
+    close(azElToThree(90, 0), [1, 0, 0]);
+    close(azElToThree(123, 90), [0, 1, 0]);
   });
-
-  it('matches engine az/el → ENU after the three.js remap', () => {
-    const enu = azElToEnu(90, 0);
-    expect(azElToThree(90, 0)[0]).toBeCloseTo(enu[0]);
-    expect(azElToThree(90, 0)[1]).toBeCloseTo(enu[2]);
-    expect(azElToThree(90, 0)[2]).toBeCloseTo(-enu[1]);
+  it('agrees with the engine az/el convention', () => {
+    close(azElToThree(217, 14), enuToThree(azElToEnu(217, 14)));
   });
-
-  it('yaw 90° points body-forward toward +X (east)', () => {
-    expect(yawToRotationY(90)).toBeCloseTo(-Math.PI / 2);
-    const forwardEnu = bodyToEnu([0, 1, 0], 90);
-    expect(forwardEnu[0]).toBeCloseTo(1);
-    expect(forwardEnu[1]).toBeCloseTo(0);
+  it('a yawed lander group places body vectors where bodyToEnu puts them', () => {
+    const bodies: Vec3[] = [[0, 1, 0], [1, 0, 0], [0.3, -0.7, 0.4]];
+    for (const yaw of [0, 37, 90, 180, 271.5]) {
+      for (const body of bodies) {
+        const local = new Vector3(...bodyToLocal(body)).applyAxisAngle(new Vector3(0, 1, 0), yawToRotationY(yaw));
+        close([local.x, local.y, local.z], enuToThree(bodyToEnu(body, yaw)));
+      }
+    }
   });
-
-  it('body right-forward-up maps to three local (+x, -z, +y)', () => {
-    const right = bodyToThree([1, 0, 0]);
-    expect(right[0]).toBeCloseTo(1); expect(right[1]).toBeCloseTo(0); expect(right[2]).toBeCloseTo(0);
-    expect(bodyToThree([0, 1, 0])).toEqual([0, 0, -1]);
-    expect(bodyToThree([0, 0, 1])).toEqual([0, 1, 0]);
+  it('groundPointToYawDeg reads azimuth clockwise from north and snaps', () => {
+    expect(groundPointToYawDeg(0, -5)).toBe(0);
+    expect(groundPointToYawDeg(5, 0)).toBe(90);
+    expect(groundPointToYawDeg(0, 5)).toBe(180);
+    expect(groundPointToYawDeg(-5, 0)).toBe(270);
+    expect(groundPointToYawDeg(-0.01, -5)).toBe(0);
+    const [x, , z] = azElToThree(37.4, 0);
+    expect(groundPointToYawDeg(x, z)).toBe(37);
+    expect(groundPointToYawDeg(x, z, 15)).toBe(30);
+    const [x2, , z2] = azElToThree(353, 0);
+    expect(groundPointToYawDeg(x2, z2, 15)).toBe(0);
+  });
+  it('threeToLocal undoes the yaw rotation', () => {
+    for (const yaw of [0, 45, 133, 270]) {
+      close(threeToLocal(enuToThree(bodyToEnu([0.2, 0.9, -0.1], yaw)), yaw), bodyToLocal([0.2, 0.9, -0.1]));
+    }
+  });
+  it('body forward at yaw 90 points east', () => {
+    const f = new Vector3(...bodyToLocal([0, 1, 0])).applyAxisAngle(new Vector3(0, 1, 0), yawToRotationY(90));
+    close([f.x, f.y, f.z], [1, 0, 0]);
   });
 });

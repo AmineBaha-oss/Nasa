@@ -1,9 +1,9 @@
 // SYNTHETIC UNIT TESTS ONLY. Panels and horizons are hypothetical test inputs, not a real lander or site.
 import { describe, expect, it } from 'vitest';
 import type { EphemerisSample, HorizonProfile, Panel } from '../../contracts';
-import { azElToEnu } from './vectors';
+import { angleBetweenDeg, azElToEnu, dot } from './vectors';
 import {
-  SUN_ANGULAR_RADIUS_DEG, evaluateSolarSample, panelIncidence, sunDiskVisibleFraction, sunVisibility,
+  SUN_ANGULAR_RADIUS_DEG, evaluateSolarSample, panelIncidence, panelPointingEnu, sunDiskVisibleFraction, sunVisibility,
 } from './solar';
 import type { PowerHardware } from './hardware';
 
@@ -55,6 +55,44 @@ describe('panelIncidence: tracked panel', () => {
     const sun = azElToEnu(30, 5);
     expect(panelIncidence(tracked(0), sun, 10)).toBeCloseTo(panelIncidence(fixed([0, 1, 0]), sun, 10), 12);
   });
+});
+
+describe('panelPointingEnu', () => {
+  it('a fixed panel keeps its yawed normal and is never clamped', () => {
+    const p = panelPointingEnu(fixed([0, 1, 0]), azElToEnu(200, 10), 90)!;
+    expect(p.clamped).toBe(false);
+    p.normalEnu.forEach((v, i) => expect(v).toBeCloseTo([1, 0, 0][i], 12));
+  });
+  it('an ideal tracker points straight at the Sun', () => {
+    const sun = azElToEnu(250, 5);
+    const p = panelPointingEnu(tracked(), sun, 30)!;
+    expect(p.clamped).toBe(false);
+    expect(dot(p.normalEnu, sun)).toBeCloseTo(1, 12);
+  });
+  it('a limited tracker reaches a Sun inside its cone', () => {
+    const p = panelPointingEnu(tracked(60), azElToEnu(40, 0), 0)!;
+    expect(p.clamped).toBe(false);
+    expect(dot(p.normalEnu, azElToEnu(40, 0))).toBeCloseTo(1, 12);
+  });
+  it('a limited tracker stops at its limit, matching panelIncidence', () => {
+    const sun = azElToEnu(100, 20);
+    const p = panelPointingEnu(tracked(60), sun, 0)!;
+    expect(p.clamped).toBe(true);
+    expect(angleBetweenDeg(p.normalEnu, [0, 1, 0])).toBeCloseTo(60, 9);
+    expect(dot(p.normalEnu, sun)).toBeCloseTo(panelIncidence(tracked(60), sun, 0), 12);
+  });
+  it('a Sun directly behind still gives a unit normal at the limit', () => {
+    const p = panelPointingEnu(tracked(60), azElToEnu(180, 0), 0)!;
+    expect(p.clamped).toBe(true);
+    expect(Math.hypot(...p.normalEnu)).toBeCloseTo(1, 12);
+    expect(angleBetweenDeg(p.normalEnu, [0, 1, 0])).toBeCloseTo(60, 9);
+  });
+  it('a tracker without a Sun direction rests at its nominal normal', () => {
+    const p = panelPointingEnu(tracked(60), [0, 0, 0], 0)!;
+    p.normalEnu.forEach((v, i) => expect(v).toBeCloseTo([0, 1, 0][i], 12));
+    expect(p.clamped).toBe(false);
+  });
+  it('a zero normal has no pointing', () => expect(panelPointingEnu(fixed([0, 0, 0]), azElToEnu(0, 0), 0)).toBeNull());
 });
 
 describe('sunDiskVisibleFraction', () => {

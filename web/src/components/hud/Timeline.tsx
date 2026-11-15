@@ -55,7 +55,7 @@ export function Timeline({ data, sampleIndex, onSample, playing, onPlaying, spee
   return (
     <div className="lp3-timeline" role="group" aria-label="Sample timeline">
       <svg viewBox={`0 0 ${strip.W} ${strip.H}`} className="lp3-strip" aria-hidden="true" focusable="false" preserveAspectRatio="none">
-        {earth.map((e, i) => e.aboveSkyline
+        {earth.map((e, i) => e.visible === 'pass'
           ? <rect key={`e${i}`} x={strip.x(i)} y={0} width={Math.max(1, strip.W / Math.max(1, n))} height={strip.H} className="lp3-strip-earth" />
           : null)}
         {batteryWh.map((b, i) => {
