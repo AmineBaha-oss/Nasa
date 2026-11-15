@@ -30,7 +30,13 @@ export function MissionView({ data }: { data: MissionData }) {
   }
   return <>
     <LoadProblems problems={data.problems} />
-    <NavigatorPage datasets={data.datasets} hardwarePresets={PRESETS} evaluate={evaluate} initialYawDeg={0} />
+    <NavigatorPage
+      datasets={data.datasets}
+      hardwarePresets={PRESETS}
+      evaluate={evaluate}
+      initialYawDeg={0}
+      terrainBySite={data.terrainBySite}
+    />
   </>;
 }
 

@@ -42,6 +42,19 @@ The official challenge Resources response lists Quickmap, Moon Trek and Horizons
 
 Development references: https://vite.dev/guide/, https://vitest.dev/guide/, https://docs.pytest.org/en/stable/getting-started.html.
 
+## Web 3D runtime (Plan B, MIT)
+
+Installed under `web/` for the optional 3D navigator. Loaded only via `React.lazy` so the 2D path does not download them until the 3D toggle is used.
+
+| Package | Version | License | Source |
+|---|---|---|---|
+| `three` | 0.186.1 | MIT | https://github.com/mrdoob/three.js |
+| `@react-three/fiber` | 9.8.2 | MIT | https://github.com/pmndrs/react-three-fiber |
+| `@react-three/drei` | 10.7.9 | MIT | https://github.com/pmndrs/drei |
+| `@types/three` (dev) | 0.186.0 | MIT | https://github.com/DefinitelyTyped/DefinitelyTyped |
+
+Fiber 9 pairs with React 19 (repo pins 19.2.8). No upstream scene code was copied; LANDERPRINT owns `web/src/scene3d/**` and `web/src/components/hud/**`.
+
 ## Reuse review
 
 | Repository | Pinned commit | Files inspected | License | Decision |
