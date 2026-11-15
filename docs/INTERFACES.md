@@ -38,6 +38,14 @@ export interface SiteDateData {
   sunHorizon: HorizonProfile; earthHorizon: HorizonProfile;
   slopeSourceId?: string;
 }
+export interface TerrainGrid {
+  sourceId: string | null; originXM: number; originYM: number; pixelSizeM: number;
+  width: number; height: number; values: (number | null)[]; nodata: number | null;
+}
+export interface SiteTerrain {
+  schemaVersion: '1.0'; purpose: DataPurpose; siteId: string; provenance: Provenance[];
+  dem: TerrainGrid; slope5m: TerrainGrid;
+}
 export interface Panel { name: string; areaFraction: number; normalBodyRFU: [number, number, number]; mode: 'fixed' | 'tracked'; maxTrackingAngleDeg?: number; }
 export interface Antenna { boresightBodyRFU: [number, number, number]; beamHalfAngleDeg: number; gimbal?: { panMinDeg: number; panMaxDeg: number; tiltMinDeg: number; tiltMaxDeg: number }; }
 export interface HardwareConfig {
@@ -69,3 +77,11 @@ export interface HeadingEvaluation {
 - Panel area fractions sum to one; equal totalActivePvAreaM2 is required across hardware comparisons. A tracked panel without maxTrackingAngleDeg is explicitly ideal unconstrained tracking, never assumed mechanically available.
 - Gimbal pan is clockwise from body-forward toward body-right, tilt toward body-up; boresight is nominal RFU. Worker must document reachable-cone treatment.
 - No hardware preset is approved by this freeze. Initial synthetic values are unit-test inputs only.
+
+## Terrain patches (additive, 2026-11-14, integration lead)
+
+- `SiteTerrain` is one file per site (`data/processed/terrain/<site>.json`), shared by both windows. It feeds `evaluateDeployment` in `web/src/engine/terrain`; `TerrainGrid` is structurally that engine's `RasterGrid`.
+- Grids are north-up on the lunar south polar stereographic sphere (R 1737400 m). `originXM`/`originYM` is the top-left corner of the top-left pixel; `values` are row-major with row 0 at the top. GDAL geotransform: `[pixelSizeM, 0, originXM, 0, -pixelSizeM, originYM]`.
+- Windows are pixel-aligned with the source raster and clipped to it. Missing pixels are `null`, never 0. `dem` is metres above the 1737.4 km sphere; `slope5m` is degrees.
+- `sourceId` must resolve to a record in the file's `provenance`. A missing patch, a patch for another site or a purpose mismatch makes deployment `unknown`.
+- `SiteDateData` and the existing types are unchanged.

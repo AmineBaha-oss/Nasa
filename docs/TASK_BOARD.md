@@ -28,18 +28,18 @@ Open inputs: `docs/INPUT_REQUESTS.md`. Data setup: `docs/DATA_DELIVERY_INSTRUCTI
 
 ## Gate 1 (Saturday 10:30–18:00)
 - [x] SCIENCE: two points + two dates, verified Sun/Earth position, local horizons, provenance. Outputs: `data/processed/site-{1..7}_window-{a,b}.json` and `validation_report.json`; heights hypothetical pending HARDWARE-001.
-- [ ] POWER: yaw transform, fixed/tracking solar, battery reserve tests.
-- [ ] COMMS: antenna geometry tests independent of GUI.
-- [ ] TERRAIN: coordinate-aware slope and 'unknown' behavior tests.
-- [ ] UI: 2D heading compass, mission setup, site/date list, scenario result shell.
-- [ ] INTEGRATION: vertical slice; no fake mission labels.
+- [x] POWER: yaw transform, fixed/tracking solar, battery reserve tests. Merged (PR #5).
+- [x] COMMS: antenna geometry tests independent of GUI. Merged (PR #2).
+- [x] TERRAIN: coordinate-aware slope and 'unknown' behavior tests. Merged (PR #3).
+- [x] UI: 2D heading compass, mission setup, site/date list, scenario result shell. Merged (PR #1).
+- [x] INTEGRATION: vertical slice; no fake mission labels. `web/src/app/` loads `data/processed` through `web/src/integration/`; see `web/src/integration/README.md`.
 
 ## Gate 2 (Saturday 18:00–Sunday noon)
-- [ ] Show a real site/date/heading difference; validate with reference values.
-- [ ] Combine solar and communication constraints on exactly same data samples.
+- [x] Show a real site/date/heading difference; validate with reference values. Ephemeris is Horizons-checked; `realdata.test.tsx` checks heading and window changes on real data.
+- [x] Combine solar and communication constraints on exactly same data samples.
 - [ ] Publish a preview deployment and fix science/input issues.
 - [ ] Add battery time series and second hardware template.
-- [ ] Deployment screen only if valid at raster scale.
+- [x] Deployment screen only if valid at raster scale. Preliminary 5 m screen on real A305 patches, hypothetical footprint/ramp/thresholds (HARDWARE-004).
 
 ## Gate 3 (Sunday afternoon and evening)
 - [ ] Freeze features; run unit and end-to-end smoke tests.
