@@ -6,6 +6,8 @@ LANDERPRINT is an interactive lunar site, date and spacecraft-heading explorer b
 
 **Live website:** [landerprint.vercel.app](https://landerprint.vercel.app)
 
+**90-second video:** [Watch on YouTube](https://www.youtube.com/watch?v=sb91xbafZno)
+
 **Challenge:** [Lunar Landing Site Navigator](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/)
 
 <img width="1435" height="893" alt="Screenshot 2026-11-15 at 11 51 05 AM" src="https://github.com/user-attachments/assets/fb4fc2e2-9838-43e6-8908-1efb903626c0" />
@@ -15,7 +17,6 @@ LANDERPRINT is an interactive lunar site, date and spacecraft-heading explorer b
 <img width="1440" height="900" alt="Screenshot 2026-11-15 at 11 55 53 AM" src="https://github.com/user-attachments/assets/42b2b508-9647-43fa-9a69-73728728b243" />
 <img width="1440" height="892" alt="Screenshot 2026-11-15 at 11 57 01 AM" src="https://github.com/user-attachments/assets/930b3cf8-ce0a-4ac7-9cc6-1570eb85a72a" />
 <img width="1166" height="494" alt="Screenshot 2026-11-15 at 11 57 20 AM" src="https://github.com/user-attachments/assets/6c66a3f8-4f1d-44a4-ad38-ea9f5f1bd258" />
-
 
 <!-- ![LANDERPRINT's 3D navigator showing the selected lunar site, spacecraft and modeled constraints](docs/images/navigator.png) -->
 
@@ -37,17 +38,17 @@ This makes the project useful for exploring engineering tradeoffs and teaching w
 
 ## Explore the project
 
-| Capability | What the user can investigate |
-|---|---|
-| **Seven locations** | Exploratory points within Connecting Ridge Extension, selected using terrain and image-coverage screening |
-| **Two date windows** | Hourly conditions for October 10–16 and October 24–30, 2027, in UTC |
-| **Four solar-array presets** | Four fixed vertical faces, one body-forward fixed panel, a tracker with a 60° pointing limit, and ideal unconstrained tracking |
-| **Lander heading** | How rotating the spacecraft changes panel incidence, antenna reach and ramp direction |
-| **Power and battery** | Generated power and modeled stored energy over the selected window |
-| **Earth pointing** | Whether Earth clears the terrain skyline and falls within the antenna's reachable beam |
-| **Preliminary deployment** | Resolved-scale footprint slope and terrain along the ramp direction |
-| **2D and 3D views** | A horizon view and an interactive terrain scene with playback, camera controls and visual layers |
-| **Explanations and comparison** | Reasons for pass, fail or unknown results, data-quality disclosures and alternative site/date results |
+| Capability                      | What the user can investigate                                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Seven locations**             | Exploratory points within Connecting Ridge Extension, selected using terrain and image-coverage screening                      |
+| **Two date windows**            | Hourly conditions for October 10–16 and October 24–30, 2027, in UTC                                                            |
+| **Four solar-array presets**    | Four fixed vertical faces, one body-forward fixed panel, a tracker with a 60° pointing limit, and ideal unconstrained tracking |
+| **Lander heading**              | How rotating the spacecraft changes panel incidence, antenna reach and ramp direction                                          |
+| **Power and battery**           | Generated power and modeled stored energy over the selected window                                                             |
+| **Earth pointing**              | Whether Earth clears the terrain skyline and falls within the antenna's reachable beam                                         |
+| **Preliminary deployment**      | Resolved-scale footprint slope and terrain along the ramp direction                                                            |
+| **2D and 3D views**             | A horizon view and an interactive terrain scene with playback, camera controls and visual layers                               |
+| **Explanations and comparison** | Reasons for pass, fail or unknown results, data-quality disclosures and alternative site/date results                          |
 
 All four presets use **2.0 m² of active solar cells** and the same hypothetical power-system baseline. The ideal tracker is an upper-bound comparison: it shows when solar-array orientation sensitivity disappears if tracking limits are removed. It does not imply such a mechanism is available on a real spacecraft.
 
@@ -67,13 +68,13 @@ A failed or unknown result is useful information. The app does not force a succe
 
 ## NASA data and how we use it
 
-| Source | Role in LANDERPRINT |
-|---|---|
+| Source                                                                                           | Role in LANDERPRINT                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [NASA PGDA enhanced south-pole topography, product 104](https://pgda.gsfc.nasa.gov/products/104) | The A305 Connecting Ridge Extension elevation model supplies local terrain at 5 m resolution; slope products support the preliminary terrain screen |
-| [Connecting Ridge Extension archive, Zenodo v1.0.0](https://zenodo.org/records/17954508) | Distribution of the terrain dataset; the committed subset and derivatives retain CC BY 4.0 attribution |
-| [LOLA south-pole terrain, PGDA product 90](https://pgda.gsfc.nasa.gov/products/90) | Coarser 80 m and 240 m terrain extends horizon sampling beyond the local tile to 300 km |
-| [NASA/JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) | Cached Sun/Earth reference tables used to cross-check computed directions; Horizons is listed in the challenge's recorded Resources response |
-| [NAIF SPICE](https://naif.jpl.nasa.gov/naif/) | Reproducible Sun/Earth geometry using recorded kernels, lunar frames, sites and UTC timestamps |
+| [Connecting Ridge Extension archive, Zenodo v1.0.0](https://zenodo.org/records/17954508)         | Distribution of the terrain dataset; the committed subset and derivatives retain CC BY 4.0 attribution                                              |
+| [LOLA south-pole terrain, PGDA product 90](https://pgda.gsfc.nasa.gov/products/90)               | Coarser 80 m and 240 m terrain extends horizon sampling beyond the local tile to 300 km                                                             |
+| [NASA/JPL Horizons](https://ssd.jpl.nasa.gov/horizons/)                                          | Cached Sun/Earth reference tables used to cross-check computed directions; Horizons is listed in the challenge's recorded Resources response        |
+| [NAIF SPICE](https://naif.jpl.nasa.gov/naif/)                                                    | Reproducible Sun/Earth geometry using recorded kernels, lunar frames, sites and UTC timestamps                                                      |
 
 The pipeline keeps **ephemeris verification separate from terrain coverage**. Accurate Sun/Earth coordinates alone do not establish an unobstructed horizon. It also computes separate horizons for the hypothetical panel height of 2 m and antenna height of 3 m.
 
@@ -174,15 +175,15 @@ To regenerate science data, follow the [Python science workflow](science/README.
 
 ## Repository guide
 
-| Path | Contents |
-|---|---|
-| `web/src/` | UI, 3D scene, calculation engines, shared contracts and web tests |
-| `science/` | Python preprocessing, validation, cached Horizons references and tests |
-| `data/processed/` | Research datasets used by the app |
-| `data/provenance/` | Source metadata, checksums and validation records |
-| `data/nasa_a305/` | Validated terrain subset and attribution |
-| `tests/fixtures/` | Synthetic test inputs |
-| `docs/` | Interfaces, data instructions, source notices and unresolved inputs |
+| Path               | Contents                                                               |
+| ------------------ | ---------------------------------------------------------------------- |
+| `web/src/`         | UI, 3D scene, calculation engines, shared contracts and web tests      |
+| `science/`         | Python preprocessing, validation, cached Horizons references and tests |
+| `data/processed/`  | Research datasets used by the app                                      |
+| `data/provenance/` | Source metadata, checksums and validation records                      |
+| `data/nasa_a305/`  | Validated terrain subset and attribution                               |
+| `tests/fixtures/`  | Synthetic test inputs                                                  |
+| `docs/`            | Interfaces, data instructions, source notices and unresolved inputs    |
 
 ## Team and acknowledgments
 
